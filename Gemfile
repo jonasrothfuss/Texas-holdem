@@ -48,3 +48,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rspec-rails'
 gem 'nokogiri', '1.6.7.rc3', :platforms => [:mswin, :mingw]
 gem 'rails_12factor', group: :production
+gem 'coffee-script-source', '1.8.0'
