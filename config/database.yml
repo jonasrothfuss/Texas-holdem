@@ -24,4 +24,6 @@ test:
 
 production:
   <<: *default
-  database: db/poker_prod
+  database: d4j7mltf00jdnr
+  username: hwijexokaymcjk
+  password: slGbRGqA6ovu1LdOoM6oqsI_NF
