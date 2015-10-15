@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.3"
+ruby "2.2.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
@@ -49,3 +49,10 @@ gem 'rspec-rails'
 gem 'nokogiri', '1.6.7.rc3', :platforms => [:mswin, :mingw]
 gem 'rails_12factor', group: :production
 gem 'coffee-script-source', '1.8.0'
+
+#helps with database migration
+gem 'ffi'
+gem 'figaro'
+
+#encryption tool for the user passwords
+gem 'bcrypt'
