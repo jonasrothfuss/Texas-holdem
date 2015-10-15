@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
  
-  root:to => 'authentication#login'
+  root:to => 'authentication#index'
 
   get 'registration', to: 'authentication#registration'
 
