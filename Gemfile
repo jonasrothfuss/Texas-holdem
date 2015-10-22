@@ -34,3 +34,14 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'coffee-script-source', '1.8.0'
+
+gem 'mongoid', '~> 5.0.0'
+
+gem 'angular-rails-templates'
+gem 'responders', '~> 2.0'
+gem 'angular_rails_csrf'
+
+gem 'pusher'
+
+gem 'devise'
