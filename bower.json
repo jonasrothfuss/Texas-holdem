@@ -1,0 +1,29 @@
+{
+  "name": "csc667-temp",
+  "homepage": "https://github.com/dilshanraja/csc667-temp",
+  "authors": [
+    "dilshanraja <dilshan.raja@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "~0.3.0",
+    "angular": "~1.4.7",
+    "angular-ui-router": "~0.2.15",
+    "angular-pusher": "~0.0.14",
+    "AngularDevise": "angular-devise#~1.1.0",
+    "bootstrap": "~3.3.5"
+  },
+  "resolutions": {
+    "angular": "~1.4.7"
+  }
+}
