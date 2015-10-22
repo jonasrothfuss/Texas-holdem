@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="poker">
 <head>
   <title>Temp</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+<div ng-include="'nav.html'"></div>
+<div class="container" style="margin-top: 100px">
+  <!--<div ng-hide="pageLoaded" style="text-align: center">-->
+    <!--<i class="fa fa-circle-o-notch fa-spin fa-6" style="color: white"></i>-->
+  <!--</div>-->
+  <div  ui-view></div>
+</div>
 </body>
 </html>

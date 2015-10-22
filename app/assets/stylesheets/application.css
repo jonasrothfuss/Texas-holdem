@@ -12,6 +12,77 @@
  *
  *= require bootstrap/dist/css/bootstrap
  *= require bootstrap-material-design/dist/css/material
+ *= require font-awesome/css/font-awesome
+ *= require roboto-fontface/css/roboto-fontface.css
  *= require_tree .
  *= require_self
  */
+
+body{
+    background-color: #232D33;
+    background-image: url('bg.jpg');
+    background-size: 100% auto;
+}
+
+.top-margin-0{
+    margin-top: 0px;
+}
+
+.top-margin-5{
+    margin-top: 5px;
+}
+
+.top-margin-10{
+    margin-top: 10px;
+}
+
+.bottom-margin-10{
+    margin-bottom: 10px;
+}
+
+.top-margin-50{
+    margin-top: 50px;
+}
+
+.bottom-margin-50{
+    margin-bottom: 50px;
+}
+
+.top-pad-5{
+    padding-top: 5px;
+}
+
+.top-pad-10{
+    padding-top: 10px;
+}
+
+/*Material Bootstrap Overrides*/
+.panel{
+    border-radius: 6px;
+}
+
+.panel:not(.header):hover {
+    box-shadow: rgba(0,0,0,.2) 0 1.8px 9px 0;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    border-bottom: 3px solid #EB0011;
+}
+
+.alert{
+    border-radius: 4px;
+}
+
+.alert-sm{
+    padding: 5px 10px;
+}
+
+.alert-warning{
+    background-color: #F19D00;
+}
+
+.form-control{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

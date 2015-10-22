@@ -45,3 +45,6 @@ gem 'angular_rails_csrf'
 gem 'pusher'
 
 gem 'devise'
+
+#Addtional utilities
+gem 'valid_email'

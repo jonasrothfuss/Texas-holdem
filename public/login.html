@@ -1,0 +1,29 @@
+<div class="col-lg-4 col-lg-offset-4 panel panel-default">
+	<div class="panel-body">
+		<h1 class="text-center">Log In</h1>
+		<hr/>
+		<form ng-submit="login()">
+			<span class="alert alert-sm alert-warning" ng-show="error && !loggingIn" ng-cloak>{{ error }}</span>
+			<input type="email" class="form-control floating-label" placeholder="Email" ng-model="user.email">
+			<input type="password" class="form-control floating-label" placeholder="Password" ng-model="user.password">
+			<div class="row">
+				<div class="col-lg-8 top-pad-10">
+					<div class="togglebutton">
+						<label>
+							<input type="checkbox"><span class="toggle"></span>
+							Remember Me &nbsp;
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<button type="submit" class="btn pull-right" ng-class="loggingIn ? 'btn-default' : 'btn-primary'" ng-click="loggingIn=true">
+						<i class="fa fa-circle-o-notch fa-spin" ng-class="!loggingIn ? 'hidden' : ''"></i>&nbsp; Log In
+					</button>
+				</div>
+			</div>
+			<div class="row text-center top-pad-10">
+				<p class="bold">Not Registered? <a href="/#/register">Click Here</a></p>
+			</div>
+		</form>
+	</div>
+</div>

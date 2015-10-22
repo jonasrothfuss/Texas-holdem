@@ -21,7 +21,11 @@
     "angular-ui-router": "~0.2.15",
     "angular-pusher": "~0.0.14",
     "AngularDevise": "angular-devise#~1.1.0",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.14.2",
+    "angular-animate": "~1.4.7",
+    "font-awesome": "~4.4.0",
+    "roboto-fontface": "~0.4.3"
   },
   "resolutions": {
     "angular": "~1.4.7"
