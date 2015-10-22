@@ -1,32 +1,4 @@
 Rails.application.routes.draw do
-
- 
-  root:to => 'authentication#index'
-
-  get 'registration', to: 'authentication#registration'
-
-  get 'login', to: 'authentication#login'
-
-  get 'signin', to: 'authentication#login'
-
-  get 'logout', to: 'authentication#logout'
-
-  post 'createuser', to: 'authentication#createuser'
-
-  post 'attempt_login', to: 'authentication#attempt_login'
-
-  get 'lobby', to: 'lobby#lobby'
-
-
-
-  #default route
-  match ':controller(/:action(/:id))', :via => :get
-
-
-
- 
-  
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

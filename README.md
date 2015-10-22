@@ -1,1 +1,1 @@
-# Term-G
+# csc667-poker
