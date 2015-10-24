@@ -2,7 +2,7 @@ class Player
   include Mongoid::Document
   include Mongoid::Timestamps
   
-  has_one user
+  has_one :user
   
   field :buy_in, type: In
   field :chip_amount, type: Int
