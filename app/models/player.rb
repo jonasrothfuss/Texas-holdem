@@ -3,6 +3,7 @@ class Player
   include Mongoid::Timestamps
   
   has_one :user
+  belongs_to :game_room
   
   field :buy_in, type: Int
   field :chip_amount, type: Int
