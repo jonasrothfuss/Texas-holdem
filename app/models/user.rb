@@ -1,6 +1,8 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  
+  belongs_to player
 
   validates :first_name, :last_name, :username, presence: true
   validates :email, :email => true
