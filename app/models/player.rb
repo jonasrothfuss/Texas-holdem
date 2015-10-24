@@ -4,7 +4,7 @@ class Player
   
   has_one :user
   
-  field :buy_in, type: In
+  field :buy_in, type: Int
   field :chip_amount, type: Int
   
   def self.new_player (user, buy_in)
