@@ -45,6 +45,10 @@ gem 'angular_rails_csrf'
 gem 'pusher'
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 #Addtional utilities
 gem 'valid_email'
+
+gem 'heroku'
