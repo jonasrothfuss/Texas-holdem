@@ -12,7 +12,7 @@ class User
   field :image_path,        type: String, default: ""
 
   # Include default devise modules. Others available are:
-  # :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
         
@@ -42,7 +42,7 @@ class User
   field :confirmation_token,   type: String
   field :confirmed_at,         type: Time
   field :confirmation_sent_at, type: Time
-  # field :unconfirmed_email,    type: String # Only if using reconfirmable
+  field :unconfirmed_email,    type: String # Only if using reconfirmable
 
   ## Lockable
   #field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
