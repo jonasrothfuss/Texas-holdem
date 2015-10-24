@@ -12,7 +12,7 @@ class Player
     unless buy_in_ok?(user, buy_in)
       self.create({user: user, buy_in: buy_in, chip_amount: buy_in})
     else  
-      raise BuyInError, 'buy_in amounth exceeds users balance'
+      raise BuyInExceedsBalanceError, 'buy_in amounth exceeds users balance'
     end
   end
     
@@ -51,5 +51,5 @@ class InvalidBetError < StandardError
 end
 
 
-class BuyInError < StandardError
+class BuyInExceedsBalanceError < StandardError
 end
