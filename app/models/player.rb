@@ -3,45 +3,53 @@ class Player
   include Mongoid::Timestamps
   
   has_one :user
-  belongs_to :game_room
+  has_and_belongs_to_many :gameRooms
+  has_and_belongs_to_many :rounds
+  belongs_to :hand
   
-  field :buy_in, type: Int
-  field :chip_amount, type: Int
   
-  def self.new_player (user, buy_in)
-    unless buy_in_ok?(user, buy_in)
-      self.create({user: user, buy_in: buy_in, chip_amount: buy_in})
+  field :buyIn
+  field :chip_amount
+  
+  def name
+    return self.user.username
+  end
+  
+  
+  def self.newPlayer (entering_user, buyInAmount)
+    unless buyInOk?(entering_user, buyInAmount)
+      raise BuyInExceedsBalanceError, 'buyIn amount exceeds users balance'
     else  
-      raise BuyInExceedsBalanceError, 'buy_in amounth exceeds users balance'
+      self.create({user: entering_user, buyIn: buyInAmount, chip_amount: buyInAmount})
     end
   end
     
     
-  def buy_in_ok?(user, buy_in) 
-    return user.balance >= buy_in
+  def self.buyInOk?(user, buyIn) 
+    return user.balance >= buyIn
   end
   
   
-  def win(amounth)
-    chip_amounth += amounth
-    user.balance += amounth
+  def win(amount)
+    chip_amount += amount
+    user.balance += amount
     user.save!
   end
   
   
-  def bet(amounth)
-    unless bet_ok?(amounth)
-      chip_amounth -= amounth
-      user.balance -= amounth
+  def bet(amount)
+    unless betOk?(amount)
+      chip_amount -= amount
+      user.balance -= amount
       user.save!
     else
-      raise InvalidBetError, 'bet exceeds users chip_amounth'
+      raise InvalidBetError, 'bet exceeds users chip_amount'
     end
   end
   
   
-  def bet_ok?(amounth)
-    return amounth <= user.chip_amount
+  def betOk?(amount)
+    return amount <= chip_amount
   end
   
 end
