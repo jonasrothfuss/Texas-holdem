@@ -3,7 +3,7 @@ class User
   include Mongoid::Timestamps
   
   belongs_to :player
-
+  
   validates :first_name, :last_name, :username, presence: true
   validates :email, :email => true
   
