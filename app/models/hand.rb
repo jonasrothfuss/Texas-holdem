@@ -1,9 +1,10 @@
+
 class Hand
   include Mongoid::Document
   include Mongoid::Timestamps
   
   has_one :player
-  has_many :cards
+  has_many :gamecards
   
   
   belongs_to :round
@@ -14,13 +15,13 @@ class Hand
     puts hand #DELETE
     hand.player = player
     puts card1.to_s + "----" + card2.to_s
-    hand.cards << card1
-    hand.cards << card2
+    hand.gamecards << card1
+    hand.gamecards << card2
     return hand
   end
   
   
   def getCard(card_index) #index can be 1 or 2
-    return cards[card_index-1]
+    return gamecards[card_index-1]
   end
 end
