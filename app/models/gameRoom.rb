@@ -28,6 +28,7 @@ class GameRoom
   end
   
   
+  
   def addPlayer(user, buy_in)
     unless buyInOk?(buy_in)
       raise BuyInExceedsLimitError
