@@ -10,7 +10,6 @@ class Gamecard
     
     
     def self.newCard(card_color, card_number)
-      puts "INITIALIZE CARD: color: " + card_color + " number: " + card_number.to_s #DELETE
       card = Gamecard.new(color: card_color, number: card_number)
       card.create_image_path
       return card
