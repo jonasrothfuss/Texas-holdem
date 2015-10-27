@@ -6,9 +6,6 @@ class Round
   include Mongoid::Timestamps
   
   
-  attr_reader :deck #just for development purposes
-  
-  
   has_and_belongs_to_many :players
   has_many :communal_cards, :class_name => "Gamecard"
   has_many :hands
@@ -16,14 +13,21 @@ class Round
   
   belongs_to :game_room
   
+  field :pot
+  field :bigBlind
+  field :smallBlind
+  field :limit
   
+
   @deck
+
   
   
   #substitutes the constructor --> returns a new Round objects with the right configuration
   def self.newRound(actualPlayers) 
     round = Round.create()
     round.createDeck
+    round.pot = 0
     round.players << actualPlayers
     return round
   end
@@ -40,23 +44,43 @@ class Round
     serveTurn
     #TODO: ask players for their actions
     serveRiver
+    #TODO: ask players for their actions
+    winner = resolveWinner
+    if winner.is_a?(Arrray) # =>split pot
+      winner.each{ |player|
+        player.win(self.pot/winner.length)
+      }
+    else  
+      winner.win(self.pot)
+    end
   end
   
   
-  #resolves the winner og the round (naive implementation)
+  #resolves the winner of the round (naive implementation)
+  #in case of mulitple winners (split pot) it returns an array of the winners
   def resolveWinner
-    playerArray = players
-    bestPlayer = playerArray[0]
+    bestPlayer = players[0]
     bestPlayersHand = findBestCardCombinationOf(bestPlayer)
-    playerArray.shift
+    splitpotCandidate = nil
     
-    playerArray.each{|player|
-      actualPlayersBestHand = findBestCardCombinationOf(player)
-      if actualPlayersBestHand > bestPlayersHand
+    for n in 1...players.length do
+      actualPlayersBestHand = findBestCardCombinationOf(players[n])
+      if actualPlayersBestHand == bestPlayersHand #=> might be a split pot
+        splitpotCandidate = actualPlayersBestHand
+      elsif actualPlayersBestHand > bestPlayersHand
         bestPlayersHand = actualPlayersBestHand
-        bestPlayer = player
+        bestPlayer = players[n]
       end
-    }
+    end
+    
+    if splitpotCandidate == bestPlayersHand # => split pot
+      bestPlayer = [] # return value will be an array
+      players.each{ |player|
+        if bestPlayersHand == findBestCardCombinationOf(player)
+          bestPlayer << player
+        end
+      }
+    end
     
     return bestPlayer
   end
@@ -151,9 +175,9 @@ class Round
     getCard
     self.communal_cards << getCard
   end 
-  
-  
 end
+
+
 
 
 class PlayerNotPartOfRoundError < StandardError
