@@ -52,3 +52,5 @@ gem 'omniauth-facebook'
 gem 'valid_email'
 
 gem 'heroku'
+
+gem 'ruby-poker'
