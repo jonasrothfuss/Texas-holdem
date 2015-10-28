@@ -24,36 +24,34 @@ body{
     background-size: 100% auto;
 }
 
-.top-margin-0{
-    margin-top: 0px;
-}
+/* Margin and Padding styles */
+@for $i from 0 through 10{
+  $i: $i * 5;
 
-.top-margin-5{
-    margin-top: 5px;
-}
-
-.top-margin-10{
-    margin-top: 10px;
-}
-
-.bottom-margin-10{
-    margin-bottom: 10px;
-}
-
-.top-margin-50{
-    margin-top: 50px;
-}
-
-.bottom-margin-50{
-    margin-bottom: 50px;
-}
-
-.top-pad-5{
-    padding-top: 5px;
-}
-
-.top-pad-10{
-    padding-top: 10px;
+  .tm-#{$i} {
+    margin-top: #{$i}px;
+  }
+  .bm-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+  .lm-#{$i} {
+    margin-left: #{$i}px;
+  }
+  .rm-#{$i} {
+    margin-right: #{$i}px;
+  }
+  .tp-#{$i} {
+    padding-top: #{$i}px;
+  }
+  .bp-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+  .lp-#{$i} {
+    padding-left: #{$i}px;
+  }
+  .rp-#{$i} {
+    padding-right: #{$i}px;
+  }
 }
 
 /*Material Bootstrap Overrides*/
