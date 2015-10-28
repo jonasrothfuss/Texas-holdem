@@ -49,6 +49,12 @@ Rails.application.configure do
     :password               => 'csc667poker',
     :domain                 => 'http://csc667-poker.herokuapp.com',
     :enable_starttls_auto   => true
-}
+  }
+
+  require 'pusher'
+  Pusher.logger = Rails.logger
+  Pusher.app_id = '148731'
+  Pusher.key = '5ebf988f3c0e0794b073'
+  Pusher.secret = '7683bfdbb5f88ffdb54b'
 
 end

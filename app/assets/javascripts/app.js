@@ -1,11 +1,10 @@
 'use strict';
 
-var pokerApp = angular.module('poker', ['ui.router', 'templates', 'Devise', 'ngAnimate'])
+var pokerApp = angular.module('poker', ['ui.router', 'templates', 'doowb.angular-pusher', 'Devise', 'ngAnimate'])
 
 	// AngularJS States => Routes
 	.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider){
 		$stateProvider
-		
 			.state('login', {
 				url: '/login', templateUrl: 'login.html',	controller: 'AuthCtrl',
 				onEnter: ['$state', 'Auth', function ($state, Auth){
@@ -17,7 +16,6 @@ var pokerApp = angular.module('poker', ['ui.router', 'templates', 'Devise', 'ngA
 					});
 				}]
 			})
-			
 			.state('register', {
 				url: '/register', templateUrl: 'register.html',	controller: 'AuthCtrl',
 				onEnter: ['$state', 'Auth', function ($state, Auth){
@@ -29,7 +27,6 @@ var pokerApp = angular.module('poker', ['ui.router', 'templates', 'Devise', 'ngA
 					});
 				}]
 			})
-			
 			.state('home', {
 				url: '/home', templateUrl: 'home.html',	controller: 'HomeCtrl',
 				onEnter: ['$state', 'Auth', function ($state, Auth){
@@ -58,4 +55,7 @@ var pokerApp = angular.module('poker', ['ui.router', 'templates', 'Devise', 'ngA
 
 
 		$urlRouterProvider.otherwise('login');
+	}])
+	.config(['PusherServiceProvider', function(PusherServiceProvider){
+		PusherServiceProvider.setToken('5ebf988f3c0e0794b073').setOptions({});
 	}]);
