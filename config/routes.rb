@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   root to: 'application#angular'
 
   post 'pusher/auth'
+
+  resources :game_room
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

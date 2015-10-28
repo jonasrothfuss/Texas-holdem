@@ -1,0 +1,16 @@
+<div>
+	<div class="modal-header">
+		<h3>Create Game Room</h3>
+	</div>
+	<form ng-submit="register()">
+		<div class="modal-body">
+				<input type="text" class="form-control" placeholder="Name" ng-model="gameroom.name">
+				<input type="text" class="form-control" placeholder="Max Players" ng-model="gameroom.max_players">
+				<input type="text" class="form-control" placeholder="Min bet" ng-model="gameroom.min_bet">
+		</div>
+		<div class="modal-footer">
+			<a href="javascript:;" ng-click="dismiss()">Cancel</a>&nbsp;
+			<input type="submit" class="btn btn-primary lm-10 pull-right" ng-click="ok()" value="Create">
+		</div>
+	</form>
+</div>

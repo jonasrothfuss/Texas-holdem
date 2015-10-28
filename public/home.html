@@ -1,3 +1,27 @@
 <div class="panel panel-default">
-	<h1>Logged In!</h1>
+	<div class="panel-body">
+		<div class="col-lg-6">
+			<h1>Logged In!</h1>
+		</div>
+		<div class="col-lg-6">
+			<button class="btn btn-primary pull-right" ng-click="open()"><i class="fa fa-plus"></i> Create Game Room</button>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<table class="table table-striped">
+			<tr>
+				<th>Room Name</th>
+				<th>Max Players</th>
+				<th>Min Bet</th>
+			</tr>
+			<tr ng-repeat="room in rooms">
+				<td>{{room.name}}</td>
+				<td>{{room.max_players}}</td>
+				<td>$ {{room.min_bet}}</td>
+			</tr>
+		</table>
+	</div>
 </div>
