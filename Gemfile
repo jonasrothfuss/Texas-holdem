@@ -51,6 +51,4 @@ gem 'omniauth-facebook'
 #Addtional utilities
 gem 'valid_email'
 
-gem 'heroku'
-
 gem 'ruby-poker'

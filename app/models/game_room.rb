@@ -4,11 +4,10 @@ class GameRoom
   
   has_and_belongs_to_many :players
   has_many :rounds
-  
-  
+
   field :name, type: String
   field :max_players, type: Integer
-  field :limit, type: Integer
+  field :min_bet, type: Integer
   field :active, type: Boolean
   field :isPrivate, type: Boolean
   
@@ -17,17 +16,13 @@ class GameRoom
     self.player.destroy
   end
   
-  
   def close_room
     self.active = false
   end
   
-  
   def newRound
     rounds << Round.newRound(players)
   end
-  
-  
   
   def addPlayer(user, buy_in)
     unless buyInOk?(buy_in)
@@ -36,7 +31,6 @@ class GameRoom
       self.players << Player.newPlayer(user, buy_in)
     end
   end
-  
   
   def buyInOk?(buy_in)
     return buy_in <= self.limit

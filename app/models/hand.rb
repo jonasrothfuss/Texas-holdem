@@ -4,7 +4,7 @@ class Hand
   include Mongoid::Timestamps
   
   has_one :player
-  has_many :gamecards
+  has_many :game_cards
   
   
   belongs_to :round

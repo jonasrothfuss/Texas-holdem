@@ -1,5 +1,5 @@
 require 'ruby-poker' #gem that compares 5-card-sets
-require 'gameCard'
+require 'game_card'
 
 class Round
   include Mongoid::Document
@@ -9,8 +9,7 @@ class Round
   has_and_belongs_to_many :players
   has_many :communal_cards, :class_name => "Gamecard"
   has_many :hands
-  
-  
+
   belongs_to :game_room
   
   field :pot
@@ -21,8 +20,6 @@ class Round
 
   @deck
 
-  
-  
   #substitutes the constructor --> returns a new Round objects with the right configuration
   def self.newRound(actualPlayers) 
     round = Round.create()
