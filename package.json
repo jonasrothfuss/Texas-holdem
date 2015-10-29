@@ -1,0 +1,28 @@
+{
+  "name": "term-g",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SFSU-CSC-667/Term-G.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SFSU-CSC-667/Term-G/issues"
+  },
+  "homepage": "https://github.com/SFSU-CSC-667/Term-G#readme",
+  "dependencies": {
+    "bower": "^1.6.5"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+  }
+}

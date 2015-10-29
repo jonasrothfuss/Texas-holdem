@@ -1,3 +1,7 @@
+production:
+  clients:
+    default:
+      uri: mongodb://heroku_1jm7bfjq:g65vs59rfk24vjo52pck8l9e8k@ds041154.mongolab.com:41154/heroku_1jm7bfjq
 development:
   # Configure available database clients. (required)
   clients:

@@ -48,6 +48,8 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
+gem 'rails_12factor'
+
 #Addtional utilities
 gem 'valid_email'
 
