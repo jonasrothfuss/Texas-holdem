@@ -86,4 +86,10 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  require 'pusher'
+  Pusher.logger = Rails.logger
+  Pusher.app_id = '148730'
+  Pusher.key = '25161f2f71888decbf67'
+  Pusher.secret = '0130fc9d0309c140c927'
 end

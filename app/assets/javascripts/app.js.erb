@@ -44,5 +44,5 @@ var pokerApp = angular.module('poker', ['ui.router', 'templates', 'doowb.angular
 		$urlRouterProvider.otherwise('login');
 	}])
 	.config(['PusherServiceProvider', function(PusherServiceProvider){
-		PusherServiceProvider.setToken('5ebf988f3c0e0794b073').setOptions({});
+		PusherServiceProvider.setToken('<%= Pusher.key %>').setOptions({});
 	}]);
