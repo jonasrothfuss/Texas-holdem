@@ -1,26 +1,68 @@
 <div class="panel panel-default">
   <div class="row">
-  
-    <div class="col-xs-8">Left Panel - Game GUI
-      <div>Exit Room Button</div>
-    
-      <div>Main Game GUI</div>
-      
-      <div>Game Action Buttons
-        <div>Check</div>
-        <div>Raise</div>
-        <div>Fold</div>
+    <div class="col-xs-8">
+      <div class="row">
+        <div class="col-xs-12 text-right">
+          <button class="btn btn-primary" type="submit">
+            Leave Room
+            <div class="ripple-wrapper"></div>
+          </button>
+        </div>
       </div>
       
-      <div>Bets
-        <div>Your Bet</div>
-        <div>Bet Limit Info</div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h1 class="text-center">Main Game GUI Goes Here</h1>
+        </div>
       </div>
       
+      <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-4">
+              <button class="col-xs-12 btn btn-primary" type="button">
+                Check/Call
+                <div class="ripple-wrapper"></div>
+              </button>
+            </div>
+            
+            <div class="col-xs-4">
+              <button class="col-xs-12 btn btn-primary" type="button">
+                Raise
+                <div class="ripple-wrapper"></div>
+              </button>
+            </div>
+            
+            <div class="col-xs-4">
+              <button class="col-xs-12 btn btn-primary" type="button">
+                Fold
+                <div class="ripple-wrapper"></div>
+              </button>
+            </div>
+        </div>
+      </div>
+        
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="col-xs-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center">Your Bet</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-xs-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center">Bet Limits</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     
     <div class="col-sm-4 hidden-xs">
-    
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title text-center">Feed</h3>
@@ -36,14 +78,13 @@
         <div class="panel-heading">
           <h3 class="panel-title text-center">Chat</h3>
         </div>
-        
         <div class="panel-body">
           <ul class="list-unstyled">
             <li><strong>username:</strong> message - all to be repeated (via angular)</li>
           </ul>
         </div>
         
-         <form class="panel-body">
+        <form class="panel-body">
           <div class="form-group">
             <div class="input-group">
               <input class="form-control" type="text" placeholder="Enter Message Here"></input>
@@ -57,8 +98,6 @@
           </div>
         </form>
       </div>
-     
     </div>
-    
   </div>
 </div>
