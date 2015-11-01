@@ -1,36 +1,64 @@
 <div class="panel panel-default">
-  <div>Left Panel - Game GUI
-    <div>Exit Room Button</div>
+  <div class="row">
   
-    <div>Main Game GUI</div>
+    <div class="col-xs-8">Left Panel - Game GUI
+      <div>Exit Room Button</div>
     
-    <div>Game Action Buttons
-      <div>Check</div>
-      <div>Raise</div>
-      <div>Fold</div>
+      <div>Main Game GUI</div>
+      
+      <div>Game Action Buttons
+        <div>Check</div>
+        <div>Raise</div>
+        <div>Fold</div>
+      </div>
+      
+      <div>Bets
+        <div>Your Bet</div>
+        <div>Bet Limit Info</div>
+      </div>
+      
     </div>
     
-    <div>Bets
-      <div>Your Bet</div>
-      <div>Bet Limit Info</div>
+    <div class="col-sm-4 hidden-xs">
+    
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Feed</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <li>Feed info - to be repeated (via angular)</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Chat</h3>
+        </div>
+        
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <li><strong>username:</strong> message - all to be repeated (via angular)</li>
+          </ul>
+        </div>
+        
+         <form class="panel-body">
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Enter Message Here"></input>
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">
+                  Send
+                  <div class="ripple-wrapper"></div>
+                </button>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+     
     </div>
     
   </div>
-  
-  <div>Right Panel
-  
-    <div>Activities
-      <div>Feed info - to be repeated (via angular)</div>
-    </div>
-    
-    <div>Chat
-      <div><span>username:</span> message - all to be repeated (via angular)</div>
-    </div>
-    
-    <form>
-      <div>
-        <input type="text">Chat Text Field</input>
-        <input type="submit">Send Button</input>
-      </div>
-    </form>
 </div>
