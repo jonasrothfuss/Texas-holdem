@@ -20,8 +20,12 @@
 
 body{
     background-color: #232D33;
-    background-image: url('bg.jpg');
-    background-size: 100% auto;
+    background-image: url('bg.png');
+    background-repeat: repeat;
+}
+
+nav{
+  z-index: 100000;
 }
 
 /* Margin and Padding styles */
@@ -59,14 +63,14 @@ body{
     border-radius: 6px;
 }
 
-.panel:not(.header):hover {
-    box-shadow: rgba(0,0,0,.2) 0 1.8px 9px 0;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
-    -o-transition: all .3s;
-    transition: all .3s;
-    border-bottom: 3px solid #EB0011;
-}
+//.panel:not(.header):hover {
+//    box-shadow: rgba(0,0,0,.2) 0 1.8px 9px 0;
+//    -webkit-transition: all .3s;
+//    -moz-transition: all .3s;
+//    -o-transition: all .3s;
+//    transition: all .3s;
+//    border-bottom: 3px solid #EB0011;
+//}
 
 .alert{
     border-radius: 4px;
@@ -83,4 +87,15 @@ body{
 .form-control{
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+#status-toast{
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  font-size: 24px;
+  width: 450px;
+  margin-left: -200px;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 10000;
 }
