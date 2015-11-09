@@ -1,0 +1,28 @@
+<div class="col-lg-4 col-lg-offset-4 panel panel-default">
+	<div class="panel-body">
+		<div ng-hide="registering" class="fade-out-up">
+			<a class="bold" href="/#/login"><i class="fa fa-arrow-circle-left"></i> Login</a>
+			<h1 class="tm-0 text-center">Register</h1>
+			<h5 class="text-center">{{ registrationText }}</h5>
+			<hr/>
+			<form ng-submit="register()">
+				<span class="alert alert-sm alert-warning" ng-show="error.first_name" ng-cloak>First Name {{ error.first_name[0] }}</span>
+				<input type="text" class="form-control" placeholder="First Name" ng-model="user.first_name">
+				<span class="alert alert-sm alert-warning" ng-show="error.last_name">Last Name {{ error.last_name[0] }}</span>
+				<input type="text" class="form-control" placeholder="Last Name" ng-model="user.last_name">
+				<span class="alert alert-sm alert-warning" ng-show="error.email">Email {{ error.email[0] }}</span>
+				<input type="email" class="form-control" placeholder="Email" ng-model="user.email">
+				<span class="alert alert-sm alert-warning" ng-show="error.username">Username {{ error.username[0] }}</span>
+				<input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+				<span class="alert alert-sm alert-warning" ng-show="error.password">Password {{ error.password[0] }}</span>
+				<input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+				<input type="submit" class="btn btn-primary pull-right" ng-click="registering=true" value="Register">
+			</form>
+			<br/><br/><br/>
+		</div>
+		<h4 class="text-center fade-in-up bm-50 tm-50" ng-show="registering">
+			<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;&nbsp; Just a moment!<br /><br/>
+			Registering the next Poker pro...
+		</h4>
+	</div>
+</div>
