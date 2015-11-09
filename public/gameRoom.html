@@ -1,103 +1,98 @@
-<div class="panel panel-default">
-  <div class="row">
-    <div class="col-xs-8">
-      <div class="row">
-        <div class="col-xs-12 text-right">
-          <button class="btn btn-primary" type="submit">
-            Leave Room
-            <div class="ripple-wrapper"></div>
-          </button>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-xs-12">
-          <h1 class="text-center">Main Game GUI Goes Here</h1>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-xs-12">
-            <div class="col-xs-4">
-              <button class="col-xs-12 btn btn-primary" type="button">
-                Check/Call
-                <div class="ripple-wrapper"></div>
-              </button>
-            </div>
-            
-            <div class="col-xs-4">
-              <button class="col-xs-12 btn btn-primary" type="button">
-                Raise
-                <div class="ripple-wrapper"></div>
-              </button>
-            </div>
-            
-            <div class="col-xs-4">
-              <button class="col-xs-12 btn btn-primary" type="button">
-                Fold
-                <div class="ripple-wrapper"></div>
-              </button>
-            </div>
-        </div>
-      </div>
-        
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="col-xs-6">
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h3 class="panel-title text-center">Your Bet</h3>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-xs-6">
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h3 class="panel-title text-center">Bet Limits</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-sm-4 hidden-xs">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title text-center">Feed</h3>
-        </div>
-        <div class="panel-body">
-          <ul class="list-unstyled">
-            <li>Feed info - to be repeated (via angular)</li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title text-center">Chat</h3>
-        </div>
-        <div class="panel-body">
-          <ul class="list-unstyled">
-            <li><strong>username:</strong> message - all to be repeated (via angular)</li>
-          </ul>
-        </div>
-        
-        <form class="panel-body">
-          <div class="form-group">
-            <div class="input-group">
-              <input class="form-control" type="text" placeholder="Enter Message Here"></input>
+<div class="row">
+	<div class="panel panel-body col-xs-8">
+		<div class="row">
+			<div class="col-xs-12 text-right">
+				<button class="btn btn-default" type="submit">
+					Leave Room
+					<div class="ripple-wrapper"></div>
+				</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<p ng-repeat="player in gameRoom.players">{{player._id}}: {{player.owner.first_name}} {{player.owner.last_name}} {{player.buy_in}}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="col-xs-4">
+					<button class="col-xs-12 btn btn-primary" type="button">
+						Check/Call
+						<div class="ripple-wrapper"></div>
+					</button>
+				</div>
+
+				<div class="col-xs-4">
+					<button class="col-xs-12 btn btn-danger" type="button">
+						Raise
+						<div class="ripple-wrapper"></div>
+					</button>
+				</div>
+
+				<div class="col-xs-4">
+					<button class="col-xs-12 btn btn-warning" type="button">
+						Fold
+						<div class="ripple-wrapper"></div>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="col-xs-6">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title text-center">Your Bet</h3>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title text-center">Bet Limits</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-4 hidden-xs">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Feed</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-unstyled">
+					<li>Feed info - to be repeated (via angular)</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Chat</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-unstyled">
+					<li ng-repeat="m in messages"><p><strong>{{m.user.first_name}}:</strong>&nbsp; {{m.content}}</p></li>
+				</ul>
+			</div>
+
+			<form class="panel-body" ng-submit="sendMessage()">
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" type="text" ng-model="message" placeholder="Enter Message Here" />
               <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit">
-                  Send
-                  <div class="ripple-wrapper"></div>
-                </button>
+                <button class="btn btn-primary" ng-class="{'disabled': sending}" type="submit">Send <div class="ripple-wrapper"></div></button>
               </span>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
