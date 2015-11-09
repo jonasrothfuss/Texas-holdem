@@ -15,18 +15,21 @@ class Player
     return self.user.username
   end
   
-  
-  def self.newPlayer (entering_user, buyInAmount)
-    unless buyInOk?(entering_user, buyInAmount)
-      raise BuyInExceedsBalanceError, 'buyIn amount exceeds users balance'
-    else  
-      self.create({user: entering_user, buyIn: buyInAmount, chip_amount: buyInAmount})
-    end
+  def self.new_player (entering_user, buy_in_amount, game_room)
+    # unless buyInOk?(entering_user, buy_in_amount)
+    #   raise BuyInExceedsBalanceError, 'buyIn amount exceeds users balance'
+    # else
+      # ActionController::Parameters.permit_all_parameters = true
+      # params = ActionController::Parameters.new({user: entering_user, buy_in: buy_in_amount, chip_amount: buy_in_amount, game_room: game_room})
+      # puts "------------------"
+      # puts params.require(:user)
+      # puts params.permit(:buy_in, :chip_amount)
+      self.create({owner: entering_user, buy_in: buy_in_amount, chip_amount: buy_in_amount, game_room: game_room, active: true})
+    # end
   end
     
-    
-  def self.buyInOk?(user, buyIn) 
-    return user.balance >= buyIn
+  def self.buyInOk?(user, buyIn)
+    return user[:balance] >= buyIn
   end
   
   def win(amount)

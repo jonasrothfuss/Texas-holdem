@@ -8,7 +8,16 @@ Rails.application.routes.draw do
 
   post 'pusher/auth'
 
-  resources :game_room
+  scope '/api', :defaults => {:format => 'json'} do
+    controller :game_room do
+      get   'gameroom'              => :index
+      post  'gameroom/create'       => :create
+      post  'gameroom/join/:id'     => :join
+    end
+  end
+
+
+  # match "/game_room/:id" => "gameroom#join"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -10,12 +10,16 @@ class GameRoomController < ApplicationController
   end
 
   def create
-    respond_with GameRoom.create(post_params)
-    Pusher.trigger('gamerooms', 'new', post_params)
+    respond_with GameRoom.create(crud_params), :location => ''
+    Pusher.trigger('gamerooms', 'new', crud_params)
+  end
+
+  def join
+    respond_with GameRoom.add_player(params[:id], params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)), :location => ''
   end
 
   private
-  def post_params
+  def crud_params
     params.require(:game_room).permit(:name, :max_players, :min_bet)
   end
 end
