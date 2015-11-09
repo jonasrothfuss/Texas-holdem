@@ -11,9 +11,11 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 			return url;
 		}
 
-		function call(controller, action, param, post){
+		function call(controller, action, param, post, loadingToast){
 			$rootScope.error = false;
-			$rootScope.loading = true;
+			if(loadingToast == null || loadingToast == true){
+				$rootScope.loading = true;
+			}
 
 			var url = buildUrl(controller, action, param);
 
@@ -44,6 +46,9 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 				},
 				Join: function(gameId, post){
 					return call('gameroom', 'join', gameId, post);
+				},
+				SendMessage: function(gameId, post){
+					return call('gameroom', 'message', gameId, post, false);
 				}
 			}
 		}
