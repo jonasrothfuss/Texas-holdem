@@ -28,10 +28,18 @@ pokerApp.controller('gameRoomCtrl', [
 			}
 		};
 
+		$scope.leaveRoom = function () {
+			leave();
+		};
+
 		//--Pusher Subscriptions--
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (player) {
-			console.log("new player");
-			$scope.gameRoom.players.push(player);
+			$scope.gameRoom.game_players.push(player);
+		});
+
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'playerleft', function (player) {
+			var i = $scope.gameRoom.game_players.map(function(x) {return x._id; }).indexOf(player._id);
+			$scope.gameRoom.game_players.splice(i, 1);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
@@ -42,6 +50,12 @@ pokerApp.controller('gameRoomCtrl', [
 		function joinAndLoad() {
 			apiServices.GameService.Join($stateParams.gameId, {user: $rootScope.user}).success(function (result) {
 				$scope.gameRoom = result;
+			});
+		}
+
+		function leave() {
+			apiServices.GameService.Leave($stateParams.gameId, {user: $rootScope.user}).success(function () {
+				$state.go('home');
 			});
 		}
 

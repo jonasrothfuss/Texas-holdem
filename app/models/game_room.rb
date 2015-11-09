@@ -22,6 +22,12 @@ class GameRoom
     return Player.where(game_room: id, active: true)
   end
 
+  def remove_player(user)
+    player = Player.where(game_room: id, owner: user, active: true).first
+    player.leave()
+    Pusher.trigger("gameroom-#{id}", 'playerleft', player)
+  end
+
   def close_room
     self.active = false
   end

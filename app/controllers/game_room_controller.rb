@@ -17,9 +17,14 @@ class GameRoomController < ApplicationController
   def join
     game_room = GameRoom.find(params[:id])
     game_room.add_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path))
-    game_room[:players] = Player.where(game_room: game_room.id, active: true)
+    game_room['game_players'] = Player.where(game_room: game_room.id, active: true).to_a
 
     respond_with game_room, :location => ''
+  end
+
+  def leave
+    game_room = GameRoom.find(params[:id])
+    respond_with game_room.remove_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)), :location => '/home/'
   end
 
   def message

@@ -11,10 +11,6 @@ class Player
   field :chip_amount
   field :active, type: Boolean
   
-  def name
-    return self.user.username
-  end
-  
   def self.new_player (entering_user, buy_in_amount, game_room)
     # unless buyInOk?(entering_user, buy_in_amount)
     #   raise BuyInExceedsBalanceError, 'buyIn amount exceeds users balance'
@@ -31,7 +27,12 @@ class Player
   def self.buyInOk?(user, buyIn)
     return user[:balance] >= buyIn
   end
-  
+
+  def leave()
+    self.active = false
+    save
+  end
+
   def win(amount)
     chip_amount += amount
     user.balance += amount
