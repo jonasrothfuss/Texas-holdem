@@ -1,7 +1,14 @@
 'use strict';
 
-var pokerApp = angular.module('poker', ['ui.router', 'templates', 'doowb.angular-pusher', 'Devise', 'ui.bootstrap', 'ngAnimate'])
-        // AngularJS States => Routes
+var pokerApp = angular.module('poker', [
+    'ui.router',
+    'templates',
+    'doowb.angular-pusher',
+    'Devise',
+    'ui.bootstrap',
+    'ngAnimate'
+])
+    // AngularJS States => Routes
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             $stateProvider
                     .state('login', {
@@ -38,7 +45,7 @@ var pokerApp = angular.module('poker', ['ui.router', 'templates', 'doowb.angular
                 $rootScope.logout = Auth.logout;
                 $rootScope.user;
 
-                Auth.currentUser().then(function (user){
+                Auth.currentUser().then(function (user) {
                     $rootScope.user = user;
                 });
 

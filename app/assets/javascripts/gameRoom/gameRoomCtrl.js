@@ -1,40 +1,48 @@
-pokerApp.controller('gameRoomCtrl', ['$scope', '$rootScope', '$stateParams', 'apiServices', 'Pusher', function ($scope, $rootScope, $stateParams, apiServices, Pusher){
-	$scope.gameRoom = {};
-	$scope.sending = false;
-	$scope.messages = [];
-	$scope.message = '';
+pokerApp.controller('gameRoomCtrl', [
+	'$scope',
+	'$rootScope',
+	'$state',
+	'$stateParams',
+	'apiServices',
+	'Pusher',
+	function ($scope, $rootScope, $state, $stateParams, apiServices, Pusher) {
 
-	joinAndLoad();
+		$scope.gameRoom = {};
+		$scope.sending = false;
+		$scope.messages = [];
+		$scope.message = '';
 
-	$scope.sendMessage = function(){
-		if($scope.message){
-			$scope.sending = true;
+		joinAndLoad();
 
-			apiServices.GameService.SendMessage($stateParams.gameId, {
-				message: { user: $rootScope.user,	content: $scope.message }
-			}).success(function(){
-				$scope.sending = false;
-			});
+		$scope.sendMessage = function () {
+			if ($scope.message) {
+				$scope.sending = true;
 
-			$scope.message = '';
-		}
-	};
+				apiServices.GameService.SendMessage($stateParams.gameId, {
+					message: {user: $rootScope.user, content: $scope.message}
+				}).success(function () {
+					$scope.sending = false;
+				});
 
-	//--Pusher Subscriptions--
-	Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function(player){
-		console.log("new player");
-		$scope.gameRoom.players.push(player);
-	});
+				$scope.message = '';
+			}
+		};
 
-	Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function(message){
-		$scope.messages.push(message);
-	});
-
-	//--Private Funcs--
-	function joinAndLoad(){
-		apiServices.GameService.Join($stateParams.gameId, {user: $rootScope.user}).success(function (result){
-			$scope.gameRoom = result;
+		//--Pusher Subscriptions--
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (player) {
+			console.log("new player");
+			$scope.gameRoom.players.push(player);
 		});
-	}
 
-}]);
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
+			$scope.messages.push(message);
+		});
+
+		//--Private Funcs--
+		function joinAndLoad() {
+			apiServices.GameService.Join($stateParams.gameId, {user: $rootScope.user}).success(function (result) {
+				$scope.gameRoom = result;
+			});
+		}
+
+	}]);
