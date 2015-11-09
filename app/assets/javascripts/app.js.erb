@@ -1,48 +1,65 @@
 'use strict';
 
 var pokerApp = angular.module('poker', ['ui.router', 'templates', 'doowb.angular-pusher', 'Devise', 'ui.bootstrap', 'ngAnimate'])
+        // AngularJS States => Routes
+        .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+            $stateProvider
+                    .state('login', {
+                        url: '/login', templateUrl: 'Login.html', controller: 'AuthCtrl',
+                        onEnter: ['$state', 'Auth', function ($state, Auth) {
+                            Auth.currentUser().then(function (user) {
+                                $state.go('home');
+                            });
+                        }]
+                    })
+                    .state('register', {
+                        url: '/register', templateUrl: 'Register.html', controller: 'AuthCtrl',
+                        onEnter: ['$state', 'Auth', function ($state, Auth) {
+                            Auth.currentUser().then(function (user) {
+                                $state.go('home');
+                            });
+                        }]
+                    })
+                    .state('home', {
+                        url: '/home', templateUrl: 'Home.html', controller: 'HomeCtrl'
+                    });
 
-	// AngularJS States => Routes
-	.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider){
-		$stateProvider
-			.state('login', {
-				url: '/login', templateUrl: 'login.html',	controller: 'AuthCtrl',
-				onEnter: ['$state', 'Auth', function ($state, Auth){
-					Auth.currentUser().then(function (user){
-						$state.go('home');
-						console.log(user);
-					}, function(error){
-						console.log("Not Authenticated");
-					});
-				}]
-			})
-			.state('register', {
-				url: '/register', templateUrl: 'register.html',	controller: 'AuthCtrl',
-				onEnter: ['$state', 'Auth', function ($state, Auth){
-					Auth.currentUser().then(function (user){
-						$state.go('home');
-						console.log(user);
-					}, function(error){
-						console.log("Not Authenticated");
-					});
-				}]
-			})
-			.state('home', {
-				url: '/home', templateUrl: 'home.html',	controller: 'HomeCtrl',
-				onEnter: ['$state', 'Auth', function ($state, Auth){
-					Auth.currentUser().then(function(user) {
-						// User was logged in, or Devise returned
-						// previously authenticated session.
-						console.log("authenticated");
-					}, function(error) {
-						$state.go('login');
-					});
-				}]
-			});
+            $urlRouterProvider.otherwise('login');
+        }])
+        .config(['PusherServiceProvider', function (PusherServiceProvider) {
+            PusherServiceProvider.setToken('<%= Pusher.key %>').setOptions({});
+        }])
+        .run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
+            {
+                $rootScope.signedIn = Auth.isAuthenticated;
+                $rootScope.logout = Auth.logout;
+                $rootScope.user;
 
+                Auth.currentUser().then(function (user){
+                    $rootScope.user = user;
+                });
 
-		$urlRouterProvider.otherwise('login');
-	}])
-	.config(['PusherServiceProvider', function(PusherServiceProvider){
-		PusherServiceProvider.setToken('<%= Pusher.key %>').setOptions({});
-	}]);
+                $rootScope.$on('device:new-registration', function (e, user) {
+                    $rootScope.user = user;
+                });
+
+                $rootScope.$on('devise:login', function (e, user) {
+                    $rootScope.user = user;
+                });
+
+                $rootScope.$on('devise:logout', function (e, user) {
+                    $rootScope.user = {};
+                    $state.go('login');
+                });
+
+                $rootScope.$on('$stateChangeStart', function (event, toState) {
+                    if (toState.name != 'login' && toState.name != 'register') {
+                        if (!$rootScope.user) {
+                            event.preventDefault();
+                            console.log('UNAUTHORIZED');
+                            $state.go('login');
+                        }
+                    }
+                });
+            }
+        }]);
