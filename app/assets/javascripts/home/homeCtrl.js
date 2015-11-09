@@ -1,15 +1,12 @@
 'use strict';
 
-pokerApp.controller('HomeCtrl', ['$scope', '$uibModal', 'apiServices', 'Pusher', function HomeCtrl($scope, $uibModal, apiServices, Pusher){
-	$scope.rooms = apiServices.GameService.GetRooms();
+pokerApp.controller('HomeCtrl', ['$scope', '$rootScope', '$uibModal', 'apiServices', 'Pusher', function($scope, $rootScope, $uibModal, apiServices, Pusher){
+	$scope.rooms = [];
 
-	Pusher.subscribe('gamerooms', 'new', function(gameroom){
-		$scope.rooms.push(gameroom);
-	});
+	loadRooms();
 
 	$scope.open = function (size) {
 		var modalInstance = $uibModal.open({
-			animation: $scope.animationsEnabled,
 			templateUrl: 'modals/CreateGameRoom.html',
 			controller: 'ModalInstanceCtrl',
 			size: size,
@@ -27,16 +24,29 @@ pokerApp.controller('HomeCtrl', ['$scope', '$uibModal', 'apiServices', 'Pusher',
 		});
 	};
 
-	$scope.createRoom = function(gameroom){
+	$scope.createRoom = function(gameroom) {
 		apiServices.GameService.Create({
 			name: gameroom.name,
 			max_players: gameroom.max_players,
-			min_bet: gameroom.min_bet,
+			min_bet: gameroom.min_bet
+		});
+	};
+
+	//--Pusher Subscriptions--
+	Pusher.subscribe('gamerooms', 'new', function(gameroom){
+		$scope.rooms.push(gameroom);
+	});
+
+	//--Private funcs--
+	function loadRooms(){
+		apiServices.GameService.GetRooms().success(function (data){
+			angular.copy(data, $scope.rooms);
 		});
 	}
+
 }]);
 
-pokerApp.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', function ModalInstanceCtrl($scope, $modalInstance){
+pokerApp.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
 	$scope.gameroom = {};
 
 	$scope.ok = function () {
