@@ -1,8 +1,8 @@
 class GameRoom
   include Mongoid::Document
   include Mongoid::Timestamps
-  
-  has_and_belongs_to_many :players
+
+  has_many :players
   has_many :rounds
 
   field :name, type: String
@@ -11,16 +11,16 @@ class GameRoom
   field :active, type: Boolean
   field :isPrivate, type: Boolean
   
-  def removePlayer(player)
+  def remove_player(player)
     self.players.delete(player)
     self.player.destroy
   end
-  
+
   def close_room
     self.active = false
   end
-  
-  def newRound
+
+  def new_round
     rounds << Round.newRound(players)
   end
   
@@ -35,7 +35,7 @@ class GameRoom
   def buyInOk?(buy_in)
     return buy_in <= self.limit
   end
-  
+
 end
 
 

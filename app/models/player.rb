@@ -1,15 +1,15 @@
 class Player
   include Mongoid::Document
   include Mongoid::Timestamps
-  
-  has_one :user
-  has_and_belongs_to_many :gameRooms
+
+  belongs_to :user, :foreign_key => 'owner'
+  belongs_to :game_room
   has_and_belongs_to_many :rounds
-  belongs_to :hand
-  
-  
-  field :buyIn
+
+  field :owner
+  field :buy_in
   field :chip_amount
+  field :active, type: Boolean
   
   def name
     return self.user.username
@@ -29,13 +29,11 @@ class Player
     return user.balance >= buyIn
   end
   
-  
   def win(amount)
     chip_amount += amount
     user.balance += amount
     user.save!
   end
-  
   
   def bet(amount)
     unless betOk?(amount)
@@ -46,7 +44,6 @@ class Player
       raise InvalidBetError, 'bet exceeds users chip_amount'
     end
   end
-  
   
   def betOk?(amount)
     return amount <= chip_amount
