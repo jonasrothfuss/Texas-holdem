@@ -15,7 +15,11 @@ class GameRoomController < ApplicationController
   end
 
   def join
-    respond_with GameRoom.add_player(params[:id], params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)), :location => ''
+    game_room = GameRoom.find(params[:id])
+    game_room.add_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path))
+    game_room[:players] = Player.where(game_room: game_room.id, active: true)
+
+    respond_with game_room, :location => ''
   end
 
   def message

@@ -11,20 +11,15 @@ class GameRoom
   field :active, type: Boolean
   field :isPrivate, type: Boolean
 
-  def self.add_player(game_id, user)
-    game_room = GameRoom.find(game_id)
-    check = Player.where(game_room: game_id, owner: user, active: true)
-    player = (check.count > 0) ? check : Player.new_player(user, 5000, game_room)
-    game_room[:players] = Player.where(game_room: game_id, active: true)
+  def add_player(user)
+    check = Player.where(game_room: id, owner: user, active: true)
 
-    Pusher.trigger("gameroom-#{game_room[:id]}", 'newplayer', player)
+    if(check.count == 0)
+      player = Player.new_player(user, 5000, id)
+      Pusher.trigger("gameroom-#{id}", 'newplayer', player)
+    end
 
-    return game_room
-  end
-
-  def remove_player(player)
-    self.players.delete(player)
-    self.player.destroy
+    return Player.where(game_room: id, active: true)
   end
 
   def close_room
