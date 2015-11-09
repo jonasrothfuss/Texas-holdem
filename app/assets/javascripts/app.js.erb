@@ -22,6 +22,9 @@ var pokerApp = angular.module('poker', ['ui.router', 'templates', 'doowb.angular
                     })
                     .state('home', {
                         url: '/home', templateUrl: 'Home.html', controller: 'HomeCtrl'
+                    })
+                    .state('gameroom', {
+                        url: '/gameroom/:gameId', templateUrl: 'GameRoom.html', controller: 'gameRoomCtrl'
                     });
 
             $urlRouterProvider.otherwise('login');
