@@ -12,9 +12,9 @@ Rails.application.routes.draw do
     controller :game_room do
       get   'gameroom'              => :index
       post  'gameroom/create'       => :create
-      post  'gameroom/join/:id'     => :join
-      post  'gameroom/leave/:id'    => :leave
-      post  'gameroom/message/:id'  => :message
+      post  'gameroom/:id/join'     => :join
+      post  'gameroom/:id/leave'    => :leave
+      post  'gameroom/:id/message'  => :message
     end
   end
 

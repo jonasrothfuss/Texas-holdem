@@ -1,11 +1,11 @@
 pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootScope){
-		function buildUrl(controller, action, param){
+		function buildUrl(controller, param, action){
 			var url = '/api/' + controller + '/';
-			if(action != null){
-				url += action + '/';
-			}
 			if(param != null){
 				url += param + '/';
+			}
+			if(action != null){
+				url += action + '/';
 			}
 
 			return url;
@@ -42,16 +42,16 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 					return call('gameroom');
 				},
 				Create: function(post){
-					return call('gameroom', 'create', '', post);
+					return call('gameroom', null, 'create', post);
 				},
 				Join: function(gameId, post){
-					return call('gameroom', 'join', gameId, post);
+					return call('gameroom', gameId, 'join', post);
 				},
 				Leave: function(gameId, post){
-					return call('gameroom', 'leave', gameId, post);
+					return call('gameroom', gameId, 'leave', post);
 				},
 				SendMessage: function(gameId, post){
-					return call('gameroom', 'message', gameId, post, false);
+					return call('gameroom', gameId, 'message', post, false);
 				}
 			}
 		}
