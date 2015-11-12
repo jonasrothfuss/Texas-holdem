@@ -12,6 +12,8 @@
 
 				<div class="col-xs-4">
 					<div ng-repeat="p in gameRoom.players">
+						<img class="card bm-10" ng-src="{{p.hand.gamecards[i].image_path}}" ng-repeat="i in [0,1]">
+
 						<p>{{p.owner.first_name}} (${{p.buy_in}}): Bet: $0</p>
 					</div>
 				</div>
