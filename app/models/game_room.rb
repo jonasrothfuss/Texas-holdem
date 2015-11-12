@@ -8,6 +8,8 @@ class GameRoom
   field :name, type: String
   field :max_players, type: Integer
   field :min_bet, type: Integer
+  field :small_blind_index, type: Integer
+  field :big_blind_index, type: Integer
   field :active, type: Boolean
   field :closed, type: Boolean
   field :isPrivate, type: Boolean
@@ -46,6 +48,8 @@ class GameRoom
     active_players = self.players
 
     if (!self.active && active_players.count >= 2)
+      self.small_blind_index = -1
+      self.big_blind_index  = 0
       new_round(active_players)
       self.active = true
       save
@@ -53,11 +57,29 @@ class GameRoom
   end
 
   def new_round(players)
-    round = Round.new_round(players)
-    round.start
+    round = Round.new_round(players, self.min_bet)
+    new_blinds
+    round.start(self.small_blind_index, self.big_blind_index)
     self.rounds << round
     save
     Pusher.trigger("gameroom-#{id}", 'newround', access_round)
+  end
+
+  def new_blinds
+    player_count = self.players.count
+
+    self.small_blind_index += 1
+    self.big_blind_index += 1
+
+    if(self.small_blind_index == player_count)
+      self.small_blind_index = 0
+    end
+
+    if(self.big_blind_index == player_count)
+      self.big_blind_index = 0
+    end
+
+    save
   end
 
   def buyInOk?(buy_in)

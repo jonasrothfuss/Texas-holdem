@@ -11,22 +11,21 @@ class Round
   belongs_to :game_room
 
   field :pot
-  field :big_blind
   field :small_blind
-  field :limit
+  field :big_blind
   field :stage, type: Integer
   field :active, type: Boolean
 
   default_scope -> { where(active: true) }
 
-  def self.new_round(players)
-    return self.create(pot: 0, players: players, active: true, communal_cards: [])
+  def self.new_round(players, blind)
+    return self.create(pot: 0, players: players, big_blind: blind, small_blind: blind/2, active: true, communal_cards: [])
   end
 
-  def start
+  def start(small_blind, big_blind)
     create_deck
     deal_communal
-    deal_players
+    deal_players(small_blind, big_blind)
     self.stage = 1
     save
   end
@@ -40,10 +39,26 @@ class Round
     end
   end
 
-  def deal_players
+  def deal_players(small_blind, big_blind)
+    i = 0
+
     self.players.each do |player|
-      self.hands << Hand.new_hand(player, get_card, get_card)
+      small = (i == small_blind)
+      big = (i == big_blind)
+      if (small)
+        bet = self.small_blind
+      elsif (big)
+        bet = self.big_blind
+      else
+        bet = self.big_blind
+      end
+
+      player.chips -= bet
+      player.save
+
+      self.hands << Hand.new_hand(player, get_card, get_card, small, big, bet)
       save
+      i += 1
     end
   end
 

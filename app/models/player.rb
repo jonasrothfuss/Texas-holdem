@@ -7,8 +7,7 @@ class Player
   has_and_belongs_to_many :rounds
 
   field :owner
-  field :buy_in
-  field :chip_amount
+  field :chips, type: Integer
   field :active, type: Boolean
 
   default_scope -> { where(active: true) }
@@ -22,7 +21,7 @@ class Player
     # puts "------------------"
     # puts params.require(:user)
     # puts params.permit(:buy_in, :chip_amount)
-    self.create!({owner: entering_user, buy_in: buy_in_amount, chip_amount: buy_in_amount, active: true})
+    self.create!({owner: entering_user, chips: buy_in_amount, active: true})
     # end
   end
 
