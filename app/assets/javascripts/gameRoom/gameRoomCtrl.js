@@ -8,13 +8,14 @@ pokerApp.controller('gameRoomCtrl', [
 	function ($scope, $rootScope, $state, $stateParams, apiServices, Pusher) {
 
 		$scope.gameRoom = {};
+		$scope.round = {};
 		$scope.sending = false;
 		$scope.messages = [];
 		$scope.message = '';
 
 		joinAndLoad();
 
-		$scope.start = function(){
+		$scope.start = function () {
 			start();
 		};
 
@@ -42,13 +43,16 @@ pokerApp.controller('gameRoomCtrl', [
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'playerleft', function (player) {
-			var i = $scope.gameRoom.players.map(function(x) {return x._id; }).indexOf(player._id);
+			var i = $scope.gameRoom.players.map(function (x) {
+				return x._id;
+			}).indexOf(player._id);
 			$scope.gameRoom.players.splice(i, 1);
 		});
 
-		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (round) {
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (newround) {
 			console.log("game has started");
-			$scope.round = round;
+			$scope.round = newround.round;
+			$scope.round.cards = newround.cards;
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
@@ -63,11 +67,18 @@ pokerApp.controller('gameRoomCtrl', [
 				apiServices.GameService.Players($stateParams.gameId).success(function (result) {
 					$scope.gameRoom.players = result;
 				});
+
+				if ($scope.gameRoom.active) {
+					apiServices.GameService.GetRound($stateParams.gameId).success(function (result) {
+						$scope.round = result.round;
+						$scope.round.cards = result.cards;
+					});
+				}
 			});
 		}
 
-		function start(){
-			apiServices.GameService.Start($stateParams.gameId, {user: $rootScope.user}).success(function(result){
+		function start() {
+			apiServices.GameService.Start($stateParams.gameId, {user: $rootScope.user}).success(function (result) {
 				$scope.gameRoom.active = true;
 			});
 		}

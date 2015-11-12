@@ -53,6 +53,9 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 				Start: function(gameId, post){
 					return call('gameroom', gameId, 'start', post)
 				},
+				GetRound: function(gameId){
+					return call('gameroom', gameId, 'round');
+				},
 				Leave: function(gameId, post){
 					return call('gameroom', gameId, 'leave', post);
 				},
