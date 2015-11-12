@@ -82,6 +82,17 @@ class Round
     return cards
   end
 
+  def access_hand(user)
+    if(self.stage < 4)
+      player = self.players.where(owner: user).first
+      response = {hands: self.hands.where(player: player).only(:player, :gamecards), default: {:image_path => GameCard.default_image_path}}
+    else
+      response = {hands: self.hands.only(:player, :gamecards)}
+    end
+
+    return response
+  end
+
   #method handles one round
   def play
     #TODO: implement the flow of a round and may move this code to a controller

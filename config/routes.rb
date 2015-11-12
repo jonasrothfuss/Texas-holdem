@@ -19,6 +19,10 @@ Rails.application.routes.draw do
       post  'gameroom/:id/leave'    => :leave
       post  'gameroom/:id/message'  => :message
     end
+
+    controller :round do
+      post   'round/:id/hand'        => :hand
+    end
   end
 
 
