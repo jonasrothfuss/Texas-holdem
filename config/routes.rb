@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get   'gameroom'              => :index
       post  'gameroom/create'       => :create
       post  'gameroom/:id/join'     => :join
+      get   'gameroom/:id/players'  => :players
       post  'gameroom/:id/leave'    => :leave
       post  'gameroom/:id/message'  => :message
     end

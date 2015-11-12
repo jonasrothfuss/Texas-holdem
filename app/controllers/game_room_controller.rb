@@ -26,6 +26,11 @@ class GameRoomController < ApplicationController
     respond_with game_room.remove_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)), :location => '/home/'
   end
 
+  def players
+    gameroom = GameRoom.find(params[:id])
+    respond_with gameroom.players
+  end
+
   def message
     head 200, content_type: "text/html"
     Pusher.trigger("gameroom-#{params[:id]}", 'chat', params[:message])
