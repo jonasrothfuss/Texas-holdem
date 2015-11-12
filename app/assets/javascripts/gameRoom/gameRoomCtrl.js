@@ -14,6 +14,10 @@ pokerApp.controller('gameRoomCtrl', [
 
 		joinAndLoad();
 
+		$scope.leaveRoom = function () {
+			leave();
+		};
+
 		$scope.sendMessage = function () {
 			if ($scope.message) {
 				$scope.sending = true;
@@ -28,18 +32,14 @@ pokerApp.controller('gameRoomCtrl', [
 			}
 		};
 
-		$scope.leaveRoom = function () {
-			leave();
-		};
-
 		//--Pusher Subscriptions--
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (player) {
-			$scope.gameRoom.game_players.push(player);
+			$scope.gameRoom.players.push(player);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'playerleft', function (player) {
-			var i = $scope.gameRoom.game_players.map(function(x) {return x._id; }).indexOf(player._id);
-			$scope.gameRoom.game_players.splice(i, 1);
+			var i = $scope.gameRoom.players.map(function(x) {return x._id; }).indexOf(player._id);
+			$scope.gameRoom.players.splice(i, 1);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {

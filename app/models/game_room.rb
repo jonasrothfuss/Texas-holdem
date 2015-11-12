@@ -9,21 +9,30 @@ class GameRoom
   field :max_players, type: Integer
   field :min_bet, type: Integer
   field :active, type: Boolean
+  field :closed, type: Boolean
   field :isPrivate, type: Boolean
 
-  def add_player(user)
-    check = Player.where(game_room: id, owner: user, active: true)
+  default_scope -> { where(closed: false) }
 
-    if(check.count == 0)
-      player = Player.new_player(user, 5000, id)
+  def self.new_room(params)
+    self.create(params.merge!(active: false, closed: false))
+  end
+
+  def add_player(user)
+    check = self.players.where(owner: user)
+
+    if (check.count == 0)
+      player = Player.new_player(user, 5000)
+      self.players << player
+      save
       Pusher.trigger("gameroom-#{id}", 'newplayer', player)
     end
 
-    return Player.where(game_room: id, active: true)
+    return self.players
   end
 
   def remove_player(user)
-    player = Player.where(game_room: id, owner: user, active: true).first
+    player = Player.where(game_room: id, owner: user).first
     player.leave()
     Pusher.trigger("gameroom-#{id}", 'playerleft', player)
   end

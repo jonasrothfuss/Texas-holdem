@@ -10,16 +10,15 @@ class GameRoomController < ApplicationController
   end
 
   def create
-    respond_with GameRoom.create(crud_params), :location => ''
+    respond_with GameRoom.new_room(crud_params), :location => ''
     Pusher.trigger('gamerooms', 'new', crud_params)
   end
 
   def join
-    game_room = GameRoom.find(params[:id])
-    game_room.add_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path))
-    game_room['game_players'] = Player.where(game_room: game_room.id, active: true).to_a
+    gameroom = GameRoom.find(params[:id])
+    gameroom.add_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path))
 
-    respond_with game_room, :location => ''
+    respond_with gameroom, :location => ''
   end
 
   def leave
