@@ -51,7 +51,7 @@ pokerApp.controller('gameRoomCtrl', [
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (newround) {
-			console.log("game has started");
+			$scope.gameRoom.active = true;
 			$scope.round = newround.round;
 			$scope.round.cards = newround.cards;
 			getHand();
