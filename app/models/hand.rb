@@ -1,27 +1,17 @@
-
 class Hand
   include Mongoid::Document
   include Mongoid::Timestamps
-  
-  has_one :player
-  has_many :game_cards
-  
-  
+
+  belongs_to :player
+  embeds_many :gamecards, :class_name => "GameCard"
+
   belongs_to :round
-  
-  def self.newHand(player, card1, card2)
-    puts player #DELETE
-    hand = Hand.create
-    puts hand #DELETE
-    hand.player = player
-    puts card1.to_s + "----" + card2.to_s
-    hand.gamecards << card1
-    hand.gamecards << card2
-    return hand
+
+  def self.new_hand(player, card1, card2)
+    return self.create(player: player, gamecards: [GameCard.new_card(card1[0], card1[1]), GameCard.new_card(card2[0], card2[1])])
   end
-  
-  
-  def getCard(card_index) #index can be 1 or 2
+
+  def get_card(card_index) #index can be 1 or 2
     return gamecards[card_index-1]
   end
 end

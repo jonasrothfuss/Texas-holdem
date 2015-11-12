@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post  'gameroom/create'       => :create
       post  'gameroom/:id/join'     => :join
       get   'gameroom/:id/players'  => :players
+      post  'gameroom/:id/start'    => :start
       post  'gameroom/:id/leave'    => :leave
       post  'gameroom/:id/message'  => :message
     end

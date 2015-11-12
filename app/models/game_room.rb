@@ -41,8 +41,22 @@ class GameRoom
     self.active = false
   end
 
-  def new_round
-    rounds << Round.newRound(players)
+  def start
+    active_players = self.players
+
+    if (!self.active && active_players.count >= 2)
+      new_round(active_players)
+      self.active = true
+      save
+    end
+  end
+
+  def new_round(players)
+    round = Round.new_round(players)
+    round.start
+    self.rounds << round
+    save
+    Pusher.trigger("gameroom-#{id}", 'newround', round)
   end
 
   def buyInOk?(buy_in)

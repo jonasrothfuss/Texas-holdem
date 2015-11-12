@@ -26,6 +26,12 @@ class GameRoomController < ApplicationController
     respond_with game_room.remove_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)), :location => '/home/'
   end
 
+  def start
+    gameroom = GameRoom.find(params[:id])
+    gameroom.start
+    respond_with gameroom, :location => ''
+  end
+
   def players
     gameroom = GameRoom.find(params[:id])
     respond_with gameroom.players

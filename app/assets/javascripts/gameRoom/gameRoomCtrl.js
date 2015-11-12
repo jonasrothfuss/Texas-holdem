@@ -14,6 +14,10 @@ pokerApp.controller('gameRoomCtrl', [
 
 		joinAndLoad();
 
+		$scope.start = function(){
+			start();
+		};
+
 		$scope.leaveRoom = function () {
 			leave();
 		};
@@ -42,6 +46,11 @@ pokerApp.controller('gameRoomCtrl', [
 			$scope.gameRoom.players.splice(i, 1);
 		});
 
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (round) {
+			console.log("game has started");
+			$scope.round = round;
+		});
+
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
 			$scope.messages.push(message);
 		});
@@ -54,6 +63,12 @@ pokerApp.controller('gameRoomCtrl', [
 				apiServices.GameService.Players($stateParams.gameId).success(function (result) {
 					$scope.gameRoom.players = result;
 				});
+			});
+		}
+
+		function start(){
+			apiServices.GameService.Start($stateParams.gameId, {user: $rootScope.user}).success(function(result){
+				$scope.gameRoom.active = true;
 			});
 		}
 
