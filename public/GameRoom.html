@@ -8,165 +8,44 @@
 
 		<div class="row" id="tableRow">
 			<div class="col-xs-12" id="tableCol">
-        <p ng-repeat="p in gameRoom.players">{{p._id}}: {{p.owner.first_name}} {{p.owner.last_name}} {{p.buy_in}}</p>
-        <a class="btn btn-primary" ng-show="gameRoom.players.length >= 2" ng-click="start()">Start Game</a>
-        
-        <div class="row" id="players123Row">
-          <div class="col-xs-4" id="player1Col">
-            <p class="text-center" id="player1"><strong>username</strong>
-            <br><span class="mdi-social-mood" style="font-size:45px;"></span>
-            <br><strong>$100</strong></p>
-            <p class="text-right" id="player1cards"><img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg"></p>
-            <!--
-            <p class="text-center" id="player1"><strong>Join!</strong>
-            <br><span class="mdi-toggle-radio-button-off" style="font-size:45px;"></span>
-            <br><strong>Searching for Players...</strong></p>
-            -->
-          </div>
-          
-          <div class="col-xs-4" id="player2Col">
-            <!--
-            <p class="text-center" id="player2"><strong>username</strong>
-            <br><span class="mdi-social-mood" style="font-size:45px;"></span>
-            <br><strong>$100</strong></p>
-            <p class="text-center" id="player2cards"><img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg"></p>
-            -->
-            <p class="text-center" id="player2"><strong>Join!</strong>
-            <br><span class="mdi-toggle-radio-button-off" style="font-size:45px;"></span>
-            <br><strong>Searching for Players...</strong></p>
-          </div>
-          
-          <div class="col-xs-4" id="player3Col">
-            <p class="text-center" id="player3"><strong>username</strong>
-            <br><span class="mdi-social-mood" style="font-size:45px;"></span>
-            <br><strong>$100</strong></p>
-            <p class="text-left" id="player3cards"><img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg"></p>
-            <!--
-            <p class="text-center" id="player3"><strong>Join!</strong>
-            <br><span class="mdi-toggle-radio-button-off" style="font-size:45px;"></span>
-            <br><strong>Searching for Players...</strong></p>
-            -->
-          </div>
-        </div>
-        
-        <div class="row" id="players45commCardsRow">
-          <div class="col-xs-3" id="player4Col">
-            <div class="row" id="player4ColRow">
-              <div class="col-xs-6" id="player4InfoCol">
-                <p class="text-center" id="player4"><strong>username</strong>
-                <br><span class="mdi-social-mood" style="font-size:45px;"></span>
-                <br><strong>$100</strong></p>
-              </div>
-              
-              <div class="col-xs-6" id="player4CardsCol">
-                <p class="text-center" id="player4cards"><img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg">
-                <img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg"></p>
-              </div>
-            </div>
-            
-            <!--
-            <p class="text-center" id="player4"><strong>Join!</strong>
-            <br><span class="mdi-toggle-radio-button-off" style="font-size:45px;"></span>
-            <br><strong>Searching for Players...</strong></p>
-            -->
-          </div>
-          
-          <div class="col-xs-6" id="commCardsAndPotCol">
-            <p class="text-center" id="commCards"><img style="width:40px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:40px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:40px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:40px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:40px;height:auto;" src="assets/cards/clubs/2C.svg"></p>
-            <h3 class="text-center"><strong>Pot: <span class="text-danger">$100</span></strong></h3>
-          </div>
-          
-          <div class="col-xs-3" id="player5Col">
-            <div class="row" id="player5ColRow">
-              <div class="col-xs-6" id="player5CardsCol">
-                <p class="text-center" id="player5cards"><img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg">
-                <img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg"></p>
-              </div>
-              
-              <div class="col-xs-6" id="player5InfoCol">
-                <p class="text-center" id="player5"><strong>username</strong>
-                <br><span class="mdi-social-mood" style="font-size:45px;"></span>
-                <br><strong>$100</strong></p>
-              </div>
-            </div>
-          </div>
-          
-          <!--
-            <p class="text-center" id="player5"><strong>Join!</strong>
-            <br><span class="mdi-toggle-radio-button-off" style="font-size:45px;"></span>
-            <br><strong>Searching for Players...</strong></p>
-            -->
-        </div>
-        
-        <div class="row" id="players67userRow">
-          <div class="col-xs-4" id="player6Col">
-            <p class="text-right" id="player6cards"><img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg"></p>
-            <p class="text-center" id="player6"><strong>username</strong>
-            <br><span class="mdi-social-mood" style="font-size:45px;"></span>
-            <br><strong>$100</strong></p>
-            <!--
-            <p class="text-center" id="player6"><strong>Join!</strong>
-            <br><span class="mdi-toggle-radio-button-off" style="font-size:45px;"></span>
-            <br><strong>Searching for Players...</strong></p>
-            -->
-          </div>
-          
-          <div class="col-xs-4" id="userPlayerCol">
-            <h3 class="text-center" id="userPlayer"><strong>You</strong>
-            <br><span class="mdi-social-mood" style="font-size:90px;"></span>
-            <br><strong>$100</strong></h3>
-          </div>
-          
-          <div class="col-xs-4" id="player7Col">
-            <p class="text-left" id="player7cards"><img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg">
-            <img style="width:30px;height:auto;" src="assets/cards/clubs/2C.svg"></p>
-            <p class="text-center" id="player7"><strong>username</strong>
-            <br><span class="mdi-social-mood" style="font-size:45px;"></span>
-            <br><strong>$100</strong></p>
-            <!--
-            <p class="text-center" id="player1"><strong>Join!</strong>
-            <br><span class="mdi-toggle-radio-button-off" style="font-size:45px;"></span>
-            <br><strong>Searching for Players...</strong></p>
-            -->
-          </div>
-        </div>
+				<a class="btn btn-primary" ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-click="start()">Start Game</a>
+
+				<div class="col-xs-4">
+					<div ng-repeat="p in gameRoom.players">
+						<p>{{p.owner.first_name}} (${{p.buy_in}}): Bet: $0</p>
+					</div>
+				</div>
 			</div>
 		</div>
 
 		<div class="row" id="userChoicesRow">
-      <div class="col-xs-4" id="checkCallCol">
-        <button class="col-xs-12 btn btn-success btn-raised" id="checkCallBtn" type="button">Check/Call</button>
-      </div>
+			<div class="col-xs-4" id="checkCallCol">
+				<button class="col-xs-12 btn btn-success btn-raised" id="checkCallBtn" type="button">Check/Call</button>
+			</div>
 
-      <div class="col-xs-4" id="raiseCol">
-        <button class="col-xs-12 btn btn-danger btn-raised" id="raiseBtn" type="button">Raise</button>
-      </div>
+			<div class="col-xs-4" id="raiseCol">
+				<button class="col-xs-12 btn btn-danger btn-raised" id="raiseBtn" type="button">Raise</button>
+			</div>
 
-      <div class="col-xs-4" id="foldCol">
-        <button class="col-xs-12 btn btn-warning btn-raised" id="foldBtn" type="button">Fold</button>
-      </div>
+			<div class="col-xs-4" id="foldCol">
+				<button class="col-xs-12 btn btn-warning btn-raised" id="foldBtn" type="button">Fold</button>
+			</div>
 		</div>
 
 		<div class="row" id="betInfoRow">
-      <div class="col-xs-6" id="userBetCol">
-        <span class="col-xs-12 btn btn-primary btn-raised" id="userBet">Your Bet: <strong>Your Bet Goes Here</strong></span>
-      </div>
+			<div class="col-xs-6" id="userBetCol">
+				<span class="col-xs-12 btn btn-primary btn-raised" id="userBet">Your Bet: <strong>Your Bet Goes
+					Here</strong></span>
+			</div>
 
-      <div class="col-xs-6" id="betLimitCol">
-        <span class="col-xs-12 btn btn-primary btn-raised" id="betLimits">Bet Limits: <strong>Min Limit - Max Limit</strong></span>
-      </div>
-    </div>
+			<div class="col-xs-6" id="betLimitCol">
+				<span class="col-xs-12 btn btn-primary btn-raised" id="betLimits">Bet Limits: <strong>Min Limit - Max
+					Limit</strong></span>
+			</div>
+		</div>
 	</div>
 
-	<div class="col-sm-4 hidden-xs" id="feedChatCol">
+	<div class="col-xs-4 hidden-xs" id="feedChatCol">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title text-center">Feed</h3>
@@ -191,7 +70,7 @@
 			<form class="panel-body" ng-submit="sendMessage()">
 				<div class="form-group">
 					<div class="input-group">
-						<input class="form-control" type="text" ng-model="message" placeholder="Enter Message Here" />
+						<input class="form-control" type="text" ng-model="message" placeholder="Enter Message Here"/>
               <span class="input-group-btn">
                 <button class="btn btn-primary btn-raised" ng-class="{'disabled': sending}" type="submit">Send</button>
               </span>
