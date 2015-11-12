@@ -4,6 +4,9 @@ class Hand
 
   belongs_to :player
   embeds_many :gamecards, :class_name => "GameCard"
+  field :big_blind, type: Boolean
+  field :small_blind, type: Boolean
+  field :bet, type: Integer
 
   belongs_to :round
 

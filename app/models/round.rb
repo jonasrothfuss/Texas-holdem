@@ -85,9 +85,9 @@ class Round
   def access_hand(user)
     if(self.stage < 4)
       player = self.players.where(owner: user).first
-      response = {hands: self.hands.where(player: player).only(:player, :gamecards), default: {:image_path => GameCard.default_image_path}}
+      response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.where(player: player).only(:player, :gamecards), default_card: {:image_path => GameCard.default_image_path}}
     else
-      response = {hands: self.hands.only(:player, :gamecards)}
+      response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.only(:player, :gamecards)}
     end
 
     return response

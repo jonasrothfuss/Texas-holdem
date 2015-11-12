@@ -10,6 +10,7 @@ pokerApp.controller('gameRoomCtrl', [
 
 		$scope.gameRoom = {};
 		$scope.round = {};
+		$scope.turn = false;
 		$scope.sending = false;
 		$scope.messages = [];
 		$scope.message = '';
@@ -57,6 +58,10 @@ pokerApp.controller('gameRoomCtrl', [
 			getHand();
 		});
 
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function(player){
+			renderTurn(player);
+		});
+
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
 			$scope.messages.push(message);
 		});
@@ -96,11 +101,18 @@ pokerApp.controller('gameRoomCtrl', [
 
 					if (!$filter('isEmpty')(hand) && $scope.round.player_ids.indexOf(k._id) > -1) {
 						k.hand = hand[0];
-					} else {
-						k.hand = {};
-						k.hand.gamecards = [];
+					}
+
+					var cards = result.cards.filter(function (c){
+						return c.player_id == k._id
+					});
+
+					if(!$filter('isEmpty')(cards)) {
+						k.hand.cards = cards[0].gamecards;
+					}else{
+						k.hand.cards = [];
 						for (var i = 0; i < 2; i++) {
-							k.hand.gamecards[i] = result.default;
+							k.hand.cards[i] = result.default_card;
 						}
 					}
 				});
