@@ -8,8 +8,7 @@
 
 		<div class="row">
 			<div class="col-xs-12">
-				<p ng-repeat="p in gameRoom.players">{{p._id}}: {{p.owner.first_name}} {{p.owner.last_name}} {{p.buy_in}}</p>
-				<a class="btn btn-primary" ng-show="gameRoom.players.length >= 2" ng-click="start()">Start Game</a>
+				<p ng-repeat="player in gameRoom.game_players">{{player._id}}: {{player.owner.first_name}} {{player.owner.last_name}} {{player.buy_in}}</p>
 			</div>
 		</div>
 
