@@ -37,6 +37,11 @@ class GameRoomController < ApplicationController
     respond_with gameroom.players
   end
 
+  def round
+    gameroom = GameRoom.find(params[:id])
+    respond_with gameroom.access_round
+  end
+
   def message
     head 200, content_type: "text/html"
     Pusher.trigger("gameroom-#{params[:id]}", 'chat', params[:message])

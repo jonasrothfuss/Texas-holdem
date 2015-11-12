@@ -37,8 +37,9 @@ class GameRoom
     Pusher.trigger("gameroom-#{id}", 'playerleft', player)
   end
 
-  def close_room
+  def close
     self.active = false
+    save
   end
 
   def start
@@ -56,13 +57,18 @@ class GameRoom
     round.start
     self.rounds << round
     save
-    Pusher.trigger("gameroom-#{id}", 'newround', round)
+    Pusher.trigger("gameroom-#{id}", 'newround', access_round)
   end
 
   def buyInOk?(buy_in)
     return buy_in <= self.limit
   end
 
+  def access_round
+    round = self.rounds
+    response = {:round => round.without(:communal_cards).first, :cards => round.first.access_cards}
+    return response
+  end
 end
 
 

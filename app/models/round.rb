@@ -6,19 +6,21 @@ class Round
 
   has_and_belongs_to_many :players
   embeds_many :communal_cards, :class_name => "GameCard"
-  embeds_many :hands
+  has_many :hands
 
   belongs_to :game_room
 
   field :pot
-  field :bigBlind
-  field :smallBlind
+  field :big_blind
+  field :small_blind
   field :limit
   field :stage, type: Integer
-  field :close, type: Boolean
+  field :active, type: Boolean
+
+  default_scope -> { where(active: true) }
 
   def self.new_round(players)
-    return self.create(pot: 0, players: players, communal_cards: [])
+    return self.create(pot: 0, players: players, active: true, communal_cards: [])
   end
 
   def start
@@ -32,7 +34,7 @@ class Round
   def create_deck
     @deck=[]
     ['C', 'D', 'H', 'S'].each do |color|
-      [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'].each do |number|
+      [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A'].each do |number|
         @deck << number.to_s + color
       end
     end
@@ -55,6 +57,29 @@ class Round
 
   def get_card
     return @deck.delete_at(Random.rand(@deck.length))
+  end
+
+  def access_cards
+    cards = []
+
+    case stage
+      when 1
+        5.times do
+          cards.push({:image_path => GameCard.default_image_path})
+        end
+      when 2
+        cards = self.communal_cards.first(3)
+        2.times do
+          cards.push({:image_path => GameCard.default_image_path})
+        end
+      when 3
+        cards = self.communal_cards.first(4)
+        cards.push({:image_path => GameCard.default_image_path})
+      else
+        cards = self.communal_cards.first(5)
+    end
+
+    return cards
   end
 
   #method handles one round
