@@ -18,18 +18,18 @@
  *= require_self
  */
 
-body{
-    background-color: #232D33;
-    background-image: url('bg.png');
-    background-repeat: repeat;
+body {
+  background-color: #232D33;
+  background-image: url('bg.png');
+  background-repeat: repeat;
 }
 
-nav{
+nav {
   z-index: 100000;
 }
 
 /* Margin and Padding styles */
-@for $i from 0 through 10{
+@for $i from 0 through 10 {
   $i: $i * 5;
 
   .tm-#{$i} {
@@ -59,8 +59,8 @@ nav{
 }
 
 /*Material Bootstrap Overrides*/
-.panel{
-    border-radius: 6px;
+.panel {
+  border-radius: 6px;
 }
 
 //.panel:not(.header):hover {
@@ -72,30 +72,41 @@ nav{
 //    border-bottom: 3px solid #EB0011;
 //}
 
-.alert{
-    border-radius: 4px;
+.alert {
+  border-radius: 4px;
 }
 
-.alert-sm{
-    padding: 5px 10px;
+.alert-sm {
+  padding: 5px 10px;
 }
 
-.alert-warning{
-    background-color: #F19D00;
+.alert-warning {
+  background-color: #F19D00;
 }
 
-.form-control{
-    margin-top: 20px;
-    margin-bottom: 20px;
+.form-control {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-#status-toast{
+.card {
+  height: 100px;
+  width: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#status-toast {
   position: absolute;
   left: 50%;
   top: 60px;
   font-size: 24px;
   width: 450px;
   margin-left: -200px;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 10000;
+}
+
+#gameCol {
+  background-color: #eee;
 }
