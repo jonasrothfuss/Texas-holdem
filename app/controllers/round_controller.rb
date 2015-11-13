@@ -7,6 +7,17 @@ class RoundController < ApplicationController
 
   def hand
     round = Round.find(params[:id])
-    respond_with round.access_hand(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)), :location => ''
+    respond_with round.access_hand(user_param), :location => ''
+  end
+
+  def turn
+    round = Round.find(params[:id])
+    respond_with round.add_turn(user_param, params[:bet]), :location => ''
+    round.move
+  end
+
+  private
+  def user_param
+    params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)
   end
 end

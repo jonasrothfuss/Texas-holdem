@@ -29,15 +29,16 @@
 
 		<div class="row" id="userChoicesRow">
 			<div class="col-xs-4" id="checkCallCol">
-				<button class="col-xs-12 btn btn-success btn-raised" ng-class="{'disabled': !turn}" id="checkCallBtn" type="button">Check/Call</button>
+				<!--<button class="col-xs-12 btn btn-success btn-raised" ng-class="{'disabled': !turn}" id="checkCallBtn" ng-show="" type="button">Check</button>-->
+				<button class="col-xs-12 btn btn-success btn-raised" ng-class="{'disabled': !turn}" id="checkCallBtn" ng-click="bet(round.call_bet)" type="button">Call - ${{round.call_bet}}</button>
 			</div>
 
 			<div class="col-xs-4" id="raiseCol">
-				<button class="col-xs-12 btn btn-danger btn-raised" ng-class="{'disabled': !turn}" id="raiseBtn" type="button">Raise</button>
+				<button class="col-xs-12 btn btn-danger btn-raised" ng-class="{'disabled': !turn}" id="raiseBtn" ng-click="bet(round.raise_bet)" type="button">Raise - ${{round.raise_bet}}</button>
 			</div>
 
 			<div class="col-xs-4" id="foldCol">
-				<button class="col-xs-12 btn btn-warning btn-raised" ng-class="{'disabled': !turn}" id="foldBtn" type="button">Fold</button>
+				<button class="col-xs-12 btn btn-warning btn-raised" ng-class="{'disabled': !turn}" id="foldBtn" ng-click="bet(-1)" type="button">Fold</button>
 			</div>
 		</div>
 	</div>

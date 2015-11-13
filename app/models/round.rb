@@ -30,7 +30,13 @@ class Round
     save
   end
 
-  def start
+  def move
+    if stage_finished?
+      self.stage += 1
+      resolve_stage
+      push_stage
+    end
+
     next_player
     push_turn
   end
@@ -47,10 +53,10 @@ class Round
   def deal_players
     self.players.each do |p|
       bet = 0
-      if(p.small_blind)
+      if (p.small_blind)
         bet = self.small_blind
       end
-      if(p.big_blind)
+      if (p.big_blind)
         bet = self.big_blind
       end
 
@@ -98,51 +104,114 @@ class Round
     return cards
   end
 
-  def access_hand(user)
-    if (self.stage < 4)
+  def access_hand(user={})
+    if self.stage < 5
       player = self.players.where(owner: user).first
-      response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.where(player: player).only(:player, :gamecards), default_card: {:image_path => GameCard.default_image_path}}
+      response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.where(player: player).only(:player, :current, :gamecards), default_card: {:image_path => GameCard.default_image_path}}
     else
-      response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.only(:player, :gamecards)}
+      response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.only(:player, :current, :gamecards)}
     end
 
     return response
   end
 
-  def next_player
-    last_hand = false
+  def add_turn(user, bet)
+    hand = self.hands.where(current: true).first
+    if hand.player.owner[:_id] == user[:_id]
+      if bet == -1
+        hand.fold = true
+      else
+        hand.bet = bet
+      end
 
-    self.hands.each do |h, i|
-      if(last_hand)
-        h.current = true
+      hand.action_count += 1
+    end
+
+    hand.save
+  end
+
+  def next_player
+    last = -1
+
+    self.hands.each_with_index do |h, i|
+      if h.current
+        last = i
+        h.current = false
         h.save
         break
       end
 
-      if(h.current)
-        last_hand = true
-        h.current = false
-        h.save
-      end
-
-      if(h.player.big_blind)
+      if h.player.big_blind
         big_blind = i
       end
     end
 
-    if(!last_hand)
-      if(big_blind+1 >= self.hands.count)
-        big_blind = -1
-      end
-
-      self.hands[big_blind+1].current = true
-      self.hands[big_blind+1].save
+    if last == -1
+      last = big_blind
     end
+
+    if last+1 >= self.hands.count
+      last = -1
+    end
+
+    self.hands[last+1].current = true
+    self.hands[last+1].save
   end
 
   def push_turn
-    hand = self.hands.where(current: true).only(:player)
+    hand = self.hands.without(:round, :gamecards)
     Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', hand)
+  end
+
+  def stage_finished?
+    bet = self.hands[0].bet
+    action = self.hands[0].action_count
+
+    self.hands.each do |h|
+      if bet != h.bet
+        return false
+      end
+
+      if action != h.action_count
+        return false
+      end
+    end
+
+    return true
+  end
+
+  def resolve_stage
+    unless self.stage == 5
+      collect_bets
+      self.hands.each do |h|
+        h.current = false
+        h.save
+      end
+    else
+      resolve_winner
+    end
+  end
+
+  def collect_bets
+    self.hands.each do |h|
+      self.pot += h.bet
+      h.bet = 0
+      h.save
+    end
+
+    save
+  end
+
+  def push_stage
+    if self.stage == 4
+      hands = access_hand
+    else
+      hands = self.hands.without(:round, :gamecards)
+    end
+
+    push = {pot: self.pot, cards: access_cards, hands: hands}
+
+    Pusher.trigger("gameroom-#{self.game_room.id}", 'stage', push)
   end
 
   #method handles one round

@@ -21,7 +21,8 @@ Rails.application.routes.draw do
     end
 
     controller :round do
-      post   'round/:id/hand'        => :hand
+      post  'round/:id/hand'        => :hand
+      post  'round/:id/turn'        => :turn
     end
   end
 

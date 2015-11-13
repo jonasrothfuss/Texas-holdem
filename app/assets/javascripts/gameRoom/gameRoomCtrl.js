@@ -21,6 +21,11 @@ pokerApp.controller('gameRoomCtrl', [
 			start();
 		};
 
+		$scope.bet = function (bet) {
+			$scope.turn = false;
+			sendTurn(bet);
+		};
+
 		$scope.leaveRoom = function () {
 			leave();
 		};
@@ -51,16 +56,27 @@ pokerApp.controller('gameRoomCtrl', [
 			$scope.gameRoom.players.splice(i, 1);
 		});
 
-		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (result) {
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (response) {
 			$scope.gameRoom.active = true;
-			$scope.gameRoom.players = result.players;
-			$scope.round = result.newround.round;
-			$scope.round.cards = result.newround.cards;
+			$scope.gameRoom.players = response.players;
+			$scope.round = response.newround.round;
+			$scope.round.cards = response.newround.cards;
 			getHands();
+			setBets();
 		});
 
-		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (player) {
-			renderTurn(player);
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (hands) {
+			renderHands(hands);
+			setBets();
+		});
+
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'stage', function (response) {
+			$scope.round.cards = response.cards;
+			$scope.round.pot = response.pot;
+			renderHands(response.hands);
+			if (response.cards != null) {
+				renderCards(response.cards);
+			}
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
@@ -93,43 +109,61 @@ pokerApp.controller('gameRoomCtrl', [
 
 		function getHands() {
 			apiServices.RoundService.GetHand($scope.round._id, {user: $rootScope.user}).success(function (result) {
-				angular.forEach($scope.gameRoom.players, function (k) {
-					var hand = result.hands.filter(function (h) {
-						return h.player_id == k._id;
-					});
-
-					if (!$filter('isEmpty')(hand) && $scope.round.player_ids.indexOf(k._id) > -1) {
-						k.hand = hand[0];
-					}
-
-					if(k.hand.current){
-						checkIfTurn(k.owner._id);
-					}
-
-					var cards = result.cards.filter(function (c) {
-						return c.player_id == k._id
-					});
-
-					if (!$filter('isEmpty')(cards)) {
-						k.hand.cards = cards[0].gamecards;
-					} else {
-						k.hand.cards = [];
-						for (var i = 0; i < 2; i++) {
-							k.hand.cards[i] = result.default_card;
-						}
-					}
-				});
+				renderHands(result.hands);
+				renderCards(result.cards, result.default_card);
+				setBets();
 			});
 		}
 
-		function renderTurn(player) {
-			var res = $scope.gameRoom.players.filter(function (p) {
-				return p._id == player.player_id
+		function setBets() {
+			var call_bet = 0;
+
+			angular.forEach($scope.gameRoom.players, function (p) {
+				console.log(p.hand);
+				if (p.hand.bet > call_bet) {
+					call_bet = p.hand.bet;
+				}
 			});
 
-			res.hand = true;
+			$scope.round.raise_bet = (call_bet == 0) ? $scope.round.big_blind : call_bet * 2;
+			$scope.round.call_bet = call_bet;
+		}
 
-			checkIfTurn(res.owner._id)
+		function sendTurn(bet) {
+			apiServices.RoundService.SendTurn($scope.round._id, {bet: bet, user: $rootScope.user});
+		}
+
+		function renderHands(hands) {
+			angular.forEach($scope.gameRoom.players, function (p) {
+				var hand = hands.filter(function (h) {
+					return h.player_id == p._id;
+				});
+
+				if (!$filter('isEmpty')(hand) && $scope.round.player_ids.indexOf(p._id) > -1) {
+					p.hand = hand[0];
+				}
+
+				if (p.hand.current) {
+					checkIfTurn(p.owner._id);
+				}
+			});
+		}
+
+		function renderCards(gamecards, default_card) {
+			angular.forEach($scope.gameRoom.players, function (p) {
+				var cards = gamecards.filter(function (c) {
+					return c.player_id == p._id
+				});
+
+				if (!$filter('isEmpty')(cards)) {
+					p.hand.cards = cards[0].gamecards;
+				} else {
+					p.hand.cards = [];
+					for (var i = 0; i < 2; i++) {
+						p.hand.cards[i] = default_card;
+					}
+				}
+			});
 		}
 
 		function checkIfTurn(playerId) {

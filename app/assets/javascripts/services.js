@@ -66,6 +66,9 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 			RoundService:{
 				GetHand: function(roundId, post){
 					return call('round', roundId, 'hand', post);
+				},
+				SendTurn: function(roundId, post){
+					return call('round', roundId, 'turn', post);
 				}
 			}
 		}

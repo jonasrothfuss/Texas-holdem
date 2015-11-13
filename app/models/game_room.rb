@@ -58,7 +58,7 @@ class GameRoom
     response = {players: self.players, newround: access_round}
     Pusher.trigger("gameroom-#{id}", 'newround', response)
     save
-    round.start
+    round.move
   end
 
   def new_blinds
