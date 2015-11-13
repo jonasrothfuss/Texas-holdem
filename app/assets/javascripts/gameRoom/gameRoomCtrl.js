@@ -52,7 +52,6 @@ pokerApp.controller('gameRoomCtrl', [
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (result) {
-			console.log(result);
 			$scope.gameRoom.active = true;
 			$scope.gameRoom.players = result.players;
 			$scope.round = result.newround.round;
@@ -60,7 +59,7 @@ pokerApp.controller('gameRoomCtrl', [
 			getHand();
 		});
 
-		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function(player){
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (player) {
 			renderTurn(player);
 		});
 
@@ -111,9 +110,9 @@ pokerApp.controller('gameRoomCtrl', [
 						return c.player_id == k._id
 					});
 
-					if(!$filter('isEmpty')(cards)) {
+					if (!$filter('isEmpty')(cards)) {
 						k.hand.cards = cards[0].gamecards;
-					}else{
+					} else {
 						k.hand.cards = [];
 						for (var i = 0; i < 2; i++) {
 							k.hand.cards[i] = result.default_card;

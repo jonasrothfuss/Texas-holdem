@@ -19,7 +19,7 @@ class Round
   default_scope -> { where(active: true) }
 
   def self.new_round(players, blind)
-    return self.create(pot: 0, players: players, big_blind: blind, small_blind: blind/2, active: true, communal_cards: [])
+    return self.create(pot: 0, players: players, small_blind: blind/2, big_blind: blind, active: true, communal_cards: [])
   end
 
   def initialise
@@ -77,29 +77,29 @@ class Round
 
   def access_cards
     cards = []
+    fill = 5
 
     case stage
-      when 1
-        5.times do
-          cards.push({:image_path => GameCard.default_image_path})
-        end
       when 2
         cards = self.communal_cards.first(3)
-        2.times do
-          cards.push({:image_path => GameCard.default_image_path})
-        end
+        fill = 2
       when 3
         cards = self.communal_cards.first(4)
-        cards.push({:image_path => GameCard.default_image_path})
-      else
+        fill = 1
+      when 4
         cards = self.communal_cards.first(5)
+        fill = 0
+    end
+
+    fill.times do
+      cards.push({:image_path => GameCard.default_image_path})
     end
 
     return cards
   end
 
   def access_hand(user)
-    if(self.stage < 4)
+    if (self.stage < 4)
       player = self.players.where(owner: user).first
       response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.where(player: player).only(:player, :gamecards), default_card: {:image_path => GameCard.default_image_path}}
     else

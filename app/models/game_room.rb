@@ -97,15 +97,16 @@ class GameRoom
     save
   end
 
-  def buyInOk?(buy_in)
-    return buy_in <= self.limit
-  end
-
   def access_round
     round = self.rounds
     response = {:round => round.without(:communal_cards).first, :cards => round.first.access_cards}
     return response
   end
+
+  def buyInOk?(buy_in)
+    return buy_in <= self.limit
+  end
+
 end
 
 
