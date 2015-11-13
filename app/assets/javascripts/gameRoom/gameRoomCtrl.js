@@ -51,10 +51,12 @@ pokerApp.controller('gameRoomCtrl', [
 			$scope.gameRoom.players.splice(i, 1);
 		});
 
-		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (newround) {
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (result) {
+			console.log(result);
 			$scope.gameRoom.active = true;
-			$scope.round = newround.round;
-			$scope.round.cards = newround.cards;
+			$scope.gameRoom.players = result.players;
+			$scope.round = result.newround.round;
+			$scope.round.cards = result.newround.cards;
 			getHand();
 		});
 
@@ -87,9 +89,7 @@ pokerApp.controller('gameRoomCtrl', [
 		}
 
 		function start() {
-			apiServices.GameService.Start($stateParams.gameId, {user: $rootScope.user}).success(function (result) {
-				$scope.gameRoom.active = true;
-			});
+			apiServices.GameService.Start($stateParams.gameId, {user: $rootScope.user});
 		}
 
 		function getHand() {

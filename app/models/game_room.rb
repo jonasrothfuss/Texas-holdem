@@ -8,8 +8,6 @@ class GameRoom
   field :name, type: String
   field :max_players, type: Integer
   field :min_bet, type: Integer
-  field :small_blind_index, type: Integer
-  field :big_blind_index, type: Integer
   field :active, type: Boolean
   field :closed, type: Boolean
   field :isPrivate, type: Boolean
@@ -45,38 +43,54 @@ class GameRoom
   end
 
   def start
-    active_players = self.players
-
-    if (!self.active && active_players.count >= 2)
-      self.small_blind_index = -1
-      self.big_blind_index  = 0
-      new_round(active_players)
+    if (!self.active && self.players.count >= 2)
+      new_round
       self.active = true
       save
     end
   end
 
-  def new_round(players)
-    round = Round.new_round(players, self.min_bet)
+  def new_round
     new_blinds
-    round.start(self.small_blind_index, self.big_blind_index)
+    round = Round.new_round(self.players, self.min_bet)
+    round.start
     self.rounds << round
+    response = {players: self.players, newround: access_round}
+    Pusher.trigger("gameroom-#{id}", 'newround', response)
     save
-    Pusher.trigger("gameroom-#{id}", 'newround', access_round)
   end
 
   def new_blinds
-    player_count = self.players.count
+    last_big = false
+    last_small = false
 
-    self.small_blind_index += 1
-    self.big_blind_index += 1
+    self.players.each do |p|
+      if(last_big)
+        p.big_blind = true
+        break
+      end
 
-    if(self.small_blind_index == player_count)
-      self.small_blind_index = 0
+      if(p.big_blind)
+        p.big_blind = false
+        last_big = true
+      end
     end
 
-    if(self.big_blind_index == player_count)
-      self.big_blind_index = 0
+    self.players.each do |p|
+      if(last_small)
+        p.small_blind = true
+        break
+      end
+
+      if(p.small_blind)
+        p.small_blind = false
+        last_small = true
+      end
+    end
+
+    if(!last_small && !last_big)
+      self.players[0].small_blind = true
+      self.players[1].big_blind = true
     end
 
     save

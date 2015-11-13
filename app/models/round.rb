@@ -22,10 +22,10 @@ class Round
     return self.create(pot: 0, players: players, big_blind: blind, small_blind: blind/2, active: true, communal_cards: [])
   end
 
-  def start(small_blind, big_blind)
+  def start
     create_deck
     deal_communal
-    deal_players(small_blind, big_blind)
+    deal_players
     self.stage = 1
     save
   end
@@ -39,27 +39,23 @@ class Round
     end
   end
 
-  def deal_players(small_blind, big_blind)
-    i = 0
-
-    self.players.each do |player|
-      small = (i == small_blind)
-      big = (i == big_blind)
-      if (small)
+  def deal_players
+    self.players.each do |p|
+      bet = 0
+      if(p.small_blind)
         bet = self.small_blind
-      elsif (big)
-        bet = self.big_blind
-      else
+      end
+      if(p.big_blind)
         bet = self.big_blind
       end
 
-      player.chips -= bet
-      player.save
+      p.chips -= bet
+      p.save
 
-      self.hands << Hand.new_hand(player, get_card, get_card, small, big, bet)
-      save
-      i += 1
+      self.hands << Hand.new_hand(p, get_card, get_card, bet)
     end
+
+    save
   end
 
   def deal_communal

@@ -8,6 +8,8 @@ class Player
 
   field :owner
   field :chips, type: Integer
+  field :small_blind, type: Boolean
+  field :big_blind, type: Boolean
   field :active, type: Boolean
 
   default_scope -> { where(active: true) }
