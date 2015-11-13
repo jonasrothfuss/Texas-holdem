@@ -5,6 +5,7 @@ class Hand
   belongs_to :player
   embeds_many :gamecards, :class_name => "GameCard"
   field :bet, type: Integer
+  field :current, type: Boolean
 
   belongs_to :round
 

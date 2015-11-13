@@ -14,7 +14,7 @@
 					<div ng-repeat="p in gameRoom.players">
 						<img class="card bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
 
-						<p>{{p.owner.first_name}} (${{p.chips}}): Bet: ${{p.hand.bet}}</p>
+						<p ng-class="{'bold': p.hand.current}">{{p.owner.first_name}} (${{p.chips}}): Bet: ${{p.hand.bet}}</p>
 					</div>
 				</div>
 				<div class="col-xs-8">
@@ -29,27 +29,15 @@
 
 		<div class="row" id="userChoicesRow">
 			<div class="col-xs-4" id="checkCallCol">
-				<button class="col-xs-12 btn btn-success btn-raised" id="checkCallBtn" type="button">Check/Call</button>
+				<button class="col-xs-12 btn btn-success btn-raised" ng-class="{'disabled': !turn}" id="checkCallBtn" type="button">Check/Call</button>
 			</div>
 
 			<div class="col-xs-4" id="raiseCol">
-				<button class="col-xs-12 btn btn-danger btn-raised" id="raiseBtn" type="button">Raise</button>
+				<button class="col-xs-12 btn btn-danger btn-raised" ng-class="{'disabled': !turn}" id="raiseBtn" type="button">Raise</button>
 			</div>
 
 			<div class="col-xs-4" id="foldCol">
-				<button class="col-xs-12 btn btn-warning btn-raised" id="foldBtn" type="button">Fold</button>
-			</div>
-		</div>
-
-		<div class="row" id="betInfoRow">
-			<div class="col-xs-6" id="userBetCol">
-				<span class="col-xs-12 btn btn-primary btn-raised" id="userBet">Your Bet: <strong>Your Bet Goes
-					Here</strong></span>
-			</div>
-
-			<div class="col-xs-6" id="betLimitCol">
-				<span class="col-xs-12 btn btn-primary btn-raised" id="betLimits">Bet Limits: <strong>Min Limit - Max
-					Limit</strong></span>
+				<button class="col-xs-12 btn btn-warning btn-raised" ng-class="{'disabled': !turn}" id="foldBtn" type="button">Fold</button>
 			</div>
 		</div>
 	</div>

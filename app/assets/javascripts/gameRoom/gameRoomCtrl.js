@@ -103,7 +103,11 @@ pokerApp.controller('gameRoomCtrl', [
 						k.hand = hand[0];
 					}
 
-					var cards = result.cards.filter(function (c){
+					if(k.hand.current){
+						checkIfTurn(k.owner._id);
+					}
+
+					var cards = result.cards.filter(function (c) {
 						return c.player_id == k._id
 					});
 
@@ -117,6 +121,24 @@ pokerApp.controller('gameRoomCtrl', [
 					}
 				});
 			});
+		}
+
+		function renderTurn(player) {
+			var res = $scope.gameRoom.players.filter(function (p) {
+				return p._id == player.player_id
+			});
+
+			res.hand = true;
+
+			checkIfTurn(res.owner._id)
+		}
+
+		function checkIfTurn(playerId){
+			if (playerId == $rootScope.user._id) {
+				$scope.turn = true;
+			} else {
+				$scope.turn = false;
+			}
 		}
 
 		function leave() {

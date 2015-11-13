@@ -22,12 +22,17 @@ class Round
     return self.create(pot: 0, players: players, big_blind: blind, small_blind: blind/2, active: true, communal_cards: [])
   end
 
-  def start
+  def initialise
     create_deck
     deal_communal
     deal_players
     self.stage = 1
     save
+  end
+
+  def start
+    next_player
+    push_turn
   end
 
   def create_deck
@@ -102,6 +107,42 @@ class Round
     end
 
     return response
+  end
+
+  def next_player
+    last_hand = false
+
+    self.hands.each do |h, i|
+      if(last_hand)
+        h.current = true
+        h.save
+        break
+      end
+
+      if(h.current)
+        last_hand = true
+        h.current = false
+        h.save
+      end
+
+      if(h.player.big_blind)
+        big_blind = i
+      end
+    end
+
+    if(!last_hand)
+      if(big_blind+1 >= self.hands.count)
+        big_blind = -1
+      end
+
+      self.hands[big_blind+1].current = true
+      self.hands[big_blind+1].save
+    end
+  end
+
+  def push_turn
+    hand = self.hands.where(current: true).only(:player)
+    Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', hand)
   end
 
   #method handles one round

@@ -53,11 +53,12 @@ class GameRoom
   def new_round
     new_blinds
     round = Round.new_round(self.players, self.min_bet)
-    round.start
+    round.initialise
     self.rounds << round
     response = {players: self.players, newround: access_round}
     Pusher.trigger("gameroom-#{id}", 'newround', response)
     save
+    round.start
   end
 
   def new_blinds
