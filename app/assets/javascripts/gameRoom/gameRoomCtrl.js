@@ -56,7 +56,7 @@ pokerApp.controller('gameRoomCtrl', [
 			$scope.gameRoom.players = result.players;
 			$scope.round = result.newround.round;
 			$scope.round.cards = result.newround.cards;
-			getHand();
+			getHands();
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (player) {
@@ -81,7 +81,7 @@ pokerApp.controller('gameRoomCtrl', [
 						$scope.round = result.round;
 						$scope.round.cards = result.cards;
 
-						getHand();
+						getHands();
 					});
 				}
 			});
@@ -91,7 +91,7 @@ pokerApp.controller('gameRoomCtrl', [
 			apiServices.GameService.Start($stateParams.gameId, {user: $rootScope.user});
 		}
 
-		function getHand() {
+		function getHands() {
 			apiServices.RoundService.GetHand($scope.round._id, {user: $rootScope.user}).success(function (result) {
 				angular.forEach($scope.gameRoom.players, function (k) {
 					var hand = result.hands.filter(function (h) {
@@ -132,12 +132,8 @@ pokerApp.controller('gameRoomCtrl', [
 			checkIfTurn(res.owner._id)
 		}
 
-		function checkIfTurn(playerId){
-			if (playerId == $rootScope.user._id) {
-				$scope.turn = true;
-			} else {
-				$scope.turn = false;
-			}
+		function checkIfTurn(playerId) {
+			$scope.turn = (playerId == $rootScope.user._id);
 		}
 
 		function leave() {
