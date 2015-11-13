@@ -121,13 +121,15 @@ class Round
       if bet == -1
         hand.fold = true
       else
-        hand.bet = bet
+        hand.place_bet(bet)
       end
 
       hand.action_count += 1
-    end
 
-    hand.save
+      hand.save
+    else
+      raise UnauthorizedError
+    end
   end
 
   def next_player
@@ -329,6 +331,11 @@ class Round
   end
 end
 
+class UnauthorizedError < StandardError
+  def status
+    return 403
+  end
+end
 
 class PlayerNotPartOfRoundError < StandardError
 end

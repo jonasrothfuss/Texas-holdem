@@ -14,10 +14,16 @@ class RoundController < ApplicationController
     round = Round.find(params[:id])
     respond_with round.add_turn(user_param, params[:bet]), :location => ''
     round.move
+  rescue StandardError => e
+    render_error(e)
   end
 
   private
   def user_param
     params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)
+  end
+
+  def render_error(error)
+    respond_with error, :status => error.status, :location => ''
   end
 end
