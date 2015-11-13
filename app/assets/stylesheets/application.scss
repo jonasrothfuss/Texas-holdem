@@ -107,6 +107,12 @@ nav {
   z-index: 10000;
 }
 
+#messages {
+  height: 250px;
+  overflow: auto;
+  word-wrap: break-word;
+}
+
 #gameCol {
   background-color: #eee;
 }

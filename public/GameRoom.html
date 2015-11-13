@@ -60,7 +60,7 @@
 				<h3 class="panel-title text-center">Chat</h3>
 			</div>
 			<div class="panel-body">
-				<ul class="list-unstyled">
+				<ul id="messages" class="list-unstyled">
 					<li ng-repeat="m in messages"><p><strong>{{m.user.first_name}}:</strong>&nbsp; {{m.content}}</p></li>
 				</ul>
 			</div>
@@ -70,7 +70,7 @@
 					<div class="input-group">
 						<input class="form-control" type="text" ng-model="message" placeholder="Enter Message Here"/>
               <span class="input-group-btn">
-                <button class="btn btn-primary btn-raised" ng-class="{'disabled': sending}" type="submit">Send</button>
+                <button class="btn btn-primary btn-raised" ng-disabled="sending" type="submit">Send</button>
               </span>
 					</div>
 				</div>

@@ -38,6 +38,9 @@ pokerApp.controller('gameRoomCtrl', [
 					message: {user: $rootScope.user, content: $scope.message}
 				}).success(function () {
 					$scope.sending = false;
+
+					var messages = document.getElementById("messages");
+					messages.scrollTop = messages.scrollHeight;
 				});
 
 				$scope.message = '';
