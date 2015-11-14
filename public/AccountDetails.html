@@ -1,17 +1,17 @@
-<div style="margin-top: 5%;margin-left: 5%">
+<div style="margin-top: 5%;margin-left: 5%" ng-controller="AccountCtrl">
   <span class="btn btn-primary btn-file">
     Add Picture<input type="file" class="btn btn-file">
   </span>
 	<br>
 
-	<div style="">
-    <span>Username:</span>
+	<div ng-show="signedIn()" style="">
+    <span>Username: {{ user.username}} </span>
 		<br>
-    <span>Name:</span>
+    <span>Name: {{ user.first_name + " " + user.last_name }}</span>
 		<br>
-    <span>Email:</span>
+    <span>Email: {{ user.email }}</span>
 		<br>
-    <span>Cash:</span>
+    <span>Cash: {{ user.balance }}</span>
 		<br>
 		<br>
 		<a href=""><input type="button" class="btn btn-primary" value="Edit Profile"></a>
