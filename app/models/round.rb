@@ -168,14 +168,13 @@ class Round
 
   def stage_finished?
     bet = self.hands[0].bet
-    action = self.hands[0].action_count
 
     self.hands.each do |h|
       if bet != h.bet
         return false
       end
 
-      if action != h.action_count
+      if h.action_count == 0
         return false
       end
     end
@@ -187,6 +186,7 @@ class Round
     collect_bets
     self.hands.each do |h|
       h.current = false
+      h.action_count = 0
       h.save
     end
 
