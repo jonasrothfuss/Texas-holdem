@@ -82,18 +82,19 @@ class Round
 
   def access_cards
     cards = []
-    fill = 5
+    fill = 0
 
     case stage
+      when 1
+        fill = 5
       when 2
         cards = self.communal_cards.first(3)
         fill = 2
       when 3
         cards = self.communal_cards.first(4)
         fill = 1
-      when 4
+      else
         cards = self.communal_cards.first(5)
-        fill = 0
     end
 
     fill.times do
@@ -106,9 +107,9 @@ class Round
   def access_hand(user={})
     if self.stage < 5
       player = self.players.where(owner: user).first
-      response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.where(player: player).only(:player, :current, :gamecards), default_card: {:image_path => GameCard.default_image_path}}
+      response = {status: self.hands.without(:round, :gamecards), cards: self.hands.where(player: player).only(:player, :current, :gamecards), default_card: {:image_path => GameCard.default_image_path}}
     else
-      response = {hands: self.hands.without(:round, :gamecards), cards: self.hands.only(:player, :current, :gamecards)}
+      response = {status: self.hands.without(:round, :gamecards), cards: self.hands.only(:player, :current, :gamecards)}
     end
 
     return response
@@ -207,11 +208,11 @@ class Round
     if self.stage == 5
       hands = access_hand
     else
-      hands = self.hands.without(:round, :gamecards)
+      hands = {status: self.hands.without(:round, :gamecards)}
     end
 
     players = []
-    hands.each do |h|
+    self.hands.each do |h|
       players << h.player
     end
 
@@ -220,118 +221,58 @@ class Round
     Pusher.trigger("gameroom-#{self.game_room.id}", 'stage', push)
   end
 
-  #method handles one round
-  def play
-    #TODO: implement the flow of a round and may move this code to a controller
-    createDeck
-    servePlayerCards
-    #TODO: ask players for their actions
-    serveFlop
-    #TODO: ask players for their actions
-    serveTurn
-    #TODO: ask players for their actions
-    serveRiver
-    #TODO: ask players for their actions
-    winner = resolveWinner
-    if winner.is_a?(Arrray) # =>split pot
-      winner.each { |player|
-        player.win(self.pot/winner.length)
-      }
-    else
-      winner.win(self.pot)
-    end
-  end
+  def resolve_winner
+    best_players = []
+    best_hand = find_best_hand(self.hands[0])
 
-
-  #resolves the winner of the round (naive implementation)
-  #in case of mulitple winners (split pot) it returns an array of the winners
-  def resolveWinner
-    bestPlayer = players[0]
-    bestPlayersHand = findBestCardCombinationOf(bestPlayer)
-    splitpotCandidate = nil
-
-    for n in 1...players.length do
-      actualPlayersBestHand = findBestCardCombinationOf(players[n])
-      if actualPlayersBestHand == bestPlayersHand #=> might be a split pot
-        splitpotCandidate = actualPlayersBestHand
-      elsif actualPlayersBestHand > bestPlayersHand
-        bestPlayersHand = actualPlayersBestHand
-        bestPlayer = players[n]
+    self.hands.each do |h|
+      player_hand = find_best_hand(h)
+      if player_hand == best_hand
+        best_players << h.player
+      elsif player_hand > best_hand
+        best_hand = player_hand
+        best_players = Array(h.player)
       end
     end
 
-    if splitpotCandidate == bestPlayersHand # => split pot
-      bestPlayer = [] # return value will be an array
-      players.each { |player|
-        if bestPlayersHand == findBestCardCombinationOf(player)
-          bestPlayer << player
-        end
-      }
+    allocate_winnings(best_players)
+  end
+
+  def find_best_hand(hand)
+    cards = []
+
+    self.communal_cards.each do |card|
+      cards << card.to_s
     end
 
-    return bestPlayer
-  end
-
-
-  #returns PokerHand object (--> ruby-gem poker)
-  def findBestCardCombinationOf(player)
-    possibleCardsArray = []
-
-    communal_cards.each { |card|
-      possibleCardsArray << card.to_s
-    }
-
-    [1, 2].each { |i|
-      possibleCardsArray << getHandOf(player).getCard(i).to_s
-    }
-
-    #two dimensional array
-    possilbleCombinations = possibleCardsArray.combination(5).to_a
-
-    bestCombination = PokerHand.new(possilbleCombinations[0])
-    possilbleCombinations.shift
-
-    possilbleCombinations.each { |comb|
-      combObject = PokerHand.new(comb)
-      if combObject > bestCombination
-        bestCombination = combObject
-      end
-    }
-
-    return bestCombination
-  end
-
-  #returns hand of specific player, if the player is not in the game r
-  def getHandOf(specific_player)
-    result = nil
-    hands.each { |hand|
-      if hand.player == specific_player
-        result = hand
-      end
-    }
-    if result == nil
-      raise PlayerNotPartOfRoundError
-    else
-      return result
+    [0, 1].each do |i|
+      cards << hand.get_card(i).to_s
     end
+
+    combinations = cards.combination(5).to_a
+
+    best = PokerHand.new(combinations[0])
+
+    combinations.each do |c|
+      obj = PokerHand.new(c)
+      if obj > best
+        best = obj
+      end
+    end
+
+    return best
   end
 
-  def serveFlop
-    self.communal_cards = []
-    getCard
-    3.times {
-      self.communal_cards << getCard
-    }
-  end
+  def allocate_winnings(winners)
+    split = self.pot / winners.count
 
-  def serveTurn
-    getCard
-    self.communal_cards << getCard
-  end
+    winners.each do |w|
+      w.chips += split
+      w.save
+    end
 
-  def serveRiver
-    getCard
-    self.communal_cards << getCard
+    self.pot = 0
+    save
   end
 end
 

@@ -37,7 +37,7 @@ class Hand
     return bet
   end
 
-  def get_card(card_index) #index can be 1 or 2
-    return gamecards[card_index-1]
+  def get_card(card_index)
+    return self.gamecards[card_index]
   end
 end
