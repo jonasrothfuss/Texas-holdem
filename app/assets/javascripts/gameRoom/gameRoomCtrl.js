@@ -41,9 +41,6 @@ pokerApp.controller('gameRoomCtrl', [
 					message: {user: $rootScope.user, content: $scope.message}
 				}).success(function () {
 					$scope.sending = false;
-
-					var messages = document.getElementById("messages");
-					messages.scrollTop = messages.scrollHeight;
 				});
 
 				$scope.message = '';
@@ -86,6 +83,9 @@ pokerApp.controller('gameRoomCtrl', [
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
 			$scope.messages.push(message);
+
+			var messages = document.getElementById("messages");
+			messages.scrollTop = messages.scrollHeight;
 		});
 
 		//--Private Funcs--
