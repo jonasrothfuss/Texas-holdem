@@ -18,12 +18,12 @@ class Hand
   def place_bet(bet)
     new_bet = bet - self.bet
 
-    if(self.player.chips >= new_bet)
-      self.bet = bet
-    else
-      self.bet = self.player.chips
+    if(self.player.chips < new_bet)
+      new_bet = self.player.chips
+      bet = new_bet + self.bet
     end
 
+    self.bet = bet
     self.player.chips -= new_bet
     self.player.save
 
