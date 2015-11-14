@@ -78,9 +78,9 @@ pokerApp.controller('gameRoomCtrl', [
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'stage', function (response) {
 			$scope.round.cards = response.cards;
 			$scope.round.pot = response.pot;
-			renderHands(response.hands, response.players);
-			if (response.cards != null) {
-				renderCards(response.cards);
+			renderHands(response.hands.status, response.players);
+			if (response.hands.cards != null) {
+				renderCards(response.hands.cards);
 			}
 		});
 
@@ -114,7 +114,7 @@ pokerApp.controller('gameRoomCtrl', [
 
 		function getHands() {
 			apiServices.RoundService.GetHand($scope.round._id, {user: $rootScope.user}).success(function (result) {
-				renderHands(result.hands);
+				renderHands(result.status);
 				renderCards(result.cards, result.default_card);
 				setBets();
 			});
