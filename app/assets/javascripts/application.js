@@ -7,4 +7,5 @@
 //= require angular-animate
 //= require bootstrap
 //= require angular-bootstrap
+//= require app
 //= require_tree .
