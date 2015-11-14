@@ -1,5 +1,5 @@
 <div class="row" id="gameRow">
-	<div class="col-xs-8" id="gameCol">
+	<div class="col-sm-12 col-md-8" id="gameCol">
 		<div class="row" id="leaveRoomRow">
 			<div class="col-xs-12 text-right" id="leaveRoomCol">
 				<a class="btn btn-primary btn-raised" id="leaveRoomBtn" ng-click="leaveRoom()">Leave Room</a>
@@ -27,23 +27,28 @@
 			</div>
 		</div>
 
-		<div class="row" id="userChoicesRow">
+		<div class="row" id="userChoicesRow" ng-show="turn">
 			<div class="col-xs-4" id="checkCallCol">
-				<!--<button class="col-xs-12 btn btn-success btn-raised" ng-class="{'disabled': !turn}" id="checkCallBtn" ng-show="" type="button">Check</button>-->
-				<button class="col-xs-12 btn btn-success btn-raised" ng-disabled="!turn" id="checkCallBtn" ng-click="bet(round.call_bet)" type="button">Call - ${{round.call_bet}}</button>
+				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="checkBtn" ng-click="bet(round.call_bet)" type="button">
+					<span ng-show="betMatches">Check</span>
+					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
+				</button>
 			</div>
 
 			<div class="col-xs-4" id="raiseCol">
-				<button class="col-xs-12 btn btn-danger btn-raised" ng-disabled="!turn" id="raiseBtn" ng-click="bet(round.raise_bet)" type="button">Raise - ${{round.raise_bet}}</button>
+				<button class="col-xs-12 btn btn-danger btn-raised" id="raiseBtn" ng-click="bet(round.raise_bet)" type="button">
+					<span ng-show="allInRaise">All In</span>
+					<span ng-hide="allInRaise">Raise - ${{round.raise_bet}}</span>
+				</button>
 			</div>
 
 			<div class="col-xs-4" id="foldCol">
-				<button class="col-xs-12 btn btn-warning btn-raised" ng-disabled="!turn" id="foldBtn" ng-click="bet(-1)" type="button">Fold</button>
+				<button class="col-xs-12 btn btn-warning btn-raised" id="foldBtn" ng-click="bet(-1)" type="button">Fold</button>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-xs-4 hidden-xs" id="feedChatCol">
+	<div class="col-md-4 hidden-sm" id="feedChatCol">
 			<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title text-center">Feed</h3>

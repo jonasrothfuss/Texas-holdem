@@ -11,6 +11,9 @@ pokerApp.controller('gameRoomCtrl', [
 		$scope.gameRoom = {};
 		$scope.round = {};
 		$scope.turn = false;
+		$scope.betMatches = false;
+		$scope.allInCall = false;
+		$scope.allInRaise = false;
 		$scope.sending = false;
 		$scope.messages = [];
 		$scope.message = '';
@@ -65,7 +68,6 @@ pokerApp.controller('gameRoomCtrl', [
 			$scope.round = response.newround.round;
 			$scope.round.cards = response.newround.cards;
 			getHands();
-			setBets();
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (response) {
@@ -129,6 +131,14 @@ pokerApp.controller('gameRoomCtrl', [
 
 			$scope.round.raise_bet = (call_bet == 0) ? $scope.round.big_blind : call_bet * 2;
 			$scope.round.call_bet = call_bet;
+
+			player = $scope.gameRoom.players.filter(function (p) {
+				return p.owner._id == $rootScope.user._id;
+			});
+
+			$scope.betMatches = (player[0].hand.bet == $scope.round.call_bet);
+			$scope.allInRaise = ($scope.round.raise_bet >= player[0].chips);
+			$scope.allInCall = ($scope.round.call_bet >= player[0].chips);
 		}
 
 		function sendTurn(bet) {
@@ -138,12 +148,9 @@ pokerApp.controller('gameRoomCtrl', [
 		function renderHands(hands, players) {
 			angular.forEach($scope.gameRoom.players, function (p) {
 				if (players != null) {
-					console.log(players);
 					var player = players.filter(function (newplayer) {
 						return newplayer._id == p._id;
 					});
-
-					console.log(player);
 
 					p.chips = player[0].chips;
 				}
@@ -157,7 +164,15 @@ pokerApp.controller('gameRoomCtrl', [
 				}
 
 				if (p.hand.current) {
-					checkIfTurn(p.owner._id);
+					if(checkIfTurn(p.owner._id)){
+						if(p.chips == 0){
+							sendTurn(0);
+						}else{
+							$scope.turn = true;
+						}
+					}else{
+						$scope.turn = false;
+					}
 				}
 			});
 		}
@@ -179,8 +194,8 @@ pokerApp.controller('gameRoomCtrl', [
 			});
 		}
 
-		function checkIfTurn(playerId) {
-			$scope.turn = (playerId == $rootScope.user._id);
+		function checkIfTurn(id) {
+			return (id == $rootScope.user._id);
 		}
 
 		function leave() {
