@@ -68,15 +68,15 @@ pokerApp.controller('gameRoomCtrl', [
 			setBets();
 		});
 
-		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (hands) {
-			renderHands(hands);
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (response) {
+			renderHands(response.hands, response.players);
 			setBets();
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'stage', function (response) {
 			$scope.round.cards = response.cards;
 			$scope.round.pot = response.pot;
-			renderHands(response.hands);
+			renderHands(response.hands, response.players);
 			if (response.cards != null) {
 				renderCards(response.cards);
 			}
@@ -122,7 +122,6 @@ pokerApp.controller('gameRoomCtrl', [
 			var call_bet = 0;
 
 			angular.forEach($scope.gameRoom.players, function (p) {
-				console.log(p.hand);
 				if (p.hand.bet > call_bet) {
 					call_bet = p.hand.bet;
 				}
@@ -136,8 +135,19 @@ pokerApp.controller('gameRoomCtrl', [
 			apiServices.RoundService.SendTurn($scope.round._id, {bet: bet, user: $rootScope.user});
 		}
 
-		function renderHands(hands) {
+		function renderHands(hands, players) {
 			angular.forEach($scope.gameRoom.players, function (p) {
+				if (players != null) {
+					console.log(players);
+					var player = players.filter(function (newplayer) {
+						return newplayer._id == p._id;
+					});
+
+					console.log(player);
+
+					p.chips = player[0].chips;
+				}
+
 				var hand = hands.filter(function (h) {
 					return h.player_id == p._id;
 				});

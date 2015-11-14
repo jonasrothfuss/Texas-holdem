@@ -60,10 +60,9 @@ class Round
         bet = self.big_blind
       end
 
-      p.chips -= bet
-      p.save
-
-      self.hands << Hand.new_hand(p, get_card, get_card, bet)
+      hand = Hand.new_hand(p, get_card, get_card)
+      hand.place_bet(bet)
+      self.hands << hand
     end
 
     save
@@ -161,8 +160,10 @@ class Round
   end
 
   def push_turn
-    hand = self.hands.without(:round, :gamecards)
-    Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', hand)
+    hands = self.hands.without(:round, :gamecards)
+    players = self.players
+    push = {hands: hands, players: players}
+    Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', push)
   end
 
   def stage_finished?
@@ -183,35 +184,38 @@ class Round
   end
 
   def resolve_stage
-    unless self.stage == 5
-      collect_bets
-      self.hands.each do |h|
-        h.current = false
-        h.save
-      end
-    else
+    collect_bets
+    self.hands.each do |h|
+      h.current = false
+      h.save
+    end
+
+    if self.stage == 5
       resolve_winner
     end
   end
 
   def collect_bets
     self.hands.each do |h|
-      self.pot += h.bet
-      h.bet = 0
-      h.save
+      self.pot += h.collect_bet
     end
 
     save
   end
 
   def push_stage
-    if self.stage == 4
+    if self.stage == 5
       hands = access_hand
     else
       hands = self.hands.without(:round, :gamecards)
     end
 
-    push = {pot: self.pot, cards: access_cards, hands: hands}
+    players = []
+    hands.each do |h|
+      players << h.player
+    end
+
+    push = {pot: self.pot, cards: access_cards, hands: hands, players: players}
 
     Pusher.trigger("gameroom-#{self.game_room.id}", 'stage', push)
   end
