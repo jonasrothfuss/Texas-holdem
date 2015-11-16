@@ -36,6 +36,9 @@ var pokerApp = angular.module('poker', [
                     .state('editaccount', {
                         url: '/editaccount', templateUrl: 'EditAccount.html', controller: 'editAccountCtrl'
                     })
+                    .state('deleteaccount', {
+                        url: '/deleteaccount', templateUrl: 'DeleteAccount.html', controller: 'deleteAccountCtrl'
+                    })
                     .state('gameroom', {
                         url: '/gameroom/:gameId', templateUrl: 'GameRoom.html', controller: 'gameRoomCtrl'
                     });
