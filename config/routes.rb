@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  post '/editaccount', to: 'account#edit'
+  post '/deleteaccount', to: 'account#delete'
+  
   root to: 'application#angular'
 
   post 'pusher/auth'
