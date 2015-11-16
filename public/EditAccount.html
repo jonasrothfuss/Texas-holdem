@@ -1,11 +1,11 @@
 
-        <div style="margin-top: 3%;margin-left: 3%">
-        Name:<input type="text" class="form-control" style="width: 25%"  /> 
-        Email:<input type="email" class="form-control" style="width: 25%"  /> 
-        Username:<input type="text" class="form-control" style="width: 25%"  /> 
-        New Password:<input type="password" class="form-control" style="width: 25%"  /> 
-        <br>
-        <button type="button" class="btn btn-success">Save Data</button>
-        <button type="button" class="btn btn-danger">Deactivate Account</button>   
-        </div>
-    
+<form ng-submit="post()" id="editaccountform" action="/editaccount" method="post" style="margin-top: 3%;margin-left: 3%" ng-controller="editAccountCtrl">
+  First Name:<input name="first_name" type="text" value={{user.first_name}} class="form-control" style="width: 25%"  />
+  Last Name:<input name="last_name" type="text" value={{user.last_name}} class="form-control" style="width: 25%"  /> 
+  Email:<input name="email" type="email"  value={{user.email}} class="form-control" style="width: 25%"  /> 
+  Username:<input name="username" type="text" value={{user.username}} class="form-control" style="width: 25%"  /> 
+  New Password (optional):<input name="new_password" type="password" class="form-control" style="width: 25%"  /> 
+  <br>
+  <button type="submit" class="btn btn-success">Save Data</button>
+  <button ui-sref="deleteaccount" type="button" class="btn btn-danger">Delete Account</button>   
+</form>
