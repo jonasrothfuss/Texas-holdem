@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   post 'pusher/auth'
 
   scope '/api', :defaults => {:format => 'json'} do
+    controller :account do
+      post  'account/edit'          => :edit
+      post  'account/delete'        => :delete
+    end
+    
     controller :game_room do
       get   'gameroom'              => :index
       post  'gameroom/create'       => :create
