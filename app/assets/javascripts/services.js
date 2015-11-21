@@ -63,6 +63,7 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 					return call('gameroom', gameId, 'message', post, false);
 				}
 			},
+			
 			RoundService:{
 				GetHand: function(roundId, post){
 					return call('round', roundId, 'hand', post);
@@ -70,6 +71,7 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 				SendTurn: function(roundId, post){
 					return call('round', roundId, 'turn', post);
 				}
-			}
-		}
+			},
+
+		};
 	}]);
