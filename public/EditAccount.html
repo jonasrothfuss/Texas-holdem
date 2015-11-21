@@ -1,11 +1,73 @@
 
-<form ng-submit="post()" id="editaccountform" action="/editaccount" method="post" style="margin-top: 3%;margin-left: 3%" ng-controller="editAccountCtrl">
+<form id="editaccountform" style="margin-top: 3%;margin-left: 3%" ng-controller="editAccountCtrl">
   First Name:<input name="first_name" type="text" value={{user.first_name}} class="form-control" style="width: 25%"  />
   Last Name:<input name="last_name" type="text" value={{user.last_name}} class="form-control" style="width: 25%"  /> 
   Email:<input name="email" type="email"  value={{user.email}} class="form-control" style="width: 25%"  /> 
   Username:<input name="username" type="text" value={{user.username}} class="form-control" style="width: 25%"  /> 
   New Password (optional):<input name="new_password" type="password" class="form-control" style="width: 25%"  /> 
   <br>
-  <button type="submit" class="btn btn-success">Save Data</button>
-  <button ui-sref="deleteaccount" type="button" class="btn btn-danger">Delete Account</button>   
+  <button id="editAccountButton" class="btn btn-success">Save Data</button>
+  <button id="deleteAccountButton" type="button" class="btn btn-danger">Delete Account</button>   
 </form>
+
+<div class="overlay-bg">
+
+<div class="overlay-content" style="display: none;
+        background: #fff;
+        padding: 1%;
+        width: 40%;
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
+        cursor: default;
+        z-index: 10001;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.9);">
+    <p>Please enter your current password to save your new account information</p>
+    <form id="edit_account_password_form">
+      Password:<input name="password" type="password">
+    </form>
+    <button id="passwordFormSaveButton" class="btn btn-success">Save</button>
+    <button id="passwordFormCancelButton" class="btn btn-danger">Cancel</button>
+</div>
+
+<div id="edit_account_dialogue" style="display: none;
+        background: #fff;
+        padding: 1%;
+        width: 40%;
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
+        cursor: default;
+        z-index: 10001;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.9);">
+    <p id="edit_account_dialogue_information"></p>
+    <button id="edit_account_dialogue_ok_button" class="btn btn-success">Ok</button>
+</div>
+
+<div id="delete_account_dialogue" style="display: none;
+        background: #fff;
+        padding: 1%;
+        width: 40%;
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
+        cursor: default;
+        z-index: 10001;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.9);">
+    <p>Are you sure you want to delete your account?</p>
+    <p>Please enter your password above to proceed</p>
+    <form id="delete_account_password_form">
+      Password:<input name="password" type="password">
+    </form>
+    <button id="delete_account_confirm_button" class="btn btn-success">Delete Account</button>
+    <button id="delete_account_cancel_button" class="btn btn-danger">Cancel</button>
+</div>
+
+</div>
+ 
