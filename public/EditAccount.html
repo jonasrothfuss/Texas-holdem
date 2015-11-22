@@ -12,18 +12,7 @@
 
 <div class="overlay-bg">
 
-<div class="overlay-content" style="display: none;
-        background: #fff;
-        padding: 1%;
-        width: 40%;
-        position: absolute;
-        top: 15%;
-        left: 50%;
-        margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
-        cursor: default;
-        z-index: 10001;
-        border-radius: 4px;
-        box-shadow: 0 0 5px rgba(0,0,0,0.9);">
+<div class="overlay-content">
     <p>Please enter your current password to save your new account information</p>
     <form id="edit_account_password_form">
       Password:<input name="password" type="password">
@@ -32,34 +21,12 @@
     <button id="passwordFormCancelButton" class="btn btn-danger">Cancel</button>
 </div>
 
-<div id="edit_account_dialogue" style="display: none;
-        background: #fff;
-        padding: 1%;
-        width: 40%;
-        position: absolute;
-        top: 15%;
-        left: 50%;
-        margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
-        cursor: default;
-        z-index: 10001;
-        border-radius: 4px;
-        box-shadow: 0 0 5px rgba(0,0,0,0.9);">
+<div id="edit_account_dialogue" class="dialogue">
     <p id="edit_account_dialogue_information"></p>
     <button id="edit_account_dialogue_ok_button" class="btn btn-success">Ok</button>
 </div>
 
-<div id="delete_account_dialogue" style="display: none;
-        background: #fff;
-        padding: 1%;
-        width: 40%;
-        position: absolute;
-        top: 15%;
-        left: 50%;
-        margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
-        cursor: default;
-        z-index: 10001;
-        border-radius: 4px;
-        box-shadow: 0 0 5px rgba(0,0,0,0.9);">
+<div id="delete_account_dialogue" class="dialogue">
     <p>Are you sure you want to delete your account?</p>
     <p>Please enter your password above to proceed</p>
     <form id="delete_account_password_form">
@@ -71,3 +38,34 @@
 
 </div>
  
+<style>
+.dialogue {
+  display: none;
+  background: #fff;
+  padding: 1%;
+  width: 40%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
+  cursor: default;
+  z-index: 10001;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.9);
+}
+.overlay-content {
+  display: none;
+  background: #fff;
+  padding: 1%;
+  width: 40%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
+  cursor: default;
+  z-index: 10001;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.9);
+}
+  
+</style>
