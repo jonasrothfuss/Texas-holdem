@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     controller :account do
       post  'account/edit'          => :edit
       post  'account/delete'        => :delete
+      get   'account/picture'       => :picture
     end
     
     controller :game_room do
