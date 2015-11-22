@@ -38,9 +38,10 @@ class AccountController < ActionController::Base
   
   def picture
     user = User.find(current_user)
-    puts "--------------------- USER ID ---" + user.id.to_s
     if File.exist?(image_location_jpg(user.id))
       send_file image_location_jpg(user_id), type: 'image/jpg', disposition: 'inline'
+    elsif File.exist?(image_location_jpeg(user.id))
+      send_file image_location_jpg(user_id), type: 'image/jpeg', disposition: 'inline'
     elsif File.exist?(image_location_png(user.id))
       send_file image_location_png(user.id), type: 'image/png', disposition: 'inline'
     else
@@ -50,6 +51,10 @@ class AccountController < ActionController::Base
   
   def image_location_jpg(user_id)
     return image_location + user_id.to_s + ".jpg"
+  end
+  
+  def image_location_jpeg(user_id)
+    return image_location + user_id.to_s + ".jpeg"
   end
   
   def image_location_png(user_id)
