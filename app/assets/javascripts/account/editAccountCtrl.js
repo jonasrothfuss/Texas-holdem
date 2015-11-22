@@ -4,12 +4,7 @@ pokerApp.controller('editAccountCtrl', ['$scope', '$rootScope', '$state', 'apiSe
   
   var saving_succesful = false
   var deleting_succesful = false
-  
-  var postData = function(){
-    console.log("POST FUNCTION")
-    apiServices.AccountService.EditAccount(getFormData())
-    alert('POST FUNCTION')
-  }
+
   
   $(document).ready(function(){
     
