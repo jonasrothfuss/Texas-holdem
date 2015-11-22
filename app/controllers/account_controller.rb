@@ -39,14 +39,28 @@ class AccountController < ActionController::Base
   def picture
     user = User.find(current_user)
     if File.exist?(image_location_jpg(user.id))
-      send_file image_location_jpg(user_id), type: 'image/jpg', disposition: 'inline'
+      send_file image_location_jpg(user.id), type: 'image/jpg', disposition: 'inline'
     elsif File.exist?(image_location_jpeg(user.id))
-      send_file image_location_jpg(user_id), type: 'image/jpeg', disposition: 'inline'
+      send_file image_location_jpg(user.id), type: 'image/jpeg', disposition: 'inline'
     elsif File.exist?(image_location_png(user.id))
       send_file image_location_png(user.id), type: 'image/png', disposition: 'inline'
     else
       send_file default_image_location, type: 'image/png', disposition: 'inline'
     end
+  end
+  
+  def new_picture
+    data = request.body.read
+    image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
+    write_picture_to_file(image_data)
+    render :json => {:succesful => true, :message => "Picture has been saved"}.to_json
+  end
+  
+  def write_picture_to_file(image_data)
+    user = User.find(current_user)
+    File.open(image_location_png(user.id), 'wb') { |file| 
+      file.write(image_data)
+    }
   end
   
   def image_location_jpg(user_id)
