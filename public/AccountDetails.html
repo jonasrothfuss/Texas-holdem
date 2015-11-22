@@ -1,10 +1,31 @@
-<div style="margin-top: 5%;margin-left: 5%">
-  <span class="btn btn-primary btn-file">
-    Add Picture<input type="file" class="btn btn-file">
-  </span>
-	<br>
+<script src="assets/cropit/dist/jquery.cropit.js"></script>
+
+
+<div style="margin-top: 5% ;margin-left: 5%, width: 350px; height: 350px;">
+  <div >
+    <div id="user-image-container">
+      <img id="user-image" src="api/account/picture" width="250px"/>
+      <button id="add_picture_button" class="btn btn-primary" style="background-color: #009688;">Edit Picture</button>
+    </div>
+    
+    <div class="image-editor">
+      <input type="file" class="cropit-image-input" accept="image/*">
+      <!-- .cropit-image-preview-container is needed for background image to work -->
+      <div class="cropit-image-preview-container">
+        <div class="cropit-image-preview"></div>
+      </div>
+      <div class="slider-wrapper">
+        <span class="icon small-image"></span>
+        <input step="0.01" max="1" min="0" class="cropit-image-zoom-input custom" type="range">
+        <span class="icon large-image"></span>
+      </div>
+      <button id="save_picture_button" class="btn btn-file" style="background-color: #009688;">Save Picture</button>
+      <button id="cancel_picture_button" class="btn btn-file" style="background-color: #009688;">Cancel</button>
+    </div>
+  </div>
+
   
-  <div style="">
+  <span>
     <table>
       <tr>
         <td>Username: </td><td>{{ user.username}}</td>
@@ -20,5 +41,79 @@
       </tr>
     </table>
 		<a ui-sref="editaccount"><input type="button" class="btn btn-primary" value="Edit Profile"></a>
-	</div>
+	</span>
 </div>
+
+<div id="save_picture_error_dialog" class="dialogue">
+    <p>Saving your picture failed. Please try it again.</p>
+    <button id="save_picture_error_dialog_ok_button" class="btn btn-success">Ok</button>
+</div>
+
+                    
+
+
+
+<style>
+  .image-editor {
+    display: none;
+  }
+  .cropit-image-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 5px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    width: 250px;
+    height: 250px;
+    cursor: move;
+  }
+  .cropit-image-background {
+    opacity: .2;
+    cursor: auto;
+  }
+  .image-size-label {
+    margin-top: 10px;
+  }
+  input {
+    /* Use relative position to prevent from being covered by image background */
+    position: relative;
+    z-index: 10;
+    display: block;
+  }
+  .export {
+    margin-top: 10px;
+  }
+  .cropit-image-zoom-input{
+    position: relative;
+    width: 100px;
+  }
+  .icon{
+    font-family: "icomoon";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    color: #555
+  }
+  .icon.small-icon{
+    font-size: 16px;
+  }
+  .icon.small-icon{
+    font-size: 24px;
+  }
+  .dialogue {
+  display: none;
+  background: #fff;
+  padding: 1%;
+  width: 40%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin: 0 0 0 -20%; /* add negative left margin for half the width to center the div */
+  cursor: default;
+  z-index: 10001;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.9);
+}
+</style>
