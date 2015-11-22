@@ -36,6 +36,34 @@ class AccountController < ActionController::Base
     end
   end
   
+  def picture
+    user = User.find(current_user)
+    puts "--------------------- USER ID ---" + user.id.to_s
+    if File.exist?(image_location_jpg(user.id))
+      send_file image_location_jpg(user_id), type: 'image/jpg', disposition: 'inline'
+    elsif File.exist?(image_location_png(user.id))
+      send_file image_location_png(user.id), type: 'image/png', disposition: 'inline'
+    else
+      send_file default_image_location, type: 'image/png', disposition: 'inline'
+    end
+  end
+  
+  def image_location_jpg(user_id)
+    return image_location + user_id.to_s + ".jpg"
+  end
+  
+  def image_location_png(user_id)
+    return image_location + user_id.to_s + ".png"
+  end
+  
+  def default_image_location
+    return image_location + "default_user_image.png"
+  end
+  
+  def image_location
+    return "app/assets/images/user/"
+  end
+  
   
   def update_user_data(user)
     user.first_name = params[:first_name]
@@ -64,7 +92,6 @@ class AccountController < ActionController::Base
       return nil
     end
   end
-  
   
   def valid_password?
     return User.find(current_user).valid_password?(params[:password])
