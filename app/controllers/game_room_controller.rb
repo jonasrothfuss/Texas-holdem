@@ -10,8 +10,9 @@ class GameRoomController < ApplicationController
   end
 
   def create
-    respond_with GameRoom.new_room(crud_params), :location => ''
-    Pusher.trigger('gamerooms', 'new', crud_params)
+    gameroom = GameRoom.new_room(crud_params)
+    respond_with gameroom, :location => ''
+    Pusher.trigger('gamerooms', 'new', gameroom)
   end
 
   def join
