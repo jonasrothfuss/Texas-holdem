@@ -11,13 +11,13 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 			return url;
 		}
 
-		function call(controller, action, param, post, loadingToast){
+		function call(controller, param, action, post, loadingToast){
 			$rootScope.error = false;
 			if(loadingToast == null || loadingToast == true){
 				$rootScope.loading = true;
 			}
 
-			var url = buildUrl(controller, action, param);
+			var url = buildUrl(controller, param, action);
 
 			if(post != null){
 				return $http.post(url, post).success(function(result){
@@ -34,7 +34,7 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 					$rootScope.error = true;
 				});
 			}
-		};
+		}
 
 		return {
 			GameService:{
@@ -71,7 +71,7 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 				SendTurn: function(roundId, post){
 					return call('round', roundId, 'turn', post);
 				}
-			},
+			}
 
 		};
 	}]);
