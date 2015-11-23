@@ -17,14 +17,14 @@ class GameRoomController < ApplicationController
 
   def join
     gameroom = GameRoom.find(params[:id])
-    gameroom.add_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path))
+    gameroom.add_player(user)
 
     respond_with gameroom, :location => ''
   end
 
   def leave
     game_room = GameRoom.find(params[:id])
-    respond_with game_room.remove_player(params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)), :location => '/home/'
+    respond_with game_room.remove_player(user), :location => '/home/'
   end
 
   def start
@@ -44,12 +44,25 @@ class GameRoomController < ApplicationController
   end
 
   def message
+    message = params[:message].merge(user: user)
+    Pusher.trigger("gameroom-#{params[:id]}", 'chat', message)
     head 200, content_type: "text/html"
-    Pusher.trigger("gameroom-#{params[:id]}", 'chat', params[:message])
   end
 
   private
   def crud_params
     params.require(:game_room).permit(:name, :max_players, :min_bet)
+  end
+
+  def user
+    u = {
+        _id: current_user.id.to_s,
+        first_name: current_user.first_name,
+        last_name: current_user.last_name,
+        username: current_user.username,
+        image_path: current_user.image_path
+    }
+
+    return u
   end
 end

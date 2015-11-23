@@ -38,7 +38,7 @@ pokerApp.controller('gameRoomCtrl', [
 				$scope.sending = true;
 
 				apiServices.GameService.SendMessage($stateParams.gameId, {
-					message: {user: $rootScope.user, content: $scope.message}
+					message: {content: $scope.message}
 				}).success(function () {
 					$scope.sending = false;
 				});
@@ -90,7 +90,7 @@ pokerApp.controller('gameRoomCtrl', [
 
 		//--Private Funcs--
 		function joinAndLoad() {
-			apiServices.GameService.Join($stateParams.gameId, {user: $rootScope.user}).success(function (result) {
+			apiServices.GameService.Join($stateParams.gameId).success(function (result) {
 				$scope.gameRoom = result;
 
 				apiServices.GameService.Players($stateParams.gameId).success(function (result) {
@@ -109,11 +109,11 @@ pokerApp.controller('gameRoomCtrl', [
 		}
 
 		function start() {
-			apiServices.GameService.Start($stateParams.gameId, {user: $rootScope.user});
+			apiServices.GameService.Start($stateParams.gameId);
 		}
 
 		function getHands() {
-			apiServices.RoundService.GetHand($scope.round._id, {user: $rootScope.user}).success(function (result) {
+			apiServices.RoundService.GetHand($scope.round._id).success(function (result) {
 				renderHands(result.status);
 				renderCards(result.cards, result.default_card);
 				setBets();
@@ -142,7 +142,7 @@ pokerApp.controller('gameRoomCtrl', [
 		}
 
 		function sendTurn(bet) {
-			apiServices.RoundService.SendTurn($scope.round._id, {bet: bet, user: $rootScope.user});
+			apiServices.RoundService.SendTurn($scope.round._id, {bet: bet});
 		}
 
 		function renderHands(hands, players) {
@@ -199,7 +199,7 @@ pokerApp.controller('gameRoomCtrl', [
 		}
 
 		function leave() {
-			apiServices.GameService.Leave($stateParams.gameId, {user: $rootScope.user}).success(function () {
+			apiServices.GameService.Leave($stateParams.gameId).success(function () {
 				$state.go('home');
 			});
 		}

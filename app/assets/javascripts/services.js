@@ -44,20 +44,20 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 				Create: function(post){
 					return call('gameroom', null, 'create', post);
 				},
-				Join: function(gameId, post){
-					return call('gameroom', gameId, 'join', post);
+				Join: function(gameId){
+					return call('gameroom', gameId, 'join', true);
 				},
 				Players: function(gameId){
 					return call('gameroom', gameId, 'players');
 				},
 				Start: function(gameId, post){
-					return call('gameroom', gameId, 'start', post)
+					return call('gameroom', gameId, 'start', true)
 				},
 				GetRound: function(gameId){
 					return call('gameroom', gameId, 'round');
 				},
-				Leave: function(gameId, post){
-					return call('gameroom', gameId, 'leave', post);
+				Leave: function(gameId){
+					return call('gameroom', gameId, 'leave', true);
 				},
 				SendMessage: function(gameId, post){
 					return call('gameroom', gameId, 'message', post, false);
@@ -65,8 +65,8 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 			},
 			
 			RoundService:{
-				GetHand: function(roundId, post){
-					return call('round', roundId, 'hand', post);
+				GetHand: function(roundId){
+					return call('round', roundId, 'hand', true);
 				},
 				SendTurn: function(roundId, post){
 					return call('round', roundId, 'turn', post);

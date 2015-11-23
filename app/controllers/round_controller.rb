@@ -7,20 +7,26 @@ class RoundController < ApplicationController
 
   def hand
     round = Round.find(params[:id])
-    respond_with round.access_hand(user_param), :location => ''
+    respond_with round.access_hand(user), :location => ''
   end
 
   def turn
     round = Round.find(params[:id])
-    respond_with round.add_turn(user_param, params[:bet]), :location => ''
+    respond_with round.add_turn(user, params[:bet]), :location => ''
     round.move
-  rescue StandardError => e
-    render_error(e)
   end
 
   private
-  def user_param
-    params.require(:user).permit(:_id, :first_name, :last_name, :username, :image_path)
+  def user
+    u = {
+        _id: current_user.id.to_s,
+        first_name: current_user.first_name,
+        last_name: current_user.last_name,
+        username: current_user.username,
+        image_path: current_user.image_path
+    }
+
+    return u
   end
 
   def render_error(error)
