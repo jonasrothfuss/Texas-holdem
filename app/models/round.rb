@@ -167,12 +167,12 @@ class Round
       end
 
       if h.player.big_blind
-        big_blind = i
+        bb = i
       end
     end
 
     if nxt == -1
-      nxt = big_blind
+      nxt = bb+1
     end
 
     found = false
