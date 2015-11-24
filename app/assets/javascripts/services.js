@@ -1,4 +1,4 @@
-pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootScope){
+pokerApp.factory('apiServices', ['$http', '$q', '$rootScope', function($http, $q, $rootScope){
 		function buildUrl(controller, param, action){
 			var url = '/api/' + controller + '/';
 			if(param != null){
@@ -12,6 +12,8 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 		}
 
 		function call(controller, param, action, post, loadingToast){
+			var deferred = $q.defer();
+
 			$rootScope.error = false;
 			if(loadingToast == null || loadingToast == true){
 				$rootScope.loading = true;
@@ -22,18 +24,24 @@ pokerApp.factory('apiServices', ['$http', '$rootScope', function($http, $rootSco
 			if(post != null){
 				return $http.post(url, post).success(function(result){
 					$rootScope.loading = false;
+					deferred.resolve(result);
 				}).error(function(error){
 					$rootScope.loading = false;
 					$rootScope.error = true;
+					deferred.reject(error);
 				});
 			}else{
 				return $http.get(url).success(function(result){
 					$rootScope.loading = false;
+					deferred.resolve(result);
 				}).error(function(error){
 					$rootScope.loading = false;
 					$rootScope.error = true;
+					deferred.reject(error);
 				});
 			}
+
+			return deferred.promise;
 		}
 
 		return {
