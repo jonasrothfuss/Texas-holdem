@@ -63,35 +63,43 @@ class GameRoom
 
   def new_blinds
     last_big = false
+    bb_assigned = false
     last_small = false
+    sb_assigned = false
 
     self.players.each do |p|
-      if(last_big)
+      if last_big
         p.big_blind = true
+        bb_assigned = true
         break
-      end
-
-      if(p.big_blind)
+      elsif p.big_blind
         p.big_blind = false
         last_big = true
       end
     end
 
     self.players.each do |p|
-      if(last_small)
+      if last_small
         p.small_blind = true
+        sb_assigned = true
         break
-      end
-
-      if(p.small_blind)
+      elsif p.small_blind
         p.small_blind = false
         last_small = true
       end
     end
 
-    if(!last_small && !last_big)
+    if !last_small && !last_big
       self.players[0].small_blind = true
       self.players[1].big_blind = true
+    end
+
+    if last_big && !bb_assigned
+      self.players[0].big_blind = true
+    end
+
+    if last_small && !sb_assigned
+      self.players[0].small_blind = true
     end
 
     save
