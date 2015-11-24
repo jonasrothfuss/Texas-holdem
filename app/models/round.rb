@@ -111,7 +111,7 @@ class Round
       player = self.players.where(owner: user).first
       response = {status: self.hands.without(:round, :gamecards), cards: self.hands.where(player: player).only(:player, :current, :gamecards), default_card: {:image_path => GameCard.default_image_path}}
     else
-      response = {status: self.hands.without(:round, :gamecards), cards: self.hands.only(:player, :current, :gamecards)}
+      response = {status: self.hands.without(:round, :gamecards), cards: self.hands.where(:fold.ne => true).only(:player, :current, :gamecards)}
     end
 
     return response
@@ -121,30 +121,49 @@ class Round
     hand = self.hands.where(current: true).first
     if hand.player.owner[:_id] == user[:_id]
       if bet == -1
-        hand.fold = true
+        fold(hand)
       else
         hand.place_bet(bet)
+
+        hand.action_count += 1
+        hand.save
+
+        move
       end
-
-      hand.action_count += 1
-
-      hand.save
-
-      move
     else
       raise UnauthorizedError
     end
   end
 
+  def fold(hand)
+    hand.fold = true
+    hand.save
+
+    hands = self.hands
+
+    if hands.count == 1
+      h = hands.first
+
+      collect_bets
+      allocate_winnings([h.player])
+      push_stage
+    else
+      hand.action_count += 1
+      hand.save
+
+      move
+    end
+  end
+
   def next_player
-    last = -1
+    nxt = -1
+    bb = nil
 
     self.hands.each_with_index do |h, i|
       if h.current
-        last = i
+        nxt = i+1
         h.current = false
         h.save
-        break
       end
 
       if h.player.big_blind
@@ -152,16 +171,25 @@ class Round
       end
     end
 
-    if last == -1
-      last = big_blind
+    if nxt == -1
+      nxt = big_blind
     end
 
-    if last+1 >= self.hands.count
-      last = -1
+    found = false
+    until found
+      if nxt >= self.hands.count
+        nxt = 0
+      end
+
+      if !self.hands[nxt].fold
+        found = true
+      else
+        nxt += 1
+      end
     end
 
-    self.hands[last+1].current = true
-    self.hands[last+1].save
+    self.hands[nxt].current = true
+    self.hands[nxt].save
   end
 
   def push_turn
@@ -172,11 +200,16 @@ class Round
   end
 
   def stage_finished?
-    bet = self.hands[0].bet
+    bet = nil
+    hands = self.hands.where(:fold.ne => true)
 
-    self.hands.each do |h|
+    hands.each do |h|
       if bet != h.bet
-        return false
+        if bet != nil
+          return false
+        else
+          bet = h.bet
+        end
       end
 
       if h.action_count == 0
@@ -227,9 +260,9 @@ class Round
 
   def resolve_winner
     best_players = []
-    best_hand = find_best_hand(self.hands[0])
+    best_hand = find_best_hand(self.hands.where(:fold.ne => true).first)
 
-    self.hands.each do |h|
+    self.hands.where(:fold.ne => true).each do |h|
       player_hand = find_best_hand(h)
       if player_hand == best_hand
         best_players << h.player

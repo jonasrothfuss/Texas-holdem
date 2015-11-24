@@ -124,7 +124,7 @@ pokerApp.controller('gameRoomCtrl', [
 			var call_bet = 0;
 
 			angular.forEach($scope.gameRoom.players, function (p) {
-				if (p.hand.bet > call_bet) {
+				if (p.hand != null && p.hand.bet > call_bet) {
 					call_bet = p.hand.bet;
 				}
 			});
@@ -163,7 +163,7 @@ pokerApp.controller('gameRoomCtrl', [
 					p.hand = hand[0];
 				}
 
-				if (p.hand.current) {
+				if (p.hand != null && p.hand.current) {
 					if(checkIfTurn(p.owner._id)){
 						if(p.chips == 0){
 							sendTurn(0);
@@ -183,12 +183,15 @@ pokerApp.controller('gameRoomCtrl', [
 					return c.player_id == p._id
 				});
 
-				if (!$filter('isEmpty')(cards)) {
-					p.hand.cards = cards[0].gamecards;
-				} else {
-					p.hand.cards = [];
-					for (var i = 0; i < 2; i++) {
-						p.hand.cards[i] = default_card;
+				if(p.hand != null){
+					if (!$filter('isEmpty')(cards)) {
+						p.hand.cards = cards[0].gamecards;
+						console.log(p.hand.cards);
+					} else {
+						p.hand.cards = [];
+						for (var i = 0; i < 2; i++) {
+							p.hand.cards[i] = default_card;
+						}
 					}
 				}
 			});
