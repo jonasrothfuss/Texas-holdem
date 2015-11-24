@@ -56,8 +56,8 @@
 				<h3 class="panel-title text-center">Feed</h3>
 			</div>
 			<div class="panel-body">
-				<ul class="list-unstyled">
-					<li>Feed info - to be repeated (via angular)</li>
+				<ul id="feed" class="list-unstyled" scroll-bottom="feed">
+					<li ng-repeat="status in feed track by $index" ng-bind-html="status | trusted">{{status}}</li>
 				</ul>
 			</div>
 		</div>

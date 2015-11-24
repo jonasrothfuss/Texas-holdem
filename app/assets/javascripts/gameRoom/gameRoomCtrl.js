@@ -15,6 +15,7 @@ pokerApp.controller('gameRoomCtrl', [
 		$scope.allInCall = false;
 		$scope.allInRaise = false;
 		$scope.sending = false;
+		$scope.feed = [];
 		$scope.messages = [];
 		$scope.message = '';
 

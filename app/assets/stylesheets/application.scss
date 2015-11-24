@@ -113,6 +113,11 @@ nav {
   word-wrap: break-word;
 }
 
+#feed {
+  height: 150px;
+  overflow: auto;
+}
+
 #gameCol {
   background-color: #eee;
 }
