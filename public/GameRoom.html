@@ -7,9 +7,7 @@
 		</div>
 
 		<div class="row" id="tableRow">
-			<div class="col-xs-12 text-center" id="tableCol">
-        <canvas id="pokerTable">Your browser does not support HTML5 Canvas. We are sorry for the inconvenience.</canvas>
-        <!--
+			<div class="col-xs-12" id="tableCol">
 				<a class="btn btn-primary" ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-click="start()">Start Game</a>
 
 				<div class="col-xs-4">
@@ -28,12 +26,10 @@
 						<p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
 					</div>
 				</div>
-        -->
 			</div>
 		</div>
 
-		<!--
-    <div class="row" id="userChoicesRow" ng-show="turn">
+		<div class="row" id="userChoicesRow" ng-show="turn">
 			<div class="col-xs-4" id="checkCallCol">
 				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="checkBtn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
@@ -52,11 +48,9 @@
 				<button class="col-xs-12 btn btn-warning btn-raised" id="foldBtn" ng-click="bet(-1)" type="button">Fold</button>
 			</div>
 		</div>
-    -->
 	</div>
 
-	<!--
-  <div class="col-md-4 hidden-sm" id="feedChatCol">
+	<div class="col-md-4 hidden-sm" id="feedChatCol">
 			<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title text-center">Feed</h3>
@@ -90,5 +84,4 @@
 			</form>
 		</div>
 	</div>
-  -->
 </div>
