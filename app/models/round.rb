@@ -37,8 +37,10 @@ class Round
       push_stage
     end
 
-    next_player
-    push_turn
+    if self.active
+      next_player
+      push_turn
+    end
   end
 
   def create_deck
@@ -127,6 +129,8 @@ class Round
       hand.action_count += 1
 
       hand.save
+
+      move
     else
       raise UnauthorizedError
     end
@@ -271,7 +275,7 @@ class Round
       w.save
     end
 
-    self.pot = 0
+    self.active = false
     save
   end
 end

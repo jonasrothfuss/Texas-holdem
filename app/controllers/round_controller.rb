@@ -13,7 +13,13 @@ class RoundController < ApplicationController
   def turn
     round = Round.find(params[:id])
     respond_with round.add_turn(user, params[:bet]), :location => ''
-    round.move
+
+    if !round.active
+      Thread.new do
+        sleep(2.5)
+        GameRoom.find(round.game_room).new_round
+      end
+    end
   end
 
   private
