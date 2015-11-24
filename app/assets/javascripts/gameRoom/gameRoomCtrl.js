@@ -83,9 +83,6 @@ pokerApp.controller('gameRoomCtrl', [
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
 			$scope.messages.push(message);
-
-			var messages = document.getElementById("messages");
-			messages.scrollTop = messages.scrollHeight;
 		});
 
 		//--Private Funcs--
