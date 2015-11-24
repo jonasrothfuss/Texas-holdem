@@ -25,7 +25,9 @@ class GameRoom
       player = Player.new_player(user, 5000)
       self.players << player
       save
-      Pusher.trigger("gameroom-#{id}", 'newplayer', player)
+      status = "<span class='bold'>#{user[:first_name]} #{user[:last_name]}</span> has joined."
+      push = {player: player, feed: status}
+      Pusher.trigger("gameroom-#{id}", 'newplayer', push)
     end
 
     return self.players
@@ -34,7 +36,9 @@ class GameRoom
   def remove_player(user)
     player = Player.where(game_room: id, owner: user).first
     player.leave()
-    Pusher.trigger("gameroom-#{id}", 'playerleft', player)
+    status = "<span class='bold'>#{user[:first_name]} #{user[:last_name]}</span> has left."
+    push = {player: player, feed: status}
+    Pusher.trigger("gameroom-#{id}", 'playerleft', push)
   end
 
   def close

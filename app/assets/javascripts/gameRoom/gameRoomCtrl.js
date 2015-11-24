@@ -49,15 +49,17 @@ pokerApp.controller('gameRoomCtrl', [
 		};
 
 		//--Pusher Subscriptions--
-		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (player) {
-			$scope.gameRoom.players.push(player);
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (response) {
+			$scope.gameRoom.players.push(response.player);
+			$scope.feed.push(response.feed);
 		});
 
-		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'playerleft', function (player) {
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'playerleft', function (response) {
 			var i = $scope.gameRoom.players.map(function (x) {
 				return x._id;
-			}).indexOf(player._id);
+			}).indexOf(response.player._id);
 			$scope.gameRoom.players.splice(i, 1);
+			$scope.feed.push(response.feed);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (response) {
