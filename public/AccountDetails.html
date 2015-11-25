@@ -1,10 +1,9 @@
-<div style="margin-top: 5% ;margin-left: 5%, width: 350px; height: 350px;">
-  <div >
+<div style="margin-top: 5% ;margin-left: 5%, width: 350px; height: 350px;class="col-lg-6 col-lg-offset-3 panel panel-default">
+  <div class="panel-body">
     <div id="user-image-container">
       <img id="user-image" src="api/account/picture" width="250px"/>
-      <button id="add_picture_button" class="btn btn-primary" style="background-color: #009688;">Edit Picture</button>
     </div>
-    
+    <button id="add_picture_button" class="btn btn-primary" style="background-color: #009688;">Edit Picture</button>
     <div class="image-editor">
       <input type="file" class="cropit-image-input" accept="image/*">
       <!-- .cropit-image-preview-container is needed for background image to work -->
@@ -22,7 +21,7 @@
   </div>
 
   
-  <span>
+  <div>
     <table>
       <tr>
         <td>Username: </td><td>{{ user.username}}</td>
@@ -38,7 +37,7 @@
       </tr>
     </table>
 		<a ui-sref="editaccount"><input type="button" class="btn btn-primary" value="Edit Profile"></a>
-	</span>
+	</div>
 </div>
 
 <div id="save_picture_error_dialog" class="dialogue">
