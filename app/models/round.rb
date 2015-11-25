@@ -277,9 +277,28 @@ class Round
       players << h.player
     end
 
-    push = {pot: self.pot, cards: access_cards, hands: hands, players: players}
+    cards = access_cards
+    create_status(cards)
+
+    push = {pot: self.pot, cards: cards, hands: hands, players: players, status: @status}
 
     Pusher.trigger("gameroom-#{self.game_room.id}", 'stage', push)
+  end
+
+  def create_status(cards)
+    @status ||= String.new
+
+    case self.stage
+      when 2
+        @status << "Flop: "
+        (0..2).each do |i|
+          @status << cards[i].to_user_s + " "
+        end
+      when 3
+        @status << "Turn: #{cards[3].to_user_s}"
+      when 4
+        @status << "River: #{cards[4].to_user_s}"
+    end
   end
 
   def resolve_winner

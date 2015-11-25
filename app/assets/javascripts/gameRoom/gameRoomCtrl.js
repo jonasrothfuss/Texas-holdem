@@ -84,6 +84,7 @@ pokerApp.controller('gameRoomCtrl', [
 			if (response.hands.cards != null) {
 				renderCards(response.hands.cards);
 			}
+			$scope.feed.push(response.status);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
