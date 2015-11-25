@@ -1,14 +1,35 @@
 
-<form id="editaccountform" style="margin-top: 3%;margin-left: 3%" ng-controller="editAccountCtrl">
-  First Name:<input name="first_name" type="text" value={{user.first_name}} class="form-control" style="width: 25%"  />
-  Last Name:<input name="last_name" type="text" value={{user.last_name}} class="form-control" style="width: 25%"  /> 
-  Email:<input name="email" type="email"  value={{user.email}} class="form-control" style="width: 25%"  /> 
-  Username:<input name="username" type="text" value={{user.username}} class="form-control" style="width: 25%"  /> 
-  New Password (optional):<input name="new_password" type="password" class="form-control" style="width: 25%"  /> 
+
+<form id="editaccountform" style="margin-left: 3%;float: left;" ng-controller="editAccountCtrl" class="well">
+    <div class="form-group">
+        <label class="control-label">First Name:</label>
+        <input name="first_name" type="text" value={{user.first_name}} class="form-control floating-label"   />
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Last Name:</label>
+        <input name="last_name" type="text" value={{user.last_name}} class="form-control" />
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label">Email:</label>
+        <input name="email" type="email"  value={{user.email}} class="form-control"   />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Username</label>
+        <input name="username" type="text" value={{user.username}} class="form-control"  />
+    </div>
+    <div class="form-group">
+        <label class="control-label">New Password (Optional):</label>
+        <input name="new_password" type="password" class="form-control"   />
+    </div>
   <br>
   <button id="editAccountButton" class="btn btn-success">Save Data</button>
   <button id="deleteAccountButton" type="button" class="btn btn-danger">Delete Account</button>   
 </form>
+
+
 
 <div class="overlay-bg">
 
