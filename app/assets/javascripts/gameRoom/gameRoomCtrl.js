@@ -51,7 +51,7 @@ pokerApp.controller('gameRoomCtrl', [
 		//--Pusher Subscriptions--
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (response) {
 			$scope.gameRoom.players.push(response.player);
-			$scope.feed.push(response.feed);
+			$scope.feed.push(response.status);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'playerleft', function (response) {
@@ -59,7 +59,7 @@ pokerApp.controller('gameRoomCtrl', [
 				return x._id;
 			}).indexOf(response.player._id);
 			$scope.gameRoom.players.splice(i, 1);
-			$scope.feed.push(response.feed);
+			$scope.feed.push(response.status);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (response) {
@@ -78,7 +78,7 @@ pokerApp.controller('gameRoomCtrl', [
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'stage', function (response) {
 			$scope.round.cards = response.cards;
 			$scope.round.pot = response.pot;
-			renderHands(response.hands.status, response.players);
+			renderHands(response.hands.state, response.players);
 			if (response.hands.cards != null) {
 				renderCards(response.hands.cards);
 			}
@@ -114,7 +114,7 @@ pokerApp.controller('gameRoomCtrl', [
 
 		function getHands() {
 			apiServices.RoundService.GetHand($scope.round._id).success(function (result) {
-				renderHands(result.status);
+				renderHands(result.state);
 				renderCards(result.cards, result.default_card);
 				setBets();
 			});
