@@ -30,16 +30,16 @@ class Round
     save
   end
 
-  def move(status = nil)
+  def move
     if stage_finished?
       self.stage += 1
       resolve_stage
       next_player
-      push_turn(status)
+      push_turn
       push_stage
     elsif self.active
       next_player
-      push_turn(status)
+      push_turn
     end
   end
 
@@ -110,11 +110,11 @@ class Round
     if self.stage < 5
       player = self.players.where(owner: user).first
       cards = self.hands.where(player: player).only(:player, :current, :gamecards)
-      status = "Your Hand: <span class='bold'>"
+      status = "Your Hand: <b>"
       cards.first.gamecards.each do |c|
         status << c.to_user_s + " "
       end
-      status << "</span>"
+      status << "</b>"
 
       response = {
           state: self.hands.without(:round, :gamecards),
@@ -135,24 +135,24 @@ class Round
   def add_turn(user, bet)
     hand = self.hands.where(current: true).first
     if hand.player.owner[:_id] == user[:_id]
-      status = "<span class='bold'>#{user[:first_name]}</span> "
+      @turn_status = "<b>#{user[:first_name]}</b> "
 
       if bet == -1
+        @turn_status << "folded"
         fold(hand)
-        status << "folded"
       else
         hand.place_bet(bet)
 
         if bet == 0
-          status << "checked"
+          @turn_status << "checked"
         else
-          status << "bet $#{bet}"
+          @turn_status << "bet <b>$#{bet}</b>"
         end
 
         hand.action_count += 1
         hand.save
 
-        move(status)
+        move
       end
     else
       raise UnauthorizedError
@@ -216,10 +216,10 @@ class Round
     self.hands[nxt].save
   end
 
-  def push_turn(status)
+  def push_turn
     hands = self.hands.without(:round, :gamecards)
     players = self.players
-    push = {hands: hands, players: players, status: status}
+    push = {hands: hands, players: players, status: @turn_status}
     Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', push)
   end
 
@@ -280,24 +280,24 @@ class Round
     cards = access_cards
     create_status(cards)
 
-    push = {pot: self.pot, cards: cards, hands: hands, players: players, status: @status}
+    push = {pot: self.pot, cards: cards, hands: hands, players: players, status: @stage_status}
 
     Pusher.trigger("gameroom-#{self.game_room.id}", 'stage', push)
   end
 
   def create_status(cards)
-    @status ||= String.new
+    @stage_status ||= String.new
 
     case self.stage
       when 2
-        @status << "Flop: "
+        @stage_status << "Flop: "
         (0..2).each do |i|
-          @status << cards[i].to_user_s + " "
+          @stage_status << cards[i].to_user_s + " "
         end
       when 3
-        @status << "Turn: #{cards[3].to_user_s}"
+        @stage_status << "Turn: #{cards[3].to_user_s}"
       when 4
-        @status << "River: #{cards[4].to_user_s}"
+        @stage_status << "River: #{cards[4].to_user_s}"
     end
   end
 
@@ -305,7 +305,7 @@ class Round
     best_players = []
     best_hands = []
     best_hands << find_best_hand(self.hands.where(:fold.ne => true).first)
-    @status = String.new
+    @stage_status = String.new
 
     self.hands.where(:fold.ne => true).each do |h|
       player_hand = find_best_hand(h)
@@ -321,11 +321,11 @@ class Round
 
     if best_players.count > 1
       (0...best_players.count).each do |i|
-        @status << "#{best_players[i].owner[:first_name]} - #{best_hands[i]}, "
+        @stage_status << "#{best_players[i].owner[:first_name]} - #{best_hands[i]}, "
       end
-      @status << "split the pot of $#{self.pot}"
+      @stage_status << "split the pot of <b>$#{self.pot}</b>"
     else
-      @status << "#{best_players[0].owner[:first_name]} won $#{self.pot} with <span class='bold'>#{best_hands[0]}</span>"
+      @stage_status << "#{best_players[0].owner[:first_name]} won <b>$#{self.pot}</b> with <b>#{best_hands[0]}</b>"
     end
 
     allocate_winnings(best_players)

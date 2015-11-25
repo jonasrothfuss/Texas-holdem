@@ -25,7 +25,7 @@ class GameRoom
       player = Player.new_player(user, 5000)
       self.players << player
       save
-      status = "<span class='bold'>#{user[:first_name]} #{user[:last_name]}</span> has joined."
+      status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has joined"
       push = {player: player, status: status}
       Pusher.trigger("gameroom-#{id}", 'newplayer', push)
     end
@@ -36,7 +36,7 @@ class GameRoom
   def remove_player(user)
     player = Player.where(game_room: id, owner: user).first
     player.leave()
-    status = "<span class='bold'>#{user[:first_name]} #{user[:last_name]}</span> has left."
+    status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has left"
     push = {player: player, status: status}
     Pusher.trigger("gameroom-#{id}", 'playerleft', push)
   end
@@ -59,7 +59,7 @@ class GameRoom
     round = Round.new_round(self.players, self.min_bet)
     round.initialise
     self.rounds << round
-    status = "<span class='bold'>New Round</span>: #{self.players.count} players. $#{self.min_bet} Big Blind/$#{self.min_bet/2} Small Blind."
+    status = "<b>New Round</b>: #{self.players.count} players. $#{self.min_bet} Big Blind/$#{self.min_bet/2} Small Blind"
     response = {players: self.players, newround: access_round, status: status}
     Pusher.trigger("gameroom-#{id}", 'newround', response)
     save
