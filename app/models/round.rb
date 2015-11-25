@@ -163,13 +163,15 @@ class Round
     hand.fold = true
     hand.save
 
-    hands = self.hands
+    hands = self.hands.where(:fold.ne => true)
 
     if hands.count == 1
       h = hands.first
 
+      push_turn
       collect_bets
       allocate_winnings([h.player])
+      @stage_status = "<b>#{h.player[:owner][:first_name]}</b> wins <b>$#{self.pot}</b>"
       push_stage
     else
       hand.action_count += 1
