@@ -1,5 +1,19 @@
+class PokerHand
+  def to_user_s
+    s = String.new
+
+    @hand.each do |h|
+      s << h.to_user_s + " "
+    end
+
+    s << "(" + hand_rating + ")"
+
+    return s
+  end
+end
+
 class Card
-  def to_s
+  def to_user_s
     s = String.new(FACES[@face].chr)
 
     case SUITS[@suit].chr

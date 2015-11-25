@@ -326,11 +326,11 @@ class Round
 
     if best_players.count > 1
       (0...best_players.count).each do |i|
-        @stage_status << "#{best_players[i].owner[:first_name]} - #{best_hands[i]}, "
+        @stage_status << "#{best_players[i].owner[:first_name]} - #{best_hands[i].to_user_s}, "
       end
       @stage_status << "split the pot of <b>$#{self.pot}</b>"
     else
-      @stage_status << "#{best_players[0].owner[:first_name]} won <b>$#{self.pot}</b> with <b>#{best_hands[0]}</b>"
+      @stage_status << "#{best_players[0].owner[:first_name]} won <b>$#{self.pot}</b> with <b>#{best_hands[0].to_user_s}</b>"
     end
 
     allocate_winnings(best_players)
