@@ -168,6 +168,9 @@ class Round
     if hands.count == 1
       h = hands.first
 
+      hand.current = false
+      hand.save
+
       push_turn
       collect_bets
       allocate_winnings([h.player])
