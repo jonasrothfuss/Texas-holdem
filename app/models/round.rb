@@ -34,10 +34,10 @@ class Round
     if stage_finished?
       self.stage += 1
       resolve_stage
+      next_player
+      push_turn
       push_stage
-    end
-
-    if self.active
+    elsif self.active
       next_player
       push_turn
     end
