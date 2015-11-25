@@ -118,6 +118,7 @@ pokerApp.controller('gameRoomCtrl', [
 				renderHands(result.state);
 				renderCards(result.cards, result.default_card);
 				setBets();
+				$scope.feed.push(result.status)
 			});
 		}
 

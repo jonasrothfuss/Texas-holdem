@@ -110,11 +110,17 @@ class Round
     if self.stage < 5
       player = self.players.where(owner: user).first
       cards = self.hands.where(player: player).only(:player, :current, :gamecards)
+      status = "Your Hand: <span class='bold'>"
+      cards.first.gamecards.each do |c|
+        status << c.to_user_s + " "
+      end
+      status << "</span>"
 
       response = {
           state: self.hands.without(:round, :gamecards),
           cards: cards,
-          default_card: {:image_path => GameCard.default_image_path}
+          default_card: {:image_path => GameCard.default_image_path},
+          status: status
       }
     else
       response = {
