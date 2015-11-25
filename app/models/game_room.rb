@@ -59,7 +59,8 @@ class GameRoom
     round = Round.new_round(self.players, self.min_bet)
     round.initialise
     self.rounds << round
-    response = {players: self.players, newround: access_round}
+    status = "<span class='bold'>New Round</span>: #{self.players.count} players. $#{self.min_bet} Big Blind/$#{self.min_bet/2} Small Blind."
+    response = {players: self.players, newround: access_round, status: status}
     Pusher.trigger("gameroom-#{id}", 'newround', response)
     save
     round.move

@@ -67,6 +67,7 @@ pokerApp.controller('gameRoomCtrl', [
 			$scope.gameRoom.players = response.players;
 			$scope.round = response.newround.round;
 			$scope.round.cards = response.newround.cards;
+			$scope.feed.push(response.status);
 			getHands();
 		});
 
