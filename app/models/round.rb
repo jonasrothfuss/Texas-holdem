@@ -303,16 +303,29 @@ class Round
 
   def resolve_winner
     best_players = []
-    best_hand = find_best_hand(self.hands.where(:fold.ne => true).first)
+    best_hands = []
+    best_hands << find_best_hand(self.hands.where(:fold.ne => true).first)
+    @status = String.new
 
     self.hands.where(:fold.ne => true).each do |h|
       player_hand = find_best_hand(h)
-      if player_hand == best_hand
+      if player_hand == best_hands[0]
+        best_hands << player_hand
         best_players << h.player
-      elsif player_hand > best_hand
-        best_hand = player_hand
+      elsif player_hand > best_hands[0]
+        best_hands = []
+        best_hands << player_hand
         best_players = Array(h.player)
       end
+    end
+
+    if best_players.count > 1
+      (0...best_players.count).each do |i|
+        @status << "#{best_players[i].owner[:first_name]} - #{best_hands[i]}, "
+      end
+      @status << "split the pot of $#{self.pot}"
+    else
+      @status << "#{best_players[0].owner[:first_name]} won $#{self.pot} with <span class='bold'>#{best_hands[0]}</span>"
     end
 
     allocate_winnings(best_players)
