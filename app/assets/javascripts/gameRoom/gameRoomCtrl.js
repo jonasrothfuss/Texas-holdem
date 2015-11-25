@@ -74,6 +74,7 @@ pokerApp.controller('gameRoomCtrl', [
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (response) {
 			renderHands(response.hands, response.players);
 			setBets();
+			$scope.feed.push(response.status);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'stage', function (response) {

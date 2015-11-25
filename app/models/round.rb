@@ -30,16 +30,16 @@ class Round
     save
   end
 
-  def move
+  def move(status = nil)
     if stage_finished?
       self.stage += 1
       resolve_stage
       next_player
-      push_turn
+      push_turn(status)
       push_stage
     elsif self.active
       next_player
-      push_turn
+      push_turn(status)
     end
   end
 
@@ -135,15 +135,24 @@ class Round
   def add_turn(user, bet)
     hand = self.hands.where(current: true).first
     if hand.player.owner[:_id] == user[:_id]
+      status = "<span class='bold'>#{user[:first_name]}</span> "
+
       if bet == -1
         fold(hand)
+        status << "folded"
       else
         hand.place_bet(bet)
+
+        if bet == 0
+          status << "checked"
+        else
+          status << "bet $#{bet}"
+        end
 
         hand.action_count += 1
         hand.save
 
-        move
+        move(status)
       end
     else
       raise UnauthorizedError
@@ -207,10 +216,10 @@ class Round
     self.hands[nxt].save
   end
 
-  def push_turn
+  def push_turn(status)
     hands = self.hands.without(:round, :gamecards)
     players = self.players
-    push = {hands: hands, players: players}
+    push = {hands: hands, players: players, status: status}
     Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', push)
   end
 
