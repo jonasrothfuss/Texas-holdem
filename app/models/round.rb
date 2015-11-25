@@ -109,9 +109,18 @@ class Round
   def access_hand(user={})
     if self.stage < 5
       player = self.players.where(owner: user).first
-      response = {status: self.hands.without(:round, :gamecards), cards: self.hands.where(player: player).only(:player, :current, :gamecards), default_card: {:image_path => GameCard.default_image_path}}
+      cards = self.hands.where(player: player).only(:player, :current, :gamecards)
+
+      response = {
+          state: self.hands.without(:round, :gamecards),
+          cards: cards,
+          default_card: {:image_path => GameCard.default_image_path}
+      }
     else
-      response = {status: self.hands.without(:round, :gamecards), cards: self.hands.where(:fold.ne => true).only(:player, :current, :gamecards)}
+      response = {
+          state: self.hands.without(:round, :gamecards),
+          cards: self.hands.where(:fold.ne => true).only(:player, :current, :gamecards)
+      }
     end
 
     return response
@@ -245,7 +254,7 @@ class Round
     if self.stage == 5
       hands = access_hand
     else
-      hands = {status: self.hands.without(:round, :gamecards)}
+      hands = {state: self.hands.without(:round, :gamecards)}
     end
 
     players = []

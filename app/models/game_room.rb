@@ -26,7 +26,7 @@ class GameRoom
       self.players << player
       save
       status = "<span class='bold'>#{user[:first_name]} #{user[:last_name]}</span> has joined."
-      push = {player: player, feed: status}
+      push = {player: player, status: status}
       Pusher.trigger("gameroom-#{id}", 'newplayer', push)
     end
 
@@ -37,7 +37,7 @@ class GameRoom
     player = Player.where(game_room: id, owner: user).first
     player.leave()
     status = "<span class='bold'>#{user[:first_name]} #{user[:last_name]}</span> has left."
-    push = {player: player, feed: status}
+    push = {player: player, status: status}
     Pusher.trigger("gameroom-#{id}", 'playerleft', push)
   end
 
