@@ -14,5 +14,4 @@ pokerApp
 		return function(text) {
 			return $sce.trustAsHtml(text);
 		};
-	}])
-	});
+	}]);
