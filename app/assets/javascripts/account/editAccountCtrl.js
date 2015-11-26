@@ -8,9 +8,15 @@ pokerApp.controller('editAccountCtrl', ['$scope', '$rootScope', '$state', 'apiSe
   
   $(document).ready(function(){
     
+    //hide new password input field if user is logged in with facebook
+    if ($(this).scope().user.uid.length > 4){
+     $("#new_password_input").hide()
+     $("#email_input").prop("disabled", true)
+    }
+    
     //Open Password Popup
     $("#editAccountButton").click( function() {
-      display_edit_account_dialogue()
+      display_password_dialogue($(this).scope().user.uid.length > 4)
     })
     
     //Open Delete Dialogue
@@ -89,29 +95,39 @@ pokerApp.controller('editAccountCtrl', ['$scope', '$rootScope', '$state', 'apiSe
     })
     
   })
+
+  
   
   //Functions to popup dialogues
   
-  function display_edit_account_dialogue(){
+  function display_password_dialogue(fb_logged_in){
     centering_actions()
-    $('.overlay-content').show().css({'top': scrollTop+20+'px'})
+    if (fb_logged_in){
+      $('#password_dialogue_message').text("Are you sure want to change your account data?")
+      $('#edit_account_password_form').hide()
+    }
+    else {
+      $('#password_dialogue_message').text("Please enter your current password to save your new account information")
+      $('#edit_account_password_form').show()
+    }
+    $('#password_dialogue').show()
   }
 
   function display_info_dialogue(message){
     $('#edit_account_dialogue_information').text(message)
     centering_actions()
-    $('#edit_account_dialogue').show().css({'top': scrollTop+20+'px'})
+    $('#edit_account_dialogue').show()
   }
   
   function display_delete_account_dialogue(){
     centering_actions()
-    $('#delete_account_dialogue').show().css({'top': scrollTop+20+'px'})
+    $('#delete_account_dialogue').show()
   }
   
   
   //Functions to close the dialogues
   function close_edit_account_dialogue(){
-    $('.overlay-bg, .overlay-content').hide()
+    $('.overlay-bg, #password_dialogue').hide()
     $("#edit_account_password_form").trigger('reset')
   }
 
