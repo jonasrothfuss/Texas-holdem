@@ -54,3 +54,5 @@ gem 'rails_12factor'
 gem 'valid_email'
 
 gem 'ruby-poker'
+
+gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
