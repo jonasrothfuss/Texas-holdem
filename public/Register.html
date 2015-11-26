@@ -8,14 +8,21 @@
 			<form ng-submit="register()">
 				<span class="alert alert-sm alert-warning" ng-show="error.first_name" ng-cloak>First Name {{ error.first_name[0] }}</span>
 				<input type="text" class="form-control" placeholder="First Name" ng-model="user.first_name">
+
 				<span class="alert alert-sm alert-warning" ng-show="error.last_name">Last Name {{ error.last_name[0] }}</span>
 				<input type="text" class="form-control" placeholder="Last Name" ng-model="user.last_name">
+
 				<span class="alert alert-sm alert-warning" ng-show="error.email">Email {{ error.email[0] }}</span>
 				<input type="email" class="form-control" placeholder="Email" ng-model="user.email">
+
 				<span class="alert alert-sm alert-warning" ng-show="error.username">Username {{ error.username[0] }}</span>
 				<input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+
 				<span class="alert alert-sm alert-warning" ng-show="error.password">Password {{ error.password[0] }}</span>
+				<span class="alert alert-sm alert-warning" ng-show="error.password_confirmation">Password {{ error.password_confirmation[0] }}</span>
 				<input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+				<input type="password" class="form-control" placeholder="Confirm Password" ng-model="user.password_confirmation"/>
+
 				<input type="submit" class="btn btn-primary pull-right" ng-click="registering=true" value="Register">
 			</form>
 			<br/><br/><br/>

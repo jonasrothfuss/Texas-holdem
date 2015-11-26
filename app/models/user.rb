@@ -3,6 +3,7 @@ class User
   include Mongoid::Timestamps
 
   validates :first_name, :last_name, :username, presence: true
+  validates_confirmation_of :password
   validates :email, :email => true
   
   field :balance,           type: Integer, default: 5000
