@@ -5,6 +5,7 @@ class AccountController < ActionController::Base
   before_filter :authenticate_user!
   
   def edit
+    puts "::::::::::::::::::::::::::::::::::::::::::::: " + user_omniauth_authorize_path(:facebook) 
     if valid_password?
       error = error_form_data()
       if error == nil
@@ -113,7 +114,14 @@ class AccountController < ActionController::Base
   end
   
   def valid_password?
-    return User.find(current_user).valid_password?(params[:password])
+    if logged_in_via_fb?
+      return true
+    else
+      return User.find(current_user).valid_password?(params[:password])
+    end
   end
-
+  
+  def logged_in_via_fb?
+    return User.find(current_user).uid.length > 4
+  end
 end
