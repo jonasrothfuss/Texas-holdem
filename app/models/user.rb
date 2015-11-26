@@ -3,19 +3,22 @@ class User
   include Mongoid::Paperclip
   include Mongoid::Timestamps
 
-  validates :first_name, :last_name, :username, presence: true
+  validates :first_name, :email, :username, presence: true
   validates_confirmation_of :password
   validates :email, :email => true
 
   field :balance,             type: Integer, default: 5000
+  
+  field :provider,            type: String
+  field :uid,                 type: String
 
   has_mongoid_attached_file  :image
   do_not_validate_attachment_file_type :image
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :confirmable, :omniauthable,
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+devise  :database_authenticatable, :registerable, :recoverable,
+        :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
         
 
   ## Database authenticatable
