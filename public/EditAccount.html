@@ -66,8 +66,8 @@
 					<input name="current_password" type="password" ng-model="user.current_password" class="form-control"/>
 				</div>
 				<br>
-				<input type="submit" class="btn btn-success" ng-disabled="!user.current_password & !user.uid" value="Save" ng-click="save()">
-				<input type="submit" class="btn btn-danger" ng-disabled="!user.current_password & !user.uid" value="Delete Account" ng-click="delete()">
+				<input type="submit" class="btn btn-success" ng-disabled="!user.current_password && !user.uid" value="Save" ng-click="save()">
+				<input type="submit" class="btn btn-danger" ng-disabled="!user.current_password && !user.uid" value="Delete Account" ng-click="delete()">
 			</form>
 		</div>
 	</div>
