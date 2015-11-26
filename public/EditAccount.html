@@ -1,6 +1,9 @@
 
 
 <form id="editaccountform" style="margin-left: 3%;float: left;" ng-controller="editAccountCtrl" class="well">
+  <div class="form-group">
+    <a class="bold" href="/#/account"><i class="fa fa-arrow-circle-left"></i> back</a>
+   </div>
     <div class="form-group">
         <label class="control-label">First Name:</label>
         <input name="first_name" type="text" value={{user.first_name}} class="form-control floating-label"   />
@@ -14,13 +17,13 @@
 
     <div class="form-group">
         <label class="control-label">Email:</label>
-        <input name="email" type="email"  value={{user.email}} class="form-control"   />
+        <input name="email" type="email"  value={{user.email}} class="form-control" id="email_input" />
     </div>
     <div class="form-group">
         <label class="control-label">Username</label>
         <input name="username" type="text" value={{user.username}} class="form-control"  />
     </div>
-    <div class="form-group">
+    <div id="new_password_input" class="form-group">
         <label class="control-label">New Password (Optional):</label>
         <input name="new_password" type="password" class="form-control"   />
     </div>
@@ -33,8 +36,8 @@
 
 <div class="overlay-bg">
 
-<div class="overlay-content">
-    <p>Please enter your current password to save your new account information</p>
+<div id="password_dialogue" class="dialogue">
+    <p id="password_dialogue_message"></p>
     <form id="edit_account_password_form">
       Password:<input name="password" type="password">
     </form>
