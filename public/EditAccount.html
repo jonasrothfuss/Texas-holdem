@@ -6,7 +6,6 @@
 	</div>
 	<div class="row tp-20">
 		<div class="col-lg-12">
-
 			<form>
 				<div class="text-center">
 					<div id="user-image-container" ng-hide="showEditor">
@@ -50,7 +49,7 @@
 					<span class="alert alert-sm alert-warning" ng-show="error.username">Username {{ error.username[0] }}</span>
 					<input name="username" type="text" ng-model="user.username" class="form-control"/>
 				</div>
-				<div class="form-group">
+				<div class="form-group" ng-hide="user.uid">
 					<label class="control-label">New Password (Optional):</label>
 					<span class="alert alert-sm alert-warning" ng-show="error.password">Password {{ error.password[0] }}</span>
 					<input name="password" type="password" ng-model="user.password" class="form-control"/>
@@ -60,15 +59,15 @@
 					<span class="alert alert-sm alert-warning" ng-show="error.password_confirmation">Password {{ error.password_confirmation[0] }}</span>
 					<input name="password_confirmation" type="password" ng-model="user.password_confirmation" class="form-control"/>
 				</div>
-				<hr/>
-				<div class="form-group">
+				<hr/ ng-hide="user.uid">
+				<div class="form-group" ng-hide="user.uid">
 					<label class="control-label">Current Password:</label>
 					<span class="alert alert-sm alert-warning" ng-show="error.current_password">Password {{ error.current_password[0] }}</span>
 					<input name="current_password" type="password" ng-model="user.current_password" class="form-control"/>
 				</div>
 				<br>
-				<input type="submit" class="btn btn-success" ng-disabled="!user.current_password" value="Save" ng-click="save()">
-				<input type="submit" class="btn btn-danger" ng-disabled="!user.current_password" value="Delete Account" ng-click="delete()">
+				<input type="submit" class="btn btn-success" ng-disabled="!user.current_password & !user.uid" value="Save" ng-click="save()">
+				<input type="submit" class="btn btn-danger" ng-disabled="!user.current_password & !user.uid" value="Delete Account" ng-click="delete()">
 			</form>
 		</div>
 	</div>
