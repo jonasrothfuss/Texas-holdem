@@ -36,6 +36,7 @@ class AccountController < ActionController::Base
     end
   end
   
+  protect_from_forgery with: :null_session
   def picture
     user = User.find(current_user)
     if File.exist?(image_location_jpg(user.id))

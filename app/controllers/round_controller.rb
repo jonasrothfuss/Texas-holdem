@@ -1,5 +1,5 @@
 class RoundController < ApplicationController
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
 
   before_filter :authenticate_user!
 
