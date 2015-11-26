@@ -8,7 +8,6 @@ var pokerApp = angular.module('poker', [
     'ui.bootstrap',
     'ngAnimate'
 ])
-    // AngularJS States => Routes
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             $stateProvider
                     .state('login', {
@@ -34,10 +33,7 @@ var pokerApp = angular.module('poker', [
                         url: '/account', templateUrl: 'AccountDetails.html', controller: 'accountCtrl'
                     })
                     .state('editaccount', {
-                        url: '/editaccount', templateUrl: 'EditAccount.html', controller: 'editAccountCtrl'
-                    })
-                    .state('deleteaccount', {
-                        url: '/deleteaccount', templateUrl: 'DeleteAccount.html', controller: 'deleteAccountCtrl'
+                        url: '/account/edit', templateUrl: 'EditAccount.html', controller: 'accountCtrl'
                     })
                     .state('gameroom', {
                         url: '/gameroom/:gameId', templateUrl: 'GameRoom.html', controller: 'gameRoomCtrl'
@@ -48,7 +44,7 @@ var pokerApp = angular.module('poker', [
         .config(['PusherServiceProvider', function (PusherServiceProvider) {
             PusherServiceProvider.setToken('<%= Pusher.key %>').setOptions({});
         }])
-        .run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
+        .run(['$rootScope', '$state', 'Auth', 'apiServices', function ($rootScope, $state, Auth, apiServices) {
             {
                 $rootScope.signedIn = Auth.isAuthenticated;
                 $rootScope.logout = Auth.logout;
@@ -56,6 +52,9 @@ var pokerApp = angular.module('poker', [
 
                 Auth.currentUser().then(function (user) {
                     $rootScope.user = user;
+                    apiServices.AccountService.GetPicture($rootScope.user._id).success(function (result){
+                        $rootScope.user.image_url = result;
+                    });
                 });
 
                 $rootScope.$on('device:new-registration', function (e, user) {

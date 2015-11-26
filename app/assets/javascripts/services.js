@@ -79,7 +79,12 @@ pokerApp.factory('apiServices', ['$http', '$q', '$rootScope', function($http, $q
 				SendTurn: function(roundId, post){
 					return call('round', roundId, 'turn', post);
 				}
-			}
+			},
 
+			AccountService: {
+				GetPicture: function(userId){
+					return call('account', userId, 'picture');
+				}
+			}
 		};
 	}]);
