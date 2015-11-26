@@ -60,7 +60,7 @@ class GameRoomController < ApplicationController
         first_name: current_user.first_name,
         last_name: current_user.last_name,
         username: current_user.username,
-        image_path: current_user.image_path
+        image_url: current_user.image.to_s
     }
 
     return u
