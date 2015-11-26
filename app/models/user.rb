@@ -2,17 +2,19 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  validates :first_name, :last_name, :username, presence: true
+  validates :email, presence: true
   validates :email, :email => true
   
   field :balance,           type: Integer, default: 5000
   field :image_path,        type: String, default: ""
+  
+  field :provider,          type: String
+  field :uid,               type: String
 
   # Include default devise modules. Others available are:
-  # :lockable, :timeoutable, :confirmable, :omniauthable,
-  devise :database_authenticatable, :registerable, 
-         :recoverable, :rememberable, :trackable, :validatable
-        
+  # :lockable, :timeoutable, :confirmable,
+  devise :database_authenticatable, :registerable, :recoverable,
+         :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
   field :first_name,         type: String, default: ""
@@ -45,4 +47,28 @@ class User
   #field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   #field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   #field :locked_at,       type: Time
+  
+  def self.from_omniauth(auth)
+    puts "---------------------User#from_omniauth------------------------------"
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      a = auth.info.name.split
+      user.first_name = a[0]
+      user.last_name = a[1...a.length].join(" ") if a.length > 1
+      user.username = auth.info.name.downcase.gsub(" ","")
+      user.save!
+    end
+  end
+  
+  def self.new_with_session(params, session)
+    puts "---------------------User#new_with_session------------------------------"
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+    puts "---------------------User#new_with_session------------------------------END"
+  end
+  
 end
