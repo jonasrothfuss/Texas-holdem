@@ -1,35 +1,36 @@
 <div class="row" id="gameRow">
-	<div class="col-sm-12 col-md-8" id="gameCol">
-		<div class="row" id="leaveRoomRow">
-			<div class="col-xs-12 text-right" id="leaveRoomCol">
-				<a class="btn btn-primary btn-raised" id="leaveRoomBtn" ng-click="leaveRoom()">Leave Room</a>
+	<div class="col-lg-12" id="gameCol">
+		<div class="col-xs-11 text-right" style="margin-top: -40px">
+			<a class="btn btn-primary btn-raised" id="leaveRoomBtn" ng-click="leaveRoom()">Leave Room</a>
+		</div>
+		<a class="btn btn-primary" ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-click="start()">Start Game</a>
+
+		<div ng-show="gameRoom.players" id="gamecontainer" style="margin-top: 100px">
+			<img id="pokertable" src="assets/pokertable.png">
+
+			<div id="communal">
+				<img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">
+				<h3>Pot: ${{round.pot}}</h3>
+				<p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
+			</div>
+
+			<div class="player" id="player-{{$index+1}}" ng-repeat="p in gameRoom.players">
+				<div class="player-hand" ng-hide="!p.hand || p.hand.fold">
+					<img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
+				</div>
+				<div class="player-icon" ng-class="{'current': p.hand.current}">
+					<div class="player-desc">
+						<span>{{p.owner.first_name}} (${{p.chips}})</span>
+					</div>
+					<img class="img-thumbnail" ng-src="{{p.owner.image_url}}">
+					<div class="hand-status">
+						<span>Bet: ${{p.hand.bet}}</span>
+					</div>
+				</div>
 			</div>
 		</div>
 
-		<div class="row" id="tableRow">
-			<div class="col-xs-12" id="tableCol">
-				<a class="btn btn-primary" ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-click="start()">Start Game</a>
-
-				<div class="col-xs-4">
-					<div ng-repeat="p in gameRoom.players">
-						<div ng-hide="!p.hand || p.hand.fold">
-							<img class="card bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
-						</div>
-
-						<p ng-class="{'bold': p.hand.current}">{{p.owner.first_name}} (${{p.chips}}): Bet: ${{p.hand.bet}}</p>
-					</div>
-				</div>
-				<div class="col-xs-8">
-					<div class="bm-20 text-center">
-						<img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">
-						<h3>Pot: ${{round.pot}}</h3>
-						<p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" id="userChoicesRow" ng-show="turn">
+		<div class="col-lg-8 tm-20 panel panel-body" id="user-action-row" ng-show="turn">
 			<div class="col-xs-4" id="checkCallCol">
 				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="checkBtn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
@@ -50,8 +51,8 @@
 		</div>
 	</div>
 
-	<div class="col-md-4 hidden-sm" id="feedChatCol">
-			<div class="panel panel-primary">
+	<div class="hidden-sm" id="feed-chat-bar">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title text-center">Feed</h3>
 			</div>
@@ -67,7 +68,7 @@
 				<h3 class="panel-title text-center">Chat</h3>
 			</div>
 			<div class="panel-body">
-				<ul id="messages" class="list-unstyled" scroll-bottom="messages">
+				<ul id="chat" class="list-unstyled" scroll-bottom="messages">
 					<li ng-repeat="m in messages"><p><strong>{{m.user.first_name}}:</strong>&nbsp; {{m.content}}</p></li>
 				</ul>
 			</div>
@@ -75,10 +76,10 @@
 			<form class="panel-body" ng-submit="sendMessage()">
 				<div class="form-group">
 					<div class="input-group">
-						<input class="form-control" type="text" ng-model="message" placeholder="Enter Message Here"/>
-              <span class="input-group-btn">
-                <button class="btn btn-primary btn-raised" ng-disabled="sending" type="submit">Send</button>
-              </span>
+						<input class="form-control" type="text" ng-model="message" placeholder="Type a message"/>
+						<span class="input-group-btn">
+							<button class="btn btn-primary btn-raised lp-10 rp-10" ng-disabled="sending" type="submit">Send</button>
+						</span>
 					</div>
 				</div>
 			</form>
