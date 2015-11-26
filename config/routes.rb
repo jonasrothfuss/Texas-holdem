@@ -4,21 +4,15 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  post '/editaccount', to: 'account#edit'
-  post '/deleteaccount', to: 'account#delete'
-  
   root to: 'application#angular'
 
   post 'pusher/auth'
 
   scope '/api', :defaults => {:format => 'json'} do
     controller :account do
-      post  'account/edit'          => :edit
-      post  'account/delete'        => :delete
-      get   'account/picture'       => :picture
-      post  'account/new_picture'   => :new_picture
+      get   'account/:id/picture'   => :picture
     end
-    
+
     controller :game_room do
       get   'gameroom'              => :index
       post  'gameroom/create'       => :create
