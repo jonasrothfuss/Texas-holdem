@@ -6,6 +6,7 @@
 	</div>
 	<div class="row tp-20">
 		<div class="col-lg-12">
+
 			<form>
 				<div class="text-center">
 					<div id="user-image-container" ng-hide="showEditor">
@@ -28,41 +29,41 @@
 				</div>
 
 				<div class="form-group">
-					<span class="alert alert-sm alert-warning" ng-show="error.first_name" ng-cloak>First Name {{ error.first_name[0] }}</span><br>
 					<label class="control-label">First Name:</label>
+					<span class="alert alert-sm alert-warning" ng-show="error.first_name" ng-cloak>First Name {{ error.first_name[0] }}</span>
 					<input name="first_name" type="text" ng-model="user.first_name" class="form-control floating-label"/>
 				</div>
 
 				<div class="form-group">
-					<span class="alert alert-sm alert-warning" ng-show="error.last_name">Last Name {{ error.last_name[0] }}</span><br>
 					<label class="control-label">Last Name:</label>
+					<span class="alert alert-sm alert-warning" ng-show="error.last_name">Last Name {{ error.last_name[0] }}</span>
 					<input name="last_name" type="text" ng-model="user.last_name" class="form-control"/>
 				</div>
 
 				<div class="form-group">
-					<span class="alert alert-sm alert-warning" ng-show="error.email">Email {{ error.email[0] }}</span><br>
 					<label class="control-label">Email:</label>
+					<span class="alert alert-sm alert-warning" ng-show="error.email">Email {{ error.email[0] }}</span>
 					<input name="email" type="email" ng-model="user.email" class="form-control"/>
 				</div>
 				<div class="form-group">
-					<span class="alert alert-sm alert-warning" ng-show="error.username">Username {{ error.username[0] }}</span><br>
 					<label class="control-label">Username</label>
+					<span class="alert alert-sm alert-warning" ng-show="error.username">Username {{ error.username[0] }}</span>
 					<input name="username" type="text" ng-model="user.username" class="form-control"/>
 				</div>
 				<div class="form-group">
-					<span class="alert alert-sm alert-warning" ng-show="error.password">Password {{ error.password[0] }}</span><br>
 					<label class="control-label">New Password (Optional):</label>
+					<span class="alert alert-sm alert-warning" ng-show="error.password">Password {{ error.password[0] }}</span>
 					<input name="password" type="password" ng-model="user.password" class="form-control"/>
 				</div>
 				<div class="form-group" ng-show="user.password">
-					<span class="alert alert-sm alert-warning" ng-show="error.password_confirmation">Password {{ error.password_confirmation[0] }}</span><br>
 					<label class="control-label">Confirm New Password:</label>
+					<span class="alert alert-sm alert-warning" ng-show="error.password_confirmation">Password {{ error.password_confirmation[0] }}</span>
 					<input name="password_confirmation" type="password" ng-model="user.password_confirmation" class="form-control"/>
 				</div>
 				<hr/>
 				<div class="form-group">
-					<span class="alert alert-sm alert-warning" ng-show="error.current_password">Password {{ error.current_password[0] }}</span><br>
 					<label class="control-label">Current Password:</label>
+					<span class="alert alert-sm alert-warning" ng-show="error.current_password">Password {{ error.current_password[0] }}</span>
 					<input name="current_password" type="password" ng-model="user.current_password" class="form-control"/>
 				</div>
 				<br>
