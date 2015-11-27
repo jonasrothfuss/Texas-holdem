@@ -1,0 +1,192 @@
+.red {
+  color: red;
+}
+
+.user_image {
+  width: 150px;
+  height: 150px;
+}
+
+.user_thumb {
+  width: 25px;
+  height: 25px;
+  padding: 2px;
+}
+
+#status-toast {
+  position: absolute;
+  left: 50%;
+  top: 80px;
+  font-size: 24px;
+  width: 450px;
+  margin-left: -200px;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+}
+
+#feed-chat-bar {
+  position: absolute;
+  right: 5px;
+  width: 15%;
+}
+
+#chat {
+  height: 250px;
+  overflow: auto;
+  word-wrap: break-word;
+}
+
+#feed {
+  height: 150px;
+  overflow: auto;
+}
+
+#gamecontainer {
+  position: relative;
+}
+
+#gameCol {
+  background-color: #eee;
+}
+
+.user_image {
+  width: 150px;
+  height: 150px;
+}
+
+#pokertable {
+  width: 950px;
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+#communal {
+  width: 420px;
+  position: absolute;
+  top: 150px;
+  text-align: center;
+  left: 350px;
+  color: #fff;
+}
+
+#user-action-row {
+  left: 15%;
+}
+
+.player {
+  position: relative;
+  width: 100px;
+}
+
+.player-icon {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  outline: 1px solid #fff;
+  background-color: #fff;
+}
+
+.player-icon.current {
+  outline: 1px solid gold;
+
+  .player-desc {
+    background-color: gold;
+  }
+
+  .hand-status {
+    background-color: gold;
+  }
+}
+
+.player-desc {
+  background-color: #fff;
+}
+
+.hand-status {
+  background-color: #fff;
+}
+
+.player-hand {
+  position: absolute;
+}
+
+.player-hand .card {
+  height: 90px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.player-card-2 {
+  left: -45px;
+  top: 12px;
+}
+
+#player-1 {
+  left: 175px;
+  top: -575px;
+}
+
+#player-1 .player-hand {
+  bottom: -180px;
+  right: -135px;
+}
+
+#player-2 {
+  top: -600px;
+  left: 550px;
+}
+
+#player-2 .player-hand {
+  bottom: -180px;
+  left: -90px;
+}
+
+#player-3 {
+  top: -575px;
+  left: 825px;
+}
+
+#player-3 .player-hand {
+  bottom: -180px;
+  left: -90px;
+}
+
+#player-4 {
+  left: 950px;
+  bottom: 380px;
+}
+
+#player-4 .player-hand {
+  top: 30px;
+  left: -100px;
+}
+
+#player-5 {
+  top: -150px;
+  left: 850px;
+}
+
+#player-5 .player-hand {
+  top: -60px;
+  left: -90px;
+}
+
+#player-6 {
+  top: -150px;
+  left: 175px;
+}
+
+#player-6 .player-hand {
+  top: -60px;
+  right: -135px;
+}
+
+#player-7 {
+  left: 20px;
+  bottom: 380px;
+}
+
+#player-7 .player-hand {
+  top: 30px;
+  right: -135px;
+}
