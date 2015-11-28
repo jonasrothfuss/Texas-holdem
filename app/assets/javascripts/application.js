@@ -8,4 +8,5 @@
 //= require bootstrap
 //= require angular-bootstrap
 //= require app
+//= require cropit
 //= require_tree .
