@@ -1,3 +1,10 @@
+.poker-card {
+  height: 100px;
+  width: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .red {
   color: red;
 }
@@ -41,11 +48,11 @@
   overflow: auto;
 }
 
-#gamecontainer {
+#game-container {
   position: relative;
 }
 
-#gameCol {
+#game-col {
   background-color: #eee;
 }
 
@@ -54,7 +61,7 @@
   height: 150px;
 }
 
-#pokertable {
+#poker-table {
   width: 950px;
   margin-left: 70px;
   margin-right: 70px;

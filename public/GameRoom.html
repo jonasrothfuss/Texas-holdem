@@ -1,42 +1,40 @@
-<div class="row" id="gameRow">
-	<div class="col-xs-12 col-sm-8" id="gameCol">
-    <div class="row" id="leaveRoomRow">
-			<div class="col-xs-12 text-right" id="leaveRoomCol">
-				<a class="btn btn-primary btn-raised" id="leaveRoomBtn" ng-click="leaveRoom()">Leave Room</a>
+<div class="row" id="game-row">
+	<div class="col-xs-12 col-sm-8" id="game-col">
+    <div class="row" id="leave-room-row">
+			<div class="col-xs-12 text-right" id="leave-room-col">
+				<a class="btn btn-primary btn-raised" id="leave-room-btn" ng-click="leaveRoom()">Leave Room</a>
 			</div>
 		</div>
     
-    <div class="row" id="tableRow">
-      <div class="col-xs-12" id="tableCol">
+    <div class="row" id="table-row">
+      <div class="col-xs-12" id="table-col">
         
-        <div ng-show="gameRoom.players" id="gamecontainer">
-          <div id="pokertable">
-            <img id="pokertable" src="assets/pokertable.png">
+        <div ng-show="gameRoom.players" id="game-container">
+          <div id="">
+            <img id="poker-table" src="assets/pokertable.png">
           </div>
           
-          <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" id="startGameBtn">
+          <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" id="start-game-btn">
             <a class="btn btn-primary" ng-click="start()">Start Game</a>
           </div>
           
           <div ng-show="gameRoom.active" id="communal" class="text-center">
-            <p><img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]"></p>
+            <p><img class="poker-card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]"></p>
             <h3>Pot: ${{round.pot}}</h3>
             <p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
           </div>
 
           <div class="player" id="player-{{$index+1}}" ng-repeat="p in gameRoom.players">
             <div class="player-hand" ng-hide="!p.hand || p.hand.fold">
-              <img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
+              <img class="poker-card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
             </div>
             
             <div class="player-icon" ng-class="{'current': p.hand.current}">
-              <div class="player-desc">
-                <span>{{p.owner.first_name}} (${{p.chips}})</span>
+              <div class="player-desc">{{p.owner.first_name}} (${{p.chips}})</div>
+              <div class="">
+                <img class="img-thumbnail" ng-src="{{p.owner.image_url}}">
               </div>
-              <img class="img-thumbnail" ng-src="{{p.owner.image_url}}">
-              <div class="hand-status">
-                <span>Bet: ${{p.hand.bet}}</span>
-              </div>
+              <div class="hand-status">Bet: ${{p.hand.bet}}</div>
             </div>
           </div>
           
@@ -44,29 +42,28 @@
       </div>
     </div>
 
-		<!--<class="col-lg-8 tm-20 panel panel-body" id="user-action-row" ng-show="turn">-->
-    <div class="row" id="userChoicesRow" ng-show="turn">
-			<div class="col-xs-4" id="checkCallCol">
-				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="checkBtn" ng-click="bet(round.call_bet)" type="button">
+    <div class="row" id="user-action-row" ng-show="turn">
+			<div class="col-xs-4" id="check-call-col">
+				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="check-call-btn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
 					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
 				</button>
 			</div>
 
-			<div class="col-xs-4" id="raiseCol">
-				<button class="col-xs-12 btn btn-danger btn-raised" id="raiseBtn" ng-click="bet(round.raise_bet)" type="button">
+			<div class="col-xs-4" id="raise-col">
+				<button class="col-xs-12 btn btn-danger btn-raised" id="raise-btn" ng-click="bet(round.raise_bet)" type="button">
 					<span ng-show="allInRaise">All In</span>
 					<span ng-hide="allInRaise">Raise - ${{round.raise_bet}}</span>
 				</button>
 			</div>
 
-			<div class="col-xs-4" id="foldCol">
-				<button class="col-xs-12 btn btn-warning btn-raised" id="foldBtn" ng-click="bet(-1)" type="button">Fold</button>
+			<div class="col-xs-4" id="fold-col">
+				<button class="col-xs-12 btn btn-warning btn-raised" id="fold-btn" ng-click="bet(-1)" type="button">Fold</button>
 			</div>
 		</div>
 	</div>
 
-  <div class="col-sm-4 hidden-xs" id="feedChatCol">
+  <div class="col-sm-4 hidden-xs" id="feed-chat-col">
     <!--<class="hidden-sm" id="feed-chat-bar">-->
     <div class="panel panel-primary">
       <div class="panel-heading">
