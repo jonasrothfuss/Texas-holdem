@@ -8,13 +8,18 @@
     
     <div class="row" id="tableRow">
       <div class="col-xs-12" id="tableCol">
-        <a class="btn btn-primary" ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-click="start()">Start Game</a>
-
-        <div ng-show="gameRoom.players" id="gamecontainer" style="margin-top: 100px">
-          <img id="pokertable" src="assets/pokertable.png">
-
-          <div id="communal">
-            <img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">
+        
+        <div ng-show="gameRoom.players" id="gamecontainer">
+          <div id="pokertable">
+            <img id="pokertable" src="assets/pokertable.png">
+          </div>
+          
+          <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" id="startGameBtn">
+            <a class="btn btn-primary" ng-click="start()">Start Game</a>
+          </div>
+          
+          <div ng-show="gameRoom.active" id="communal" class="text-center">
+            <p><img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]"></p>
             <h3>Pot: ${{round.pot}}</h3>
             <p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
           </div>
@@ -23,6 +28,7 @@
             <div class="player-hand" ng-hide="!p.hand || p.hand.fold">
               <img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
             </div>
+            
             <div class="player-icon" ng-class="{'current': p.hand.current}">
               <div class="player-desc">
                 <span>{{p.owner.first_name}} (${{p.chips}})</span>
@@ -33,6 +39,7 @@
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </div>
