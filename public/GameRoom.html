@@ -14,8 +14,8 @@
             <img id="poker-table-img" src="assets/pokertable.png">
           </div>
           
-          <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" id="start-game-btn">
-            <a class="btn btn-primary" ng-click="start()">Start Game</a>
+          <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" id="start-game-col" class="col-xs-12 text-center">
+            <a class="btn btn-success btn-raised btn-lg" id="start-game-btn" ng-click="start()">Start Game</a>
           </div>
           
           <div ng-show="gameRoom.active" id="communal" class="text-center">
@@ -44,21 +44,24 @@
 
     <div class="row" id="user-action-row">
 			<div class="col-xs-4" id="check-call-col">
-				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="check-call-btn" ng-click="bet(round.call_bet)" type="button">
+				<button class="col-xs-12 btn btn-success btn-raised" id="check-call-btn" ng-show="!allInCall && turn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
 					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
 				</button>
+				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="check-call-btn" ng-show="allInCall || !turn" type="button" disabled>Check</button>
 			</div>
 
 			<div class="col-xs-4" id="raise-col">
-				<button class="col-xs-12 btn btn-danger btn-raised" id="raise-btn" ng-click="bet(round.raise_bet)" type="button">
+				<button class="col-xs-12 btn btn-danger btn-raised" id="raise-btn" ng-show="turn" ng-click="bet(round.raise_bet)" type="button">
 					<span ng-show="allInRaise">All In</span>
 					<span ng-hide="allInRaise">Raise - ${{round.raise_bet}}</span>
 				</button>
+				<button class="col-xs-12 btn btn-danger btn-raised" ng-hide="allInCall" id="check-call-btn" ng-hide="turn" type="button" disabled>All In</button>
 			</div>
 
 			<div class="col-xs-4" id="fold-col">
-				<button class="col-xs-12 btn btn-warning btn-raised" id="fold-btn" ng-click="bet(-1)" type="button">Fold</button>
+				<button class="col-xs-12 btn btn-warning btn-raised" id="fold-btn" ng-show="turn" ng-click="bet(-1)" type="button">Fold</button>
+				<button class="col-xs-12 btn btn-warning btn-raised" ng-hide="allInCall" id="check-call-btn" ng-hide="turn" type="button" disabled>Fold</button>
 			</div>
 		</div>
 	</div>

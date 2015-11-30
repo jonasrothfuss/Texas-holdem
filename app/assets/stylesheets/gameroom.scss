@@ -23,8 +23,9 @@
   position: relative;
 }
 
-#start-game-btn {
+#start-game-col {
   position: absolute;
+  top: 35%;
 }
 
 #poker-table {
@@ -34,7 +35,7 @@
 
 #poker-table-img {
   width: 100%;
-  height:auto;
+  height: auto;
 }
 
 #communal {
