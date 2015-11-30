@@ -1,25 +1,3 @@
-.poker-card {
-  height: 100px;
-  width: auto;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.red {
-  color: red;
-}
-
-.user_image {
-  width: 150px;
-  height: 150px;
-}
-
-.user_thumb {
-  width: 25px;
-  height: 25px;
-  padding: 2px;
-}
-
 #status-toast {
   position: absolute;
   left: 50%;
@@ -31,40 +9,32 @@
   z-index: 10000;
 }
 
-#feed-chat-bar {
-  position: absolute;
-  right: 5px;
-  width: 15%;
+.red {
+  color: red;
 }
 
-#chat {
-  height: 250px;
-  overflow: auto;
-  word-wrap: break-word;
-}
+/* GAME COLUMN STYLES */
 
-#feed {
-  height: 150px;
-  overflow: auto;
+#game-col {
+  background-color: #eee;
 }
 
 #game-container {
   position: relative;
 }
 
-#game-col {
-  background-color: #eee;
-}
-
-.user_image {
-  width: 150px;
-  height: 150px;
+#start-game-btn {
+  position: absolute;
 }
 
 #poker-table {
-  width: 950px;
-  margin-left: 70px;
-  margin-right: 70px;
+  width: 100%;
+  padding: 25px;
+}
+
+#poker-table-img {
+  width: 100%;
+  height:auto;
 }
 
 #communal {
@@ -76,56 +46,18 @@
   color: #fff;
 }
 
-#user-action-row {
-  left: 15%;
+.poker-card {
+  height: 100px;
+  width: auto;
+  margin-left: 5px;
+  margin-right: 5px;
 }
+
+/* PLAYER STYLES */
 
 .player {
-  position: relative;
-  width: 100px;
-}
-
-.player-icon {
   position: absolute;
-  top: 0;
-  text-align: center;
-  outline: 1px solid #fff;
-  background-color: #fff;
-}
-
-.player-icon.current {
-  outline: 1px solid gold;
-
-  .player-desc {
-    background-color: gold;
-  }
-
-  .hand-status {
-    background-color: gold;
-  }
-}
-
-.player-desc {
-  background-color: #fff;
-}
-
-.hand-status {
-  background-color: #fff;
-}
-
-.player-hand {
-  position: absolute;
-}
-
-.player-hand .card {
-  height: 90px;
-  margin-left: 2px;
-  margin-right: 2px;
-}
-
-.player-card-2 {
-  left: -45px;
-  top: 12px;
+  width: 50px;
 }
 
 #player-1 {
@@ -194,6 +126,74 @@
 }
 
 #player-7 .player-hand {
+
+}
+
+#player-8 {
+
+}
+
+#player-8 .player-hand {
   top: 30px;
   right: -135px;
+}
+
+/* PLAYER CARDS */
+
+.player-hand {
+  position: absolute;
+}
+
+.player-hand .poker-card {
+  height: 90px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.player-card-1 {
+
+}
+
+.player-card-2 {
+  left: -45px;
+  top: 12px;
+}
+
+/* PLAYER INFO */
+
+.player-info {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  outline: 1px solid #fff;
+  background-color: #fff;
+}
+
+.player-info.current {
+  outline: 1px solid gold;
+
+  .player-desc {
+    background-color: gold;
+  }
+
+  .hand-status {
+    background-color: gold;
+  }
+}
+
+.player-desc {
+  background-color: #fff;
+}
+
+.hand-status {
+  background-color: #fff;
+}
+
+#chat {
+  overflow: auto;
+  word-wrap: break-word;
+}
+
+#feed {
+  overflow: auto;
 }

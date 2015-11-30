@@ -10,8 +10,8 @@
       <div class="col-xs-12" id="table-col">
         
         <div ng-show="gameRoom.players" id="game-container">
-          <div id="">
-            <img id="poker-table" src="assets/pokertable.png">
+          <div id="poker-table">
+            <img id="poker-table-img" src="assets/pokertable.png">
           </div>
           
           <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" id="start-game-btn">
@@ -29,7 +29,7 @@
               <img class="poker-card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
             </div>
             
-            <div class="player-icon" ng-class="{'current': p.hand.current}">
+            <div class="player-info" ng-class="{'current': p.hand.current}">
               <div class="player-desc">{{p.owner.first_name}} (${{p.chips}})</div>
               <div class="">
                 <img class="img-thumbnail" ng-src="{{p.owner.image_url}}">
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="row" id="user-action-row" ng-show="turn">
+    <div class="row" id="user-action-row">
 			<div class="col-xs-4" id="check-call-col">
 				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="check-call-btn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
@@ -64,7 +64,6 @@
 	</div>
 
   <div class="col-sm-4 hidden-xs" id="feed-chat-col">
-    <!--<class="hidden-sm" id="feed-chat-bar">-->
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title text-center">Feed</h3>
