@@ -1,6 +1,4 @@
 class GameRoomController < ApplicationController
-  protect_from_forgery with: :null_session
-
   before_filter :authenticate_user!
 
   respond_to :json
@@ -50,6 +48,7 @@ class GameRoomController < ApplicationController
   end
 
   private
+
   def crud_params
     params.require(:game_room).permit(:name, :max_players, :min_bet)
   end
