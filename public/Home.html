@@ -20,7 +20,7 @@
 			<div class="room-card col-lg-12" ng-class="{'active' : room.user_in}">
 				<h3 class="bold">{{room.name}}</h3>
 				<hr class="tm-10 bm-10"/>
-				<p><span class="bold">Players:</span> {{room.players.length}} out of 8</p>
+				<p><span class="bold">Players:</span> <span class="badge">{{room.players.length}}</span> out of 8</p>
 				<p><span class="bold">Blinds:</span> ${{room.min_bet/2}} / ${{room.min_bet}}</p>
 				<span class="label" ng-hide="room.user_in" ng-class="room.active ? 'label-primary' : 'label-warning'">{{room.active ? 'Active' : 'Waiting for Players'}}</span>
 				<a ng-href="#/gameroom/{{room._id}}" class="btn pull-right" ng-class="room.user_in ? 'btn-warning' : 'btn-primary'">{{room.user_in ? 'Re-' : ''}}Join</a>

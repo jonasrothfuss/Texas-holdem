@@ -28,6 +28,7 @@ class GameRoom
       status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has joined"
       push = {player: player, status: status}
       Pusher.trigger("gameroom-#{id}", 'newplayer', push)
+      update_lists
     end
 
     return self.players
@@ -39,6 +40,7 @@ class GameRoom
     status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has left"
     push = {player: player, status: status}
     Pusher.trigger("gameroom-#{id}", 'playerleft', push)
+    update_lists
   end
 
   def close
@@ -118,6 +120,13 @@ class GameRoom
 
   def buyInOk?(buy_in)
     return buy_in <= self.limit
+  end
+
+  private
+
+  def update_lists
+    push = [{gid: self.id.to_s, list: Player.where(game_room: self.id).only(:id, :owner)}]
+    Pusher.trigger("gamerooms", 'players', push)
   end
 
 end

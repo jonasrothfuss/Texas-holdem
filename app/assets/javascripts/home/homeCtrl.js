@@ -45,26 +45,34 @@ pokerApp.controller('HomeCtrl', [
 			$scope.rooms.push(gameroom);
 		});
 
+		Pusher.subscribe('gamerooms', 'players', function (players) {
+			updatePlayers(players);
+		});
+
 		//--Private funcs--
 		function loadRooms() {
 			apiServices.GameService.GetRooms().success(function (data) {
 				angular.copy(data.rooms, $scope.rooms);
 
-				angular.forEach(data.players, function(p){
-					var room = $scope.rooms.filter(function (r) {
-						return r._id == p.gid;
-					});
+				updatePlayers(data.players);
+			});
+		}
 
-					room[0].players = p.list;
-
-					var user = p.list.filter(function (p){
-						return p.owner._id == $rootScope.user._id;
-					});
-
-					if (!$filter('isEmpty')(user)){
-						room[0].user_in = true;
-					}
+		function updatePlayers(players){
+			angular.forEach(players, function(p){
+				var room = $scope.rooms.filter(function (r) {
+					return r._id == p.gid;
 				});
+
+				room[0].players = p.list;
+
+				var user = p.list.filter(function (p){
+					return p.owner._id == $rootScope.user._id;
+				});
+
+				if (!$filter('isEmpty')(user)){
+					room[0].user_in = true;
+				}
 			});
 		}
 
