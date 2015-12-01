@@ -29,6 +29,10 @@ nav {
   z-index: 100000;
 }
 
+a{
+  cursor: pointer;
+}
+
 /* Margin and Padding styles */
 @for $i from 0 through 10 {
   $i: $i * 5;
