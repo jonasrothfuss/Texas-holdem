@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="col-lg-6">
-			<h1>Welcome - {{user.first_name}}</h1>
+			<h1>Welcome, {{user.first_name}}!</h1>
 		</div>
 		<div class="col-lg-6">
 			<button class="btn btn-primary pull-right" ng-click="open()"><i class="fa fa-plus"></i> Create Game Room</button>
@@ -11,7 +11,8 @@
 <hr>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<table class="table table-striped" ng-hide="loading">
+		<h4 class="text-center" ng-show="rooms.length == 0">There are currently no game rooms. Be the first to create one!</h4>
+		<table class="table table-striped" ng-hide="loading || rooms.length == 0">
 			<tr>
 				<th>Room Name</th>
 				<th class="text-center">Max Players</th>

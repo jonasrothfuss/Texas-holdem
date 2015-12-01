@@ -59,6 +59,10 @@ nav {
   }
 }
 
+.fa-fw {
+  min-width: (18em / 12);
+}
+
 /* Material Bootstrap Overrides */
 .panel {
   border-radius: 6px;
@@ -72,6 +76,10 @@ nav {
 //    transition: all .3s;
 //    border-bottom: 3px solid #EB0011;
 //}
+
+.navbar-default.navbar {
+  background-color: #353535;
+}
 
 .alert {
   border-radius: 4px;
@@ -97,7 +105,7 @@ nav {
   margin-right: 5px;
 }
 
-#facebook-button{
+#facebook-button {
   background-color: #3B5998;
   background-image: url("/assets/facebook_image.png");
   background-position: 18px 0px;
