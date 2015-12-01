@@ -4,7 +4,13 @@ class GameRoomController < ApplicationController
   respond_to :json
 
   def index
-    respond_with GameRoom.all
+    players = []
+    rooms = GameRoom.all
+    rooms.each do |g|
+      players.push({gid: g.id.to_s, list: Player.where(game_room: g.id).only(:id, :owner)})
+    end
+    response = {:rooms => rooms, :players => players}
+    respond_with response, :location => ''
   end
 
   def create

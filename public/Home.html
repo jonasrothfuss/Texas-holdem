@@ -11,20 +11,20 @@
 <hr>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<h4 class="text-center" ng-show="rooms.length == 0">There are currently no game rooms. Be the first to create one!</h4>
-		<table class="table table-striped" ng-hide="loading || rooms.length == 0">
-			<tr>
-				<th>Room Name</th>
-				<th class="text-center">Max Players</th>
-				<th class="text-center">Min Bet</th>
-				<th></th>
-			</tr>
-			<tr ng-repeat="room in rooms">
-				<td>{{room.name}}</td>
-				<td class="text-center">{{room.max_players}}</td>
-				<td class="text-center">$ {{room.min_bet}}</td>
-				<td width="10%"><a ng-href="#/gameroom/{{room._id}}" class="btn btn-primary">Join</a></td>
-			</tr>
-		</table>
+		<div class="text-center" ng-show="rooms.length == 0">
+			<h3>There are currently no active game rooms &#9785;</h3>
+			<span>You will be able to join a game as soon as someone creates a game room or if you <a ng-click="open()">create
+				one</a>!</span>
+		</div>
+		<div class="col-md-3 tm-10 bm-10" ng-repeat="room in rooms | orderBy: 'user_in'">
+			<div class="room-card col-lg-12" ng-class="{'active' : room.user_in}">
+				<h3 class="bold">{{room.name}}</h3>
+				<hr class="tm-10 bm-10"/>
+				<p><span class="bold">Players:</span> {{room.players.length}} out of 8</p>
+				<p><span class="bold">Blinds:</span> ${{room.min_bet/2}} / ${{room.min_bet}}</p>
+				<span class="label" ng-hide="room.user_in" ng-class="room.active ? 'label-primary' : 'label-warning'">{{room.active ? 'Active' : 'Waiting for Players'}}</span>
+				<a ng-href="#/gameroom/{{room._id}}" class="btn pull-right" ng-class="room.user_in ? 'btn-warning' : 'btn-primary'">{{room.user_in ? 'Re-' : ''}}Join</a>
+			</div>
+		</div>
 	</div>
 </div>

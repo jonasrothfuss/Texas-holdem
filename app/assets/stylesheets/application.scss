@@ -109,6 +109,15 @@ a{
   margin-right: 5px;
 }
 
+.room-card{
+  border: 1px solid #ccc;
+
+  &.active{
+    border-color: orange;
+    outline: 1px solid orange;
+  }
+}
+
 #facebook-button {
   background-color: #3B5998;
   background-image: url("/assets/facebook_image.png");
