@@ -16,8 +16,8 @@
 			<span>You will be able to join a game as soon as someone creates a game room or if you <a ng-click="open()">create
 				one</a>!</span>
 		</div>
-		<div class="col-md-3 tm-10 bm-10" ng-repeat="room in rooms | orderBy: 'user_in'">
-			<div class="room-card col-lg-12" ng-class="{'active' : room.user_in}">
+		<div class="col-xs-12 col-md-3 tm-10 bm-10" ng-repeat="room in rooms | orderBy: 'user_in'">
+			<div class="room-card col-xs-12" ng-class="{'active' : room.user_in}">
 				<h3 class="bold">{{room.name}}</h3>
 				<hr class="tm-10 bm-10"/>
 				<p><span class="bold">Players:</span> <span class="badge">{{room.players.length}}</span> out of 8</p>
