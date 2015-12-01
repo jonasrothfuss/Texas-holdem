@@ -1,17 +1,22 @@
 <nav class="navbar navbar-default" ng-controller="NavCtrl">
 	<div class="container">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
 		<div class="navbar-header">
 			<a class="navbar-brand" href="#"><img src="assets/logo.png" width="100px"/></a>
 		</div>
 
-		<div class="collapse navbar-collapse">
+		<div class="collapse navbar-collapse text-center">
 			<ul class="nav navbar-nav navbar-right">
 				<li ng-show="signedIn()"><a href="#/home"><i class="fa fa-home fa-fw"></i>Home</a></li>
 				<li ng-hide="signedIn()"><a href="#/login"><i class="fa fa-sign-in fa-fw"></i>Log In</a></li>
 				<li ng-hide="signedIn()"><a href="#/register"><i class="fa fa-user-plus fa-fw"></i>Register</a></li>
 				<li ng-show="signedIn()" class="dropdown">
-					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<img class="img-thumbnail user_thumb fa-fw" ng-src="{{user.image_url}}"> {{ user.first_name + " " + user.last_name }} <span class="caret"></span>
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false">
+						<img class="img-thumbnail user_thumb fa-fw" ng-src="{{user.image_url}}"> {{ user.first_name + " " +	user.last_name }} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu text-right">
 						<li><a ui-sref="account"><i class="fa fa-cogs"></i> Account Settings</a></li>
