@@ -27,8 +27,10 @@
               <img class="poker-card" src="assets/cards/KS.svg">
               <!--<img class="poker-card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">-->
             </div>
-            <h3 id="pot">Pot: ${{round.pot}}</h3>
-            <p id="blinds">Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
+            <div id="pot-blinds-info">
+              <h3 class="pot-blinds-text" id="pot">Pot: ${{round.pot}}</h3>
+              <p class="pot-blinds-text" id="blinds">Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
+            </div>
           </div>
 
           <!--
@@ -54,7 +56,7 @@
               <img class="poker-card player-card-2" src="assets/cards/x.svg">
             </div>
             
-            <div class="player-info">
+            <div class="player-info current">
               <div class="player-desc">Poker Player ($500)</div>
               <div class="player-img">
                 <img class="img-thumbnail" src="assets/default_user.png">
@@ -191,23 +193,23 @@
 	</div>
 
   <div class="col-sm-3 hidden-xs" id="feed-chat-col">
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" id="feed-panel">
       <div class="panel-heading">
         <h3 class="panel-title text-center">Feed</h3>
       </div>
-      <div class="panel-body">
+      <div class="panel-body feed-chat-body">
         <ul id="feed" class="list-unstyled" scroll-bottom="feed">
           <li ng-repeat="status in feed track by $index" ng-bind-html="status | trusted">{{status}}</li>
         </ul>
       </div>
     </div>
 
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" id="chat-panel">
       <div class="panel-heading">
         <h3 class="panel-title text-center">Chat</h3>
       </div>
-      <div class="panel-body">
-        <ul id="chat" class="list-unstyled" scroll-bottom="messages">
+      <div class="panel-body feed-chat-body">
+        <ul class="list-unstyled" scroll-bottom="messages">
           <li ng-repeat="m in messages"><p><strong>{{m.user.first_name}}:</strong>&nbsp; {{m.content}}</p></li>
         </ul>
       </div>

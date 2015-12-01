@@ -25,12 +25,12 @@
 
 #start-game-col {
   position: absolute;
-  top: 35%;
+  top: 45%;
 }
 
 #poker-table {
   width: 100%;
-  padding: 50px;
+  padding: 150px 25px 100px;
 }
 
 #poker-table-img {
@@ -40,7 +40,11 @@
 
 #communal-col {
   position: absolute;
-  top: 30%;
+  top: 40%;
+}
+
+#communal {
+  margin-bottom: 5px;
 }
 
 .poker-card {
@@ -64,11 +68,7 @@
 .player-info.current {
   outline: 1px solid gold;
 
-  .player-desc {
-    background-color: gold;
-  }
-
-  .hand-status {
+  .player-desc, .hand-status {
     background-color: gold;
   }
 }
@@ -77,11 +77,7 @@
   width: 100%;
 }
 
-.player-desc {
-  background-color: #fff;
-}
-
-.hand-status {
+.player-desc, .hand-status {
   background-color: #fff;
 }
 
@@ -91,41 +87,49 @@
 
 /* PLAYER POSITIONS */
 
+/* top middle */
 #player-1 {
   left: calc(50% - 50px);
   top: 0%;
 }
 
+/* top right */
 #player-2 {
   right: calc(25% - 50px);
   top: 5%;
 }
 
+/* middle right */
 #player-3 {
   right: 0%;
-  top: 35%;
+  top: 30%;
 }
 
+/* bottom right */
 #player-4 {
   right: calc(25% - 50px);
-  top: 65%;
+  top: 55%;
 }
 
+/* bottom middle */
 #player-5 {
   left: calc(50% - 50px);
-  top: 70%;
-}
-
-#player-6 {
-  left: calc(25% - 50px);
   top: 65%;
 }
 
-#player-7 {
-  left: 0%;
-  top: 35%;
+/* bottom left */
+#player-6 {
+  left: calc(25% - 50px);
+  top: 55%;
 }
 
+/* middle left */
+#player-7 {
+  left: 0%;
+  top: 30%;
+}
+
+/* top left */
 #player-8 {
   left: calc(25% - 50px);
   top: 5%;
@@ -133,11 +137,8 @@
 
 /* FEED AND CHAT */
 
-#chat {
+.feed-chat-body {
+  height: 300px;
   overflow: auto;
   word-wrap: break-word;
-}
-
-#feed {
-  overflow: auto;
 }
