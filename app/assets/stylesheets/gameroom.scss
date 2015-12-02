@@ -58,6 +58,26 @@
   margin-bottom: 5px;
 }
 
+.pot-blinds-text {
+  font-weight: bold;
+}
+
+#pot {
+  font-size: 24px;
+}
+
+#pot-text {
+  color: darkorange;
+}
+
+#big-blind {
+  color: red;
+}
+
+#small-blind {
+  color: green;
+}
+
 /* POKER CARDS */
 
 .poker-card {
@@ -90,6 +110,10 @@
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   background-color: gold;
+}
+
+.player-name, .hand-status {
+  font-weight: bold;
 }
 
 .player-img {
@@ -164,4 +188,8 @@
   height: 300px;
   overflow: auto;
   word-wrap: break-word;
+}
+
+#chat-user {
+  font-weight: bold;
 }
