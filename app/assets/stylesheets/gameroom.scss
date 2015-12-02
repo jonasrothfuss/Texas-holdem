@@ -22,6 +22,8 @@
 #game-col, #pot-blinds-info {
   background-color: #eee;
   border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
 }
 
 #game-container {
@@ -77,12 +79,16 @@
 .player-info {
   text-align: center;
   border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
   background-color: #fff;
 }
 
 .player-info.current {
   text-align: center;
   border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
   background-color: gold;
 }
 
@@ -95,12 +101,16 @@
 /* top middle */
 #player-1 {
   left: calc(50% - 50px);
+  left: -webkit-calc(50% - 50px);
+  left: -moz-calc(50% - 50px);
   top: 0%;
 }
 
 /* top right */
 #player-2 {
   right: calc(25% - 50px);
+  right: -webkit-calc(25% - 50px);
+  right: -moz-calc(25% - 50px);
   top: 5%;
 }
 
@@ -113,18 +123,24 @@
 /* bottom right */
 #player-4 {
   right: calc(25% - 50px);
+  right: -webkit-calc(25% - 50px);
+  right: -moz-calc(25% - 50px);
   top: 55%;
 }
 
 /* bottom middle */
 #player-5 {
   left: calc(50% - 50px);
+  left: -webkit-calc(50% - 50px);
+  left: -moz-calc(50% - 50px);
   top: 65%;
 }
 
 /* bottom left */
 #player-6 {
   left: calc(25% - 50px);
+  left: -webkit-calc(25% - 50px);
+  left: -moz-calc(25% - 50px);
   top: 55%;
 }
 
@@ -137,6 +153,8 @@
 /* top left */
 #player-8 {
   left: calc(25% - 50px);
+  left: -webkit-calc(25% - 50px);
+  left: -moz-calc(25% - 50px);
   top: 5%;
 }
 
