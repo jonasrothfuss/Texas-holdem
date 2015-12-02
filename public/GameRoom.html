@@ -3,19 +3,27 @@
 		<div class="col-xs-11 text-right" style="margin-top: -40px">
 			<a class="btn btn-primary btn-raised" id="leaveRoomBtn" ng-click="leaveRoom()">Leave Room</a>
 		</div>
-		<a class="btn btn-primary" ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-click="start()">Start Game</a>
 
 		<div ng-show="gameRoom.players" id="gamecontainer" style="margin-top: 100px">
 			<img id="pokertable" src="assets/pokertable.png">
 
-			<div id="communal">
+			<div id="communal" ng-show="gameRoom.active">
 				<img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">
 				<h3>Pot: ${{round.pot}}</h3>
 				<p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
 			</div>
 
+			<div class="result-popup" ng-show="round.result && gameRoom.active">
+				<h1 ng-bind-html="round.result | trusted"></h1>
+				<p>New Round will begin shortly...</p>
+			</div>
+			<div class="result-popup" ng-hide="gameRoom.players.length >= 2 || gameRoom.active">
+				<h2>Waiting for players...</h2>
+			</div>
+
+			<a class="btn btn-warning start" ng-disabled="startDisabled" ng-init="startDisabled=false" ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-click="start()">Start Game</a>
 			<div class="player" id="player-{{$index+1}}" ng-repeat="p in gameRoom.players">
-				<div class="player-hand" ng-hide="!p.hand || p.hand.fold">
+				<div class="player-hand" ng-hide="!gameRoom.active || !p.hand || p.hand.fold">
 					<img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
 				</div>
 				<div class="player-icon" ng-class="{'current': p.hand.current}">

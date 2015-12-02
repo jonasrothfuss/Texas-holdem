@@ -136,6 +136,17 @@ a {
   background-color: #009688;
 }
 
+#status-toast {
+  position: absolute;
+  left: 50%;
+  top: 80px;
+  font-size: 24px;
+  width: 450px;
+  margin-left: -200px;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+}
+
 #facebook-button {
   background-color: #3B5998;
   background-image: url("/assets/facebook_image.png");
