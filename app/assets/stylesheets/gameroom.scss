@@ -19,7 +19,8 @@
 
 /* BACKGROUND ELEMENTS */
 
-#game-col, #pot-blinds-info {
+#game-col {
+  min-width: 768px;
   background-color: #eee;
   border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -56,6 +57,13 @@
 
 #communal {
   margin-bottom: 5px;
+}
+
+#pot-blinds-info {
+  background-color: #eee;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
 }
 
 .pot-blinds-text {
