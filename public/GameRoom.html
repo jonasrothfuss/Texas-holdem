@@ -27,7 +27,7 @@
               <img class="poker-card" src="assets/cards/KS.svg">
               <!--<img class="poker-card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">-->
             </div>
-            <div id="pot-blinds-info">
+            <div id="pot-blinds-info" class="col-xs-4 col-xs-offset-4">
               <h3 class="pot-blinds-text" id="pot">Pot: ${{round.pot}}</h3>
               <p class="pot-blinds-text" id="blinds">Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
             </div>
@@ -174,7 +174,7 @@
 					<span ng-show="betMatches">Check</span>
 					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
 				</button>
-				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="check-call-btn" ng-show="allInCall || !turn" type="button" disabled>Check</button>
+				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="check-call-btn" ng-show="allInCall || !turn" type="button" disabled>Call</button>
 			</div>
 
 			<div class="col-xs-4" id="raise-col">
@@ -182,7 +182,7 @@
 					<span ng-show="allInRaise">All In</span>
 					<span ng-hide="allInRaise">Raise - ${{round.raise_bet}}</span>
 				</button>
-				<button class="col-xs-12 btn btn-danger btn-raised" ng-hide="allInCall" id="check-call-btn" ng-hide="turn" type="button" disabled>All In</button>
+				<button class="col-xs-12 btn btn-danger btn-raised" ng-hide="allInCall" id="check-call-btn" ng-hide="turn" type="button" disabled>Raise</button>
 			</div>
 
 			<div class="col-xs-4" id="fold-col">
