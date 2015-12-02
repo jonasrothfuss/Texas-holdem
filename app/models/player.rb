@@ -31,7 +31,7 @@ class Player
     return user[:balance] >= buyIn
   end
 
-  def leave()
+  def leave
     self.active = false
     save
   end

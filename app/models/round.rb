@@ -55,10 +55,10 @@ class Round
   def deal_players
     self.players.each do |p|
       bet = 0
-      if (p.small_blind)
+      if p.small_blind
         bet = self.small_blind
       end
-      if (p.big_blind)
+      if p.big_blind
         bet = self.big_blind
       end
 

@@ -21,7 +21,7 @@ class GameRoom
   def add_player(user)
     check = self.players.where(owner: user)
 
-    if (check.count == 0)
+    if check.count == 0
       player = Player.new_player(user, 5000)
       self.players << player
       save
@@ -36,7 +36,7 @@ class GameRoom
 
   def remove_player(user)
     player = Player.where(game_room: id, owner: user).first
-    player.leave()
+    player.leave
     status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has left"
     push = {player: player, status: status}
     Pusher.trigger("gameroom-#{id}", 'playerleft', push)
@@ -128,7 +128,6 @@ class GameRoom
     push = [{gid: self.id.to_s, list: Player.where(game_room: self.id).only(:id, :owner)}]
     Pusher.trigger("gamerooms", 'players', push)
   end
-
 end
 
 
