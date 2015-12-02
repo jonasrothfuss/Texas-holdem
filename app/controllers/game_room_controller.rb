@@ -56,7 +56,7 @@ class GameRoomController < ApplicationController
   private
 
   def crud_params
-    params.require(:game_room).permit(:name, :max_players, :min_bet)
+    params.require(:game_room).permit(:name, :min_bet)
   end
 
   def user

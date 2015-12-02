@@ -34,7 +34,6 @@ pokerApp.controller('HomeCtrl', [
 		$scope.createRoom = function (gameroom) {
 			apiServices.GameService.Create({
 				name: gameroom.name,
-				max_players: gameroom.max_players,
 				min_bet: gameroom.min_bet
 			});
 		};
