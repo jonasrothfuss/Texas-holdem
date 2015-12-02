@@ -106,3 +106,10 @@
   -webkit-transition-duration:0;
   transition-duration:0;
 }
+
+.badge{
+  transition: background-color 0.26s linear 0s;
+  &[class*="-add"] {
+    background-color: red;
+  }
+}
