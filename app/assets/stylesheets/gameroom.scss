@@ -1,22 +1,3 @@
-/* STATUS POP-UP */
-
-#status-toast {
-  position: absolute;
-  left: 50%;
-  top: 80px;
-  font-size: 24px;
-  width: 450px;
-  margin-left: -200px;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 10000;
-}
-
-/* RED */
-
-.red {
-  color: red;
-}
-
 /* BACKGROUND ELEMENTS */
 
 #game-col {
@@ -58,6 +39,8 @@
 #communal {
   margin-bottom: 5px;
 }
+
+/* POT AND BLINDS */
 
 #pot-blinds-info {
   background-color: #eee;
@@ -101,6 +84,11 @@
 }
 
 .player-hand {
+  margin-bottom: 5px;
+}
+
+.empty-hand {
+  height: 73px;
   margin-bottom: 5px;
 }
 

@@ -32,6 +32,7 @@
             <div class="player-hand" ng-hide="!p.hand || p.hand.fold">
               <img class="poker-card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
             </div>
+            <div class="empty-hand" ng-show="!p.hand || p.hand.fold"></div>
             
             <div class="player-info" ng-class="{'current': p.hand.current}">
               <div class="player-name">{{p.owner.first_name}}</div>
@@ -56,7 +57,7 @@
 					<span ng-show="betMatches">Check</span>
 					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
 				</button>
-				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="check-call-btn" ng-show="allInCall || !turn" type="button" disabled>Call</button>
+				<button class="col-xs-12 btn btn-success btn-raised" id="check-call-btn" ng-hide="!allInCall || turn" type="button" disabled>Call</button>
 			</div>
 
 			<div class="col-xs-4" id="raise-col">
