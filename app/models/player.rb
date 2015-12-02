@@ -12,7 +12,7 @@ class Player
   field :big_blind, type: Boolean
   field :active, type: Boolean
 
-  default_scope -> { where(active: true) }
+  scope :active, -> { where(active: true) }
 
   def self.new_player (entering_user, buy_in_amount)
     # unless buyInOk?(entering_user, buy_in_amount)

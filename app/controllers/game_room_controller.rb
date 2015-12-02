@@ -7,7 +7,7 @@ class GameRoomController < ApplicationController
     players = []
     rooms = GameRoom.all
     rooms.each do |g|
-      players.push({gid: g.id.to_s, list: Player.where(game_room: g.id).only(:id, :owner)})
+      players.push({gid: g.id.to_s, list: Player.active.where(game_room: g.id).only(:id, :owner)})
     end
     response = {:rooms => rooms, :players => players}
     respond_with response, :location => ''
@@ -39,7 +39,7 @@ class GameRoomController < ApplicationController
 
   def players
     gameroom = GameRoom.find(params[:id])
-    respond_with gameroom.players
+    respond_with gameroom.players.active
   end
 
   def round

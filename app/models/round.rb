@@ -60,7 +60,7 @@ class Round
   end
 
   def deal_players
-    self.players.each do |p|
+    self.players.active.each do |p|
       bet = 0
       if p.small_blind
         bet = self.small_blind
@@ -115,7 +115,7 @@ class Round
 
   def access_hand(user={})
     if self.stage < 5
-      player = self.players.where(owner: user).first
+      player = self.players.active.where(owner: user).first
       cards = self.hands.where(player: player).only(:player, :current, :gamecards)
 
       status = ""
@@ -406,7 +406,7 @@ class Round
       h.save
       end_round(h)
 
-      self.players.each do |p|
+      self.players.active.each do |p|
         p.big_blind = false
         p.small_blind = false
         p.save
