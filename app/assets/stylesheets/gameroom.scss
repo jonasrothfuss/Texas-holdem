@@ -70,31 +70,24 @@
   width: 105px;
 }
 
+.player-hand {
+  margin-bottom: 5px;
+}
+
 .player-info {
   text-align: center;
   border-radius: 6px;
-  outline: 1px solid #fff;
   background-color: #fff;
 }
 
 .player-info.current {
-  outline: 1px solid gold;
-
-  .player-desc, .hand-status {
-    background-color: gold;
-  }
+  text-align: center;
+  border-radius: 6px;
+  background-color: gold;
 }
 
 .player-img {
   width: 100%;
-}
-
-.player-desc, .hand-status {
-  background-color: #fff;
-}
-
-.player-hand {
-  margin-bottom: 5px;
 }
 
 /* PLAYER POSITIONS */
