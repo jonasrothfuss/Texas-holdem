@@ -56,3 +56,25 @@
   -moz-animation: all 1.5s;
   transition: all 1.5s;
 }
+
+.fade {
+  opacity: 1;
+}
+.fade.ng-enter,
+.fade.ng-leave {
+  -webkit-transition: all 0.5s;
+  -moz-animation: all 0.5s;
+  transition: all 0.5s;
+}
+.fade.ng-enter {
+  opacity: 0;
+}
+.fade.ng-enter-active {
+  opacity: 1;
+}
+.fade.ng-leave {
+  opacity: 1;
+}
+.fade.ng-leave-active {
+  opacity: 0;
+}
