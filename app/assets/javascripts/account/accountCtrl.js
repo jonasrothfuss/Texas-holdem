@@ -19,12 +19,19 @@ pokerApp.controller('accountCtrl', ['$scope', '$rootScope', '$state', '$http', f
 	$scope.save = function() {
 		$scope.error = {};
 		$scope.success = false;
+		$rootScope.loading = true;
+
 		$http.put('users.json', {user: $scope.user}).then(function(){
+			$rootScope.loading = false;
 			$scope.success = true;
+
 			$scope.user.password = '';
 			$scope.user.password_confirmation = '';
 			$scope.user.current_password = '';
 		}, function(error){
+			$rootScope.loading = false;
+			$rootScope.error = true;
+
 			$scope.error = error.data.errors;
 		});
 	};

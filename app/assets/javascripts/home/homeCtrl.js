@@ -3,10 +3,11 @@
 pokerApp.controller('HomeCtrl', [
 	'$scope',
 	'$rootScope',
+	'$filter',
 	'$uibModal',
 	'apiServices',
 	'Pusher',
-	function ($scope, $rootScope, $uibModal, apiServices, Pusher) {
+	function ($scope, $rootScope, $filter, $uibModal, apiServices, Pusher) {
 		$scope.rooms = [];
 
 		loadRooms();
@@ -33,20 +34,44 @@ pokerApp.controller('HomeCtrl', [
 		$scope.createRoom = function (gameroom) {
 			apiServices.GameService.Create({
 				name: gameroom.name,
-				max_players: gameroom.max_players,
 				min_bet: gameroom.min_bet
 			});
 		};
 
 		//--Pusher Subscriptions--
 		Pusher.subscribe('gamerooms', 'new', function (gameroom) {
+			gameroom.players = [];
 			$scope.rooms.push(gameroom);
+		});
+
+		Pusher.subscribe('gamerooms', 'players', function (players) {
+			updatePlayers(players);
 		});
 
 		//--Private funcs--
 		function loadRooms() {
 			apiServices.GameService.GetRooms().success(function (data) {
-				angular.copy(data, $scope.rooms);
+				angular.copy(data.rooms, $scope.rooms);
+
+				updatePlayers(data.players);
+			});
+		}
+
+		function updatePlayers(players){
+			angular.forEach(players, function(p){
+				var room = $scope.rooms.filter(function (r) {
+					return r._id == p.gid;
+				});
+
+				room[0].players = p.list;
+
+				var user = p.list.filter(function (p){
+					return p.owner._id == $rootScope.user._id;
+				});
+
+				if (!$filter('isEmpty')(user)){
+					room[0].user_in = true;
+				}
 			});
 		}
 

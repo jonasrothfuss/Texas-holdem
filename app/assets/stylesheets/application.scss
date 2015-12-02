@@ -29,6 +29,10 @@ nav {
   z-index: 100000;
 }
 
+a {
+  cursor: pointer;
+}
+
 /* Margin and Padding styles */
 @for $i from 0 through 10 {
   $i: $i * 5;
@@ -59,6 +63,16 @@ nav {
   }
 }
 
+.fa-fw {
+  min-width: (18em / 12);
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    margin: 90px auto;
+  }
+}
+
 /* Material Bootstrap Overrides */
 .panel {
   border-radius: 6px;
@@ -72,6 +86,10 @@ nav {
 //    transition: all .3s;
 //    border-bottom: 3px solid #EB0011;
 //}
+
+.navbar-default.navbar {
+  background-color: #353535;
+}
 
 .alert {
   border-radius: 4px;
@@ -88,4 +106,44 @@ nav {
 .form-control {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.card {
+  height: 100px;
+  width: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.room-card {
+  border: 1px solid #ccc;
+
+  &.active {
+    border-color: orange;
+    outline: 1px solid orange;
+  }
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, .2) 0 1.8px 9px 0;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+  }
+}
+
+.badge-primary {
+  background-color: #009688;
+}
+
+#facebook-button {
+  background-color: #3B5998;
+  background-image: url("/assets/facebook_image.png");
+  background-position: 18px 0px;
+  background-size: 27px 40px;
+  background-repeat: no-repeat;
+  border: medium none;
+  height: 40px;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.84)
 }

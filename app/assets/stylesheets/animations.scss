@@ -56,3 +56,60 @@
   -moz-animation: all 1.5s;
   transition: all 1.5s;
 }
+
+.fade {
+  opacity: 1;
+}
+.fade.ng-enter,
+.fade.ng-leave {
+  -webkit-transition: all 0.5s;
+  -moz-animation: all 0.5s;
+  transition: all 0.5s;
+}
+.fade.ng-enter {
+  opacity: 0;
+}
+.fade.ng-enter-active {
+  opacity: 1;
+}
+.fade.ng-leave {
+  opacity: 1;
+}
+.fade.ng-leave-active {
+  opacity: 0;
+}
+
+.pop-repeat.ng-move,
+.pop-repeat.ng-enter,
+.pop-repeat.ng-leave {
+  transition:all linear 0.35s;
+}
+
+.pop-repeat.ng-leave.ng-leave-active,
+.pop-repeat.ng-move,
+.pop-repeat.ng-enter {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+.pop-repeat.ng-leave,
+.pop-repeat.ng-move.ng-move-active,
+.pop-repeat.ng-enter.ng-enter-active {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.pop-repeat.ng-enter-stagger {
+  -webkit-transition-delay:0.1s;
+  transition-delay:0.1s;
+
+  -webkit-transition-duration:0;
+  transition-duration:0;
+}
+
+.badge{
+  transition: background-color 0.26s linear 0s;
+  &[class*="-add"] {
+    background-color: red;
+  }
+}

@@ -1,29 +1,29 @@
 <div class="panel panel-default">
 	<div class="panel-body">
-		<div class="col-lg-6">
-			<h1>Welcome - {{user.first_name}}</h1>
+		<div class="col-md-6">
+			<h1>Welcome, {{user.first_name}}!</h1>
 		</div>
-		<div class="col-lg-6">
-			<button class="btn btn-primary pull-right" ng-click="open()"><i class="fa fa-plus"></i> Create Game Room</button>
+		<div class="hidden-xs col-md-6">
+			<button class="btn btn-primary pull-right" ng-click="open('sm')"><i class="fa fa-plus"></i> Create Game Room</button>
 		</div>
 	</div>
 </div>
 <hr>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<table class="table table-striped" ng-hide="loading">
-			<tr>
-				<th>Room Name</th>
-				<th class="text-center">Max Players</th>
-				<th class="text-center">Min Bet</th>
-				<th></th>
-			</tr>
-			<tr ng-repeat="room in rooms">
-				<td>{{room.name}}</td>
-				<td class="text-center">{{room.max_players}}</td>
-				<td class="text-center">$ {{room.min_bet}}</td>
-				<td width="10%"><a ng-href="#/gameroom/{{room._id}}" class="btn btn-primary">Join</a></td>
-			</tr>
-		</table>
+		<div class="text-center" ng-show="!loading && rooms.length == 0">
+			<h3>There are currently no active game rooms :(</h3>
+			<span>You will be able to join a game as soon as someone creates a game room or if you <a ng-click="open()">create one</a>!</span>
+		</div>
+		<div class="col-xs-12 col-md-3 tm-10 bm-10 pop-repeat" ng-repeat="room in rooms | orderBy: 'user_in'">
+			<div class="room-card col-xs-12" ng-class="{'active' : room.user_in}">
+				<h3 class="bold">{{room.name}}</h3>
+				<hr class="tm-10 bm-10"/>
+				<p><span class="bold">Players:</span> <span class="badge value-{{room.players.length}}" ng-class="{'badge-primary' : room.players.length > 0}">{{room.players.length}}</span> out of 8</p>
+				<p><span class="bold">Blinds:</span> ${{room.min_bet/2}} / ${{room.min_bet}}</p>
+				<span class="label" ng-hide="room.user_in" ng-class="room.active ? 'label-primary' : 'label-warning'">{{room.active ? 'Active' : 'Waiting for Players'}}</span>
+				<a ng-href="#/gameroom/{{room._id}}" class="btn pull-right" ng-class="room.user_in ? 'btn-warning' : 'btn-primary'">{{room.user_in ? 'Re-' : ''}}Join</a>
+			</div>
+		</div>
 	</div>
 </div>

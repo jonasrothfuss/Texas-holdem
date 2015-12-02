@@ -1,26 +1,30 @@
 <div class="col-lg-6 col-lg-offset-3 panel panel-default">
-	<div class="panel-body text-center">
-		<img class="img-thumbnail user_image" ng-src="{{user.image_url}}"/>
-		<div class="col-lg-6 col-lg-offset-3 tm-15">
-			<table class="table">
-				<tr>
-					<td>Username:</td>
-					<td>{{ user.username}}</td>
-				</tr>
-				<tr>
-					<td>Name:</td>
-					<td>{{ user.first_name + " " + user.last_name }}</td>
-				</tr>
-				<tr>
-					<td>Email:</td>
-					<td>{{ user.email }}</td>
-				</tr>
-				<tr>
-					<td>Cash:</td>
-					<td>${{ user.balance }}</td>
-				</tr>
-			</table>
-			<a ui-sref="editaccount" class="btn btn-primary">Edit Profile</a>
+	<div class="panel-body">
+		<h2>Account Settings</h2>
+		<hr />
+		<div class="text-center">
+			<img class="img-thumbnail user_image" ng-src="{{user.image_url}}"/>
+			<div class="col-lg-6 col-lg-offset-3 tm-15">
+				<table class="table">
+					<tr>
+						<td class="bold text-right">Username:</td>
+						<td>{{ user.username}}</td>
+					</tr>
+					<tr>
+						<td class="bold text-right">Name:</td>
+						<td>{{ user.first_name + " " + user.last_name }}</td>
+					</tr>
+					<tr>
+						<td class="bold text-right">Email:</td>
+						<td>{{ user.email }}</td>
+					</tr>
+					<tr>
+						<td class="bold text-right">Cash:</td>
+						<td>$ {{ user.balance }}</td>
+					</tr>
+				</table>
+				<a ui-sref="editaccount" class="btn btn-primary">Edit Profile</a>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,12 +1,16 @@
 class GameRoomController < ApplicationController
-  protect_from_forgery with: :null_session
-
   before_filter :authenticate_user!
 
   respond_to :json
 
   def index
-    respond_with GameRoom.all
+    players = []
+    rooms = GameRoom.all
+    rooms.each do |g|
+      players.push({gid: g.id.to_s, list: Player.where(game_room: g.id).only(:id, :owner)})
+    end
+    response = {:rooms => rooms, :players => players}
+    respond_with response, :location => ''
   end
 
   def create
@@ -50,8 +54,9 @@ class GameRoomController < ApplicationController
   end
 
   private
+
   def crud_params
-    params.require(:game_room).permit(:name, :max_players, :min_bet)
+    params.require(:game_room).permit(:name, :min_bet)
   end
 
   def user
