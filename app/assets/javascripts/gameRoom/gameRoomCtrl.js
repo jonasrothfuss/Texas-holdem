@@ -110,6 +110,7 @@ pokerApp.controller('gameRoomCtrl', [
 
 			if ($scope.round.stage == 5 || response.finished){
 				$scope.round.result = response.status;
+				$scope.turn = false;
 			}
 		});
 
