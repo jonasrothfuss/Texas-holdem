@@ -50,11 +50,15 @@ pokerApp.controller('gameRoomCtrl', [
 
 		//--Pusher Subscriptions--
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (response) {
+			console.log("newplayer");
+			console.log(response);
 			$scope.gameRoom.players.push(response.player);
 			$scope.feed.push(response.status);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'playerleft', function (response) {
+			console.log("playerleft");
+			console.log(response);
 			var i = $scope.gameRoom.players.map(function (x) {
 				return x._id;
 			}).indexOf(response.player._id);
@@ -74,6 +78,8 @@ pokerApp.controller('gameRoomCtrl', [
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (response) {
+			console.log("new round");
+			console.log(response);
 			$scope.gameRoom.active = true;
 			$scope.gameRoom.players = response.players;
 			$scope.round = response.newround.round;
@@ -83,12 +89,16 @@ pokerApp.controller('gameRoomCtrl', [
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (response) {
+			console.log("new turn");
+			console.log(response);
 			renderHands(response.hands, response.players);
 			setBets();
 			$scope.feed.push(response.status);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'stage', function (response) {
+			console.log("new stage");
+			console.log(response);
 			$scope.round.cards = response.cards;
 			$scope.round.pot = response.pot;
 			$scope.round.stage = response.stage;
