@@ -29,7 +29,7 @@ nav {
   z-index: 100000;
 }
 
-a{
+a {
   cursor: pointer;
 }
 
@@ -65,6 +65,13 @@ a{
 
 .fa-fw {
   min-width: (18em / 12);
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 600px;
+    margin: 90px auto;
+  }
 }
 
 /* Material Bootstrap Overrides */
@@ -109,16 +116,16 @@ a{
   margin-right: 5px;
 }
 
-.room-card{
+.room-card {
   border: 1px solid #ccc;
 
-  &.active{
+  &.active {
     border-color: orange;
     outline: 1px solid orange;
   }
 
-  &:hover{
-    box-shadow: rgba(0,0,0,.2) 0 1.8px 9px 0;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, .2) 0 1.8px 9px 0;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -o-transition: all .3s;
@@ -126,7 +133,7 @@ a{
   }
 }
 
-.badge-primary{
+.badge-primary {
   background-color: #009688;
 }
 
