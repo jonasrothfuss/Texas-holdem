@@ -20,7 +20,7 @@
 /* BACKGROUND ELEMENTS */
 
 #game-col {
-  min-width: 768px;
+  min-width: 750px;
   background-color: #eee;
   border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -121,6 +121,10 @@
 }
 
 .player-name, .hand-status {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
   font-weight: bold;
 }
 

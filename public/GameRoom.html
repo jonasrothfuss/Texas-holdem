@@ -18,12 +18,9 @@
             <a class="btn btn-success btn-raised btn-lg" id="start-game-btn" ng-click="start()">Start Game</a>
           </div>
           
-          <!--<div ng-show="gameRoom.active" id="communal-col" class="col-xs-12 text-center">-->
-          <div id="communal-col" class="col-xs-12 text-center">
+          <div ng-show="gameRoom.active" id="communal-col" class="col-xs-12 text-center">
             <div id="communal">
-              <img class="poker-card" src="assets/cards/AS.svg">
-              <img class="poker-card" src="assets/cards/KS.svg">
-              <!--<img class="poker-card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">-->
+              <img class="poker-card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">
             </div>
             <div id="pot-blinds-info" class="col-xs-4 col-xs-offset-4">
               <div class="pot-blinds-text" id="pot"><span id="pot-text">Pot:</span> ${{round.pot}}</div>
@@ -31,7 +28,6 @@
             </div>
           </div>
 
-          <!--
           <div class="player" id="player-{{$index+1}}" ng-repeat="p in gameRoom.players">
             <div class="player-hand" ng-hide="!p.hand || p.hand.fold">
               <img class="poker-card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
@@ -49,36 +45,6 @@
               </div>
             </div>
           </div>
-          -->
-          
-          <!--TEST CODE-->
-          <div class="player" id="player-1">
-            <div class="player-hand">
-            </div>
-            
-            <div class="player-info current">
-              <div class="player-name">Poker Player</div>
-              <div class="player-cash">($500)</div>
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              <div class="hand-status">Waiting</div>
-            </div>
-          </div>
-          <div class="player" id="player-2">
-            <div class="player-hand">
-            </div>
-            
-            <div class="player-info">
-              <div class="player-name">Poker Player</div>
-              <div class="player-cash">($500)</div>
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              <div class="hand-status">Waiting...</div>
-            </div>
-          </div>
-          <!--END TEST CODE-->
           
         </div>
       </div>
