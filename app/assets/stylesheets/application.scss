@@ -116,6 +116,14 @@ a{
     border-color: orange;
     outline: 1px solid orange;
   }
+
+  &:hover{
+    box-shadow: rgba(0,0,0,.2) 0 1.8px 9px 0;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+  }
 }
 
 #facebook-button {

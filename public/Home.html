@@ -11,12 +11,11 @@
 <hr>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<div class="text-center" ng-show="rooms.length == 0">
-			<h3>There are currently no active game rooms &#9785;</h3>
-			<span>You will be able to join a game as soon as someone creates a game room or if you <a ng-click="open()">create
-				one</a>!</span>
+		<div class="text-center" ng-show="!loading && rooms.length == 0">
+			<h3>There are currently no active game rooms :(</h3>
+			<span>You will be able to join a game as soon as someone creates a game room or if you <a ng-click="open()">create one</a>!</span>
 		</div>
-		<div class="col-xs-12 col-md-3 tm-10 bm-10" ng-repeat="room in rooms | orderBy: 'user_in'">
+		<div class="col-xs-12 col-md-3 tm-10 bm-10 pop-repeat" ng-repeat="room in rooms | orderBy: 'user_in'">
 			<div class="room-card col-xs-12" ng-class="{'active' : room.user_in}">
 				<h3 class="bold">{{room.name}}</h3>
 				<hr class="tm-10 bm-10"/>
