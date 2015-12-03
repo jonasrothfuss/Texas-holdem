@@ -64,14 +64,14 @@
 			<div class="col-xs-4" id="check-call-col">
 				<button class="col-xs-12 btn btn-success btn-raised check-call-btn" ng-disabled="allInCall || !turn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
-					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
+					<span ng-hide="betMatches">Call<span ng-show="gameRoom.active"> - ${{round.call_bet}}</span></span>
 				</button>
 			</div>
 
 			<div class="col-xs-4" id="raise-col">
 				<button class="col-xs-12 btn btn-danger btn-raised raise-btn" ng-disabled="!turn" ng-click="bet(round.raise_bet)" type="button">
 					<span ng-show="allInRaise">All In</span>
-					<span ng-hide="allInRaise">Raise - ${{round.raise_bet}}</span>
+					<span ng-hide="allInRaise">Raise<span ng-show="gameRoom.active"> - ${{round.raise_bet}}</span></span>
 				</button>
 			</div>
 
