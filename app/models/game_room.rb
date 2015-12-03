@@ -19,9 +19,9 @@ class GameRoom
   end
 
   def add_player(user)
-    check = self.players.where(owner: user)
+    check = self.players.active.where(owner: user)
 
-    if (check.count == 0)
+    if check.count == 0
       player = Player.new_player(user, 5000)
       self.players << player
       save
@@ -35,12 +35,23 @@ class GameRoom
   end
 
   def remove_player(user)
+    check_active_round(user) if self.active
+
     player = Player.where(game_room: id, owner: user).first
-    player.leave()
+    player.leave
     status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has left"
     push = {player: player, status: status}
     Pusher.trigger("gameroom-#{id}", 'playerleft', push)
     update_lists
+  end
+
+  def check_active_round(user)
+    round = self.rounds.first
+    check_player = round.players.active.where(owner: user)
+
+    if check_player.count > 0
+      round.remove_player(check_player.first)
+    end
   end
 
   def close
@@ -49,7 +60,7 @@ class GameRoom
   end
 
   def start
-    if (!self.active && self.players.count >= 2)
+    if (!self.active && self.players.active.count >= 2)
       new_round
       self.active = true
       save
@@ -57,15 +68,21 @@ class GameRoom
   end
 
   def new_round
-    new_blinds
-    round = Round.new_round(self.players, self.min_bet)
-    round.initialise
-    self.rounds << round
-    status = "<b>New Round</b>: #{self.players.count} players. $#{self.min_bet} Big Blind/$#{self.min_bet/2} Small Blind"
-    response = {players: self.players, newround: access_round, status: status}
-    Pusher.trigger("gameroom-#{id}", 'newround', response)
-    save
-    round.move
+    if self.players.active.count >= 2
+      new_blinds
+      round = Round.new_round(self.players.active, self.min_bet)
+      round.initialise
+      self.rounds << round
+      status = "<b>New Round</b>: #{self.players.active.count} players. $#{self.min_bet} Big Blind/$#{self.min_bet/2} Small Blind"
+      response = {players: self.players.active, newround: access_round, status: status}
+      Pusher.trigger("gameroom-#{id}", 'newround', response)
+      save
+      round.move
+    else
+      self.active = false
+      save
+      Pusher.trigger("gameroom-#{id}", 'status', false)
+    end
   end
 
   def new_blinds
@@ -74,7 +91,7 @@ class GameRoom
     last_small = false
     sb_assigned = false
 
-    self.players.each do |p|
+    self.players.active.each do |p|
       if last_big
         p.big_blind = true
         bb_assigned = true
@@ -85,7 +102,7 @@ class GameRoom
       end
     end
 
-    self.players.each do |p|
+    self.players.active.each do |p|
       if last_small
         p.small_blind = true
         sb_assigned = true
@@ -97,16 +114,26 @@ class GameRoom
     end
 
     if !last_small && !last_big
-      self.players[0].small_blind = true
-      self.players[1].big_blind = true
+      p0 = self.players.active[0]
+      p1 = self.players.active[1]
+
+      p0.small_blind = true
+      p1.big_blind = true
+
+      p0.save
+      p1.save
     end
 
     if last_big && !bb_assigned
-      self.players[0].big_blind = true
+      p0 = self.players.active[0]
+      p0.big_blind = true
+      p0.save
     end
 
     if last_small && !sb_assigned
-      self.players[0].small_blind = true
+      p0 = self.playes.active[0]
+      p0.small_bling = true
+      p0.save
     end
 
     save
@@ -125,10 +152,9 @@ class GameRoom
   private
 
   def update_lists
-    push = [{gid: self.id.to_s, list: Player.where(game_room: self.id).only(:id, :owner)}]
+    push = [{gid: self.id.to_s, list: Player.active.where(game_room: self.id).only(:id, :owner)}]
     Pusher.trigger("gamerooms", 'players', push)
   end
-
 end
 
 

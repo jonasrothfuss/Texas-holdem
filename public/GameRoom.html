@@ -10,11 +10,20 @@
       <div class="col-xs-12" id="table-col">
         
         <div ng-show="gameRoom.players" id="game-container">
+          <div class="result-popup" ng-show="round.result && gameRoom.active">
+				    <h1 ng-bind-html="round.result | trusted"></h1>
+				    <p>New Round will begin shortly...</p>
+			    </div>
+			    
+			    <div class="result-popup" ng-hide="gameRoom.players.length >= 2 || gameRoom.active">
+				    <h2>Waiting for players...</h2>
+			    </div>   
+			         
           <div id="poker-table">
             <img id="poker-table-img" src="assets/pokertable.png">
           </div>
           
-          <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" id="start-game-col" class="col-xs-12 text-center">
+          <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-disabled="startDisabled" ng-init="startDisabled=false" id="start-game-col" class="col-xs-12 text-center">
             <a class="btn btn-success btn-raised btn-lg" id="start-game-btn" ng-click="start()">Start Game</a>
           </div>
           
@@ -29,7 +38,7 @@
           </div>
 
           <div class="player" id="player-{{$index+1}}" ng-repeat="p in gameRoom.players">
-            <div class="player-hand" ng-hide="!p.hand || p.hand.fold">
+            <div class="player-hand" ng-hide="!gameRoom.active || !p.hand || p.hand.fold">
               <img class="poker-card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
             </div>
             <div class="empty-hand" ng-show="!p.hand || p.hand.fold"></div>
@@ -53,25 +62,21 @@
 
     <div class="row" id="user-action-row">
 			<div class="col-xs-4" id="check-call-col">
-				<button class="col-xs-12 btn btn-success btn-raised check-call-btn" ng-show="!allInCall && turn" ng-click="bet(round.call_bet)" type="button">
+				<button class="col-xs-12 btn btn-success btn-raised check-call-btn" ng-disabled="allInCall || !turn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
 					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
 				</button>
-				<button class="col-xs-12 btn btn-success btn-raised check-call-btn" ng-hide="!allInCall && turn" type="button" disabled>Call</button>
 			</div>
 
 			<div class="col-xs-4" id="raise-col">
-				<button class="col-xs-12 btn btn-danger btn-raised raise-btn" ng-show="turn" ng-click="bet(round.raise_bet)" type="button">
+				<button class="col-xs-12 btn btn-danger btn-raised raise-btn" ng-disabled="!turn" ng-click="bet(round.raise_bet)" type="button">
 					<span ng-show="allInRaise">All In</span>
 					<span ng-hide="allInRaise">Raise - ${{round.raise_bet}}</span>
 				</button>
-				<button class="col-xs-12 btn btn-danger btn-raised raise-btn" ng-hide="turn" type="button" disabled>Raise</button>
 			</div>
 
 			<div class="col-xs-4" id="fold-col">
-				<button class="col-xs-12 btn btn-warning btn-raised fold-btn" ng-show="turn" ng-click="bet(-1)" type="button">Fold</button>
-				<button class="col-xs-12 btn btn-warning btn-raised fold-btn" ng-hide="turn" type="button" disabled>Fold</button>
-			</div>
+				<button class="col-xs-12 btn btn-warning btn-raised fold-btn" ng-disabled="!turn" ng-click="bet(-1)" type="button">Fold</button>
 		</div>
 	</div>
 

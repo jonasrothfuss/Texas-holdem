@@ -50,19 +50,36 @@ pokerApp.controller('gameRoomCtrl', [
 
 		//--Pusher Subscriptions--
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (response) {
+			console.log("newplayer");
+			console.log(response);
 			$scope.gameRoom.players.push(response.player);
 			$scope.feed.push(response.status);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'playerleft', function (response) {
+			console.log("playerleft");
+			console.log(response);
 			var i = $scope.gameRoom.players.map(function (x) {
 				return x._id;
 			}).indexOf(response.player._id);
-			$scope.gameRoom.players.splice(i, 1);
-			$scope.feed.push(response.status);
+
+			if(i > -1){
+				$scope.gameRoom.players.splice(i, 1);
+				$scope.feed.push(response.status);
+			}
+		});
+
+		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'status', function (status) {
+			console.log(status);
+			$scope.gameRoom.active = status;
+			$scope.round.cards = [];
+			$scope.feed.push("Waiting for players");
+			$scope.startDisabled = false;
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (response) {
+			console.log("new round");
+			console.log(response);
 			$scope.gameRoom.active = true;
 			$scope.gameRoom.players = response.players;
 			$scope.round = response.newround.round;
@@ -72,19 +89,29 @@ pokerApp.controller('gameRoomCtrl', [
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'turn', function (response) {
+			console.log("new turn");
+			console.log(response);
 			renderHands(response.hands, response.players);
 			setBets();
 			$scope.feed.push(response.status);
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'stage', function (response) {
+			console.log("new stage");
+			console.log(response);
 			$scope.round.cards = response.cards;
 			$scope.round.pot = response.pot;
+			$scope.round.stage = response.stage;
 			renderHands(response.hands.state, response.players);
 			if (response.hands.cards != null) {
 				renderCards(response.hands.cards);
 			}
 			$scope.feed.push(response.status);
+
+			if ($scope.round.stage == 5 || response.finished){
+				$scope.round.result = response.status;
+				$scope.turn = false;
+			}
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
@@ -112,6 +139,7 @@ pokerApp.controller('gameRoomCtrl', [
 		}
 
 		function start() {
+			$scope.startDisabled = true;
 			apiServices.GameService.Start($stateParams.gameId);
 		}
 
@@ -140,9 +168,11 @@ pokerApp.controller('gameRoomCtrl', [
 				return p.owner._id == $rootScope.user._id;
 			});
 
-			$scope.betMatches = (player[0].hand.bet == $scope.round.call_bet);
-			$scope.allInRaise = ($scope.round.raise_bet >= player[0].chips);
-			$scope.allInCall = ($scope.round.call_bet >= player[0].chips);
+			if(!$filter('isEmpty')(player[0].hand)){
+				$scope.betMatches = (player[0].hand.bet == $scope.round.call_bet);
+				$scope.allInRaise = ($scope.round.raise_bet >= player[0].chips);
+				$scope.allInCall = ($scope.round.call_bet >= player[0].chips);
+			}
 		}
 
 		function sendTurn(bet) {
@@ -150,13 +180,17 @@ pokerApp.controller('gameRoomCtrl', [
 		}
 
 		function renderHands(hands, players) {
+			$scope.turn = false;
+
 			angular.forEach($scope.gameRoom.players, function (p) {
 				if (players != null) {
 					var player = players.filter(function (newplayer) {
 						return newplayer._id == p._id;
 					});
 
-					p.chips = player[0].chips;
+					if(!$filter('isEmpty')(player)){
+						p.chips = player[0].chips;
+					}
 				}
 
 				var hand = hands.filter(function (h) {
@@ -174,8 +208,6 @@ pokerApp.controller('gameRoomCtrl', [
 						}else{
 							$scope.turn = true;
 						}
-					}else{
-						$scope.turn = false;
 					}
 				}
 			});

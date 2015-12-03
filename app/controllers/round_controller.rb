@@ -14,7 +14,7 @@ class RoundController < ApplicationController
 
     if !round.active
       Thread.new do
-        sleep(2.5)
+        sleep(5)
         GameRoom.find(round.game_room).new_round
       end
     end
