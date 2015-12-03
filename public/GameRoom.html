@@ -1,10 +1,50 @@
 <div class="row" id="gameRow">
 	<div class="col-lg-12" id="gameCol">
-		<div class="col-xs-11 text-right" style="margin-top: -40px">
+		<div class="col-xs-12 col-md-11 text-right" style="margin-top: -40px">
 			<a class="btn btn-primary btn-raised" id="leaveRoomBtn" ng-click="leaveRoom()">Leave Room</a>
 		</div>
 
-		<div ng-show="gameRoom.players" id="gamecontainer" style="margin-top: 100px">
+		<div class="col-xs-12 mobile-game visible-xs">
+			<hr />
+			<div class="col-xs-12">
+				<div class="result-popup" ng-show="round.result && gameRoom.active">
+					<h1 ng-bind-html="round.result | trusted"></h1>
+					<p>A new round will begin shortly...</p>
+				</div>
+				<div class="result-popup" ng-hide="gameRoom.players.length >= 2 || gameRoom.active">
+					<h2>Waiting for players...</h2>
+				</div>
+			</div>
+
+			<div id="communal-mobile" ng-show="gameRoom.active">
+				<img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">
+				<h3>Pot: ${{round.pot}}</h3>
+				<p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
+			</div>
+
+			<hr />
+
+			<div class="row tm-10 bm-10" ng-repeat="p in gameRoom.players">
+				<div class="col-xs-6">
+					<div class="player-icon pull-right" ng-class="{'current': p.hand.current}">
+						<div class="player-desc">
+							<span>{{p.owner.first_name}} (${{p.chips}})</span>
+						</div>
+						<img class="img-thumbnail" ng-src="{{p.owner.image_url}}">
+						<div class="hand-status">
+							<span>Bet: ${{p.hand.bet}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="player-hand tm-20" ng-hide="!p.hand || p.hand.fold">
+						<img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="hidden-xs" ng-show="gameRoom.players" id="gamecontainer" style="margin-top: 100px">
 			<img id="pokertable" src="assets/pokertable.png">
 
 			<div id="communal" ng-show="gameRoom.active">
@@ -15,7 +55,7 @@
 
 			<div class="result-popup" ng-show="round.result && gameRoom.active">
 				<h1 ng-bind-html="round.result | trusted"></h1>
-				<p>New Round will begin shortly...</p>
+				<p>A new round will begin shortly...</p>
 			</div>
 			<div class="result-popup" ng-hide="gameRoom.players.length >= 2 || gameRoom.active">
 				<h2>Waiting for players...</h2>
@@ -38,28 +78,28 @@
 			</div>
 		</div>
 
-		<div class="col-lg-8 tm-20 panel panel-body" id="user-action-row" ng-show="turn">
-			<div class="col-xs-4" id="checkCallCol">
+		<div class="col-xs-12 col-md-8 tm-20 panel panel-body" id="user-action-row" ng-show="turn">
+			<div class="col-md-4 col-xs-6" id="checkCallCol">
 				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="checkBtn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
 					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
 				</button>
 			</div>
 
-			<div class="col-xs-4" id="raiseCol">
+			<div class="col-md-4 col-xs-6" id="raiseCol">
 				<button class="col-xs-12 btn btn-danger btn-raised" id="raiseBtn" ng-click="bet(round.raise_bet)" type="button">
 					<span ng-show="allInRaise">All In</span>
 					<span ng-hide="allInRaise">Raise - ${{round.raise_bet}}</span>
 				</button>
 			</div>
 
-			<div class="col-xs-4" id="foldCol">
+			<div class="col-md-4 col-md-offset-0 col-xs-6 col-xs-offset-3" id="foldCol">
 				<button class="col-xs-12 btn btn-warning btn-raised" id="foldBtn" ng-click="bet(-1)" type="button">Fold</button>
 			</div>
 		</div>
 	</div>
 
-	<div class="hidden-sm" id="feed-chat-bar">
+	<div class="hidden-xs hidden-sm" id="feed-chat-bar">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title text-center">Feed</h3>
