@@ -86,29 +86,12 @@
   position: absolute;
   top: 0;
   text-align: center;
-  outline: 1px solid #fff;
   background-color: #fff;
   width: 100px;
 }
 
 .player-icon.current {
-  outline: 1px solid gold;
-
-  .player-desc {
-    background-color: gold;
-  }
-
-  .hand-status {
-    background-color: gold;
-  }
-}
-
-.player-desc {
-  background-color: #fff;
-}
-
-.hand-status {
-  background-color: #fff;
+  background-color: gold;
 }
 
 .player-hand {
