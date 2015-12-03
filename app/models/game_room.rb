@@ -95,10 +95,12 @@ class GameRoom
       if last_big
         p.big_blind = true
         bb_assigned = true
+        p.save
         break
       elsif p.big_blind
         p.big_blind = false
         last_big = true
+        p.save
       end
     end
 
@@ -106,10 +108,12 @@ class GameRoom
       if last_small
         p.small_blind = true
         sb_assigned = true
+        p.save
         break
       elsif p.small_blind
         p.small_blind = false
         last_small = true
+        p.save
       end
     end
 

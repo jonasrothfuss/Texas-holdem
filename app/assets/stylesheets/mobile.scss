@@ -1,0 +1,38 @@
+#communal-mobile{
+  text-align: center;
+  color: #fff;
+
+  .card{
+    height: 80px;
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+}
+
+.mobile-game{
+  .result-popup{
+    width: 92%;
+    left: inherit;
+    margin-left: inherit;
+  }
+
+  .player-icon{
+    position: relative;
+    width: 100px;
+  }
+
+  .player-hand{
+    position: relative;
+
+    .player-card-2{
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+@media (max-width: 968px){
+  #user-action-row{
+    position: static;
+  }
+}

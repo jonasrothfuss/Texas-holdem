@@ -34,7 +34,7 @@ class Round
     if stage_finished?
       self.stage += 1
       resolve_stage
-      next_player
+      next_player if self.stage < 5
       push_turn
       push_stage
     elsif self.active
@@ -349,6 +349,11 @@ class Round
       @stage_status << "split the pot of <b>$#{self.pot}</b>"
     else
       @stage_status << "#{best_players[0].owner[:first_name]} won <b>$#{self.pot}</b> with <b>#{best_hands[0].to_user_s}</b>"
+    end
+
+    self.hands.each do |h|
+      h.current = (best_players.include? h.player) ? true : false
+      h.save
     end
 
     allocate_winnings(best_players)
