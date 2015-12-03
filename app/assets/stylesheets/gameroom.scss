@@ -1,6 +1,6 @@
 /* RESULT POP-UP */
 
-.result-popup{
+.result-popup {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
@@ -8,6 +8,7 @@
   color: #fff;
   top: 125px;
   border-radius: 8px;
+  z-index: 9000;
 }
 
 /* BACKGROUND ELEMENTS */
@@ -27,6 +28,7 @@
 #start-game-col {
   position: absolute;
   top: 45%;
+}
 
 /* POKER TABLE */
 
