@@ -55,11 +55,20 @@ pokerApp.controller('HomeCtrl', [
 		
 		$scope.closeBuyInDialogue = function(){
 		  $("#buy_in_dialogue").fadeOut()
+		  $scope.error = ""
 		}
 		
 		$scope.joinGameRoom = function(){
-		  $scope.closeBuyInDialogue()
-		  window.location.href = "#/gameroom/"+ $scope.room_selected +"?bIn="+$scope.buy_in;
+		  if ($scope.buy_in > 0 && $scope.buy_in <= $scope.user.balance){
+		    $scope.closeBuyInDialogue()
+		    window.location.href = "#/gameroom/"+ $scope.room_selected +"?bIn="+$scope.buy_in;
+		  }
+		  else if ($scope.buy_in > $scope.user.balance) {
+		    $scope.error = "Buy in exceeds account balance!" 
+		  }
+		  else {
+		    $scope.error = "Invalid buy in amount!" 
+		  }
 		};
 
 		//--Pusher Subscriptions--
