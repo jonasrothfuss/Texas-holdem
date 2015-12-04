@@ -158,3 +158,20 @@ a {
   width: 100%;
   color: rgba(255, 255, 255, 0.84)
 }
+
+.dialogue {
+  display: none;
+  background: #fff;
+  padding: 1%;
+  width: 20%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 0 0 -10%; 
+  cursor: default;
+  z-index: 10001;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.9);
+  text-align: center;
+  
+}
