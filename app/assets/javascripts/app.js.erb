@@ -36,7 +36,7 @@ var pokerApp = angular.module('poker', [
                         url: '/account/edit', templateUrl: 'EditAccount.html', controller: 'accountCtrl'
                     })
                     .state('gameroom', {
-                        url: '/gameroom/:gameId', templateUrl: 'GameRoom.html', controller: 'gameRoomCtrl'
+                        url: '/gameroom/:gameId?bIn', templateUrl: 'GameRoom.html', controller: 'gameRoomCtrl'
                     });
 
             $urlRouterProvider.otherwise('login');
