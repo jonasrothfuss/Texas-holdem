@@ -22,8 +22,20 @@
 				<p><span class="bold">Players:</span> <span class="badge value-{{room.players.length}}" ng-class="{'badge-primary' : room.players.length > 0}">{{room.players.length}}</span> out of 8</p>
 				<p><span class="bold">Blinds:</span> ${{room.min_bet/2}} / ${{room.min_bet}}</p>
 				<span class="label" ng-hide="room.user_in" ng-class="room.active ? 'label-primary' : 'label-warning'">{{room.active ? 'Active' : 'Waiting for Players'}}</span>
-				<a ng-href="#/gameroom/{{room._id}}" class="btn pull-right" ng-class="room.user_in ? 'btn-warning' : 'btn-primary'">{{room.user_in ? 'Re-' : ''}}Join</a>
+				<button ng-click="openBuyInDialogue(room.user_in, room._id)" class="btn pull-right" ng-class="room.user_in ? 'btn-warning' : 'btn-primary'">{{room.user_in ? 'Re-' : ''}}Join</button>
 			</div>
 		</div>
 	</div>
+	
+	<div class="dialogue" id="buy_in_dialogue" >
+    <p>Please decide on your buy in amount:</p>
+    <span class="alert alert-sm alert-warning" ng-show="error" ng-cloak>{{ error }}</span>
+    <form id="delete_account_password_form">
+      <input name="buy_in_amount" type="number" ng-model="buy_in" style="text-align: center" >
+    </form>
+    <button ng-click="joinGameRoom()" id="delete_account_confirm_button" class="btn" ng-class="'btn-primary'">Join</button>
+    <button ng-click="closeBuyInDialogue()" class="btn" ng-class="'btn-warning'">Cancel</button>
+  </div>
+
 </div>
+
