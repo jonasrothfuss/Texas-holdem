@@ -96,15 +96,6 @@
   width: 105px;
 }
 
-.player-hand {
-  margin-bottom: 5px;
-}
-
-.empty-hand {
-  height: 73px;
-  margin-bottom: 5px;
-}
-
 .player-info {
   text-align: center;
   border-radius: 6px;
@@ -131,6 +122,21 @@
 
 .player-img {
   width: 100%;
+}
+
+.player-hand {
+  position: absolute;
+}
+
+.player-card-1 {
+  position: relative;
+  left: 15%;
+}
+
+.player-card-2 {
+  position: relative;
+  right: 15%;
+  top: 18px;
 }
 
 /* PLAYER POSITIONS */
