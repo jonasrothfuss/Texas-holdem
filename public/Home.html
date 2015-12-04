@@ -29,7 +29,7 @@
 	
 	<div class="dialogue" id="buy_in_dialogue" >
     <p>Please decide on your buy in amount:</p>
-    <span class="alert alert-sm alert-warning" ng-show="error" ng-cloak>{{ error }}</span>
+    <div class="alert alert-sm alert-warning" ng-show="error" style="margin: -7px 25px 11px" ng-cloak>{{ error }}</div>
     <form id="delete_account_password_form">
       <input name="buy_in_amount" type="number" ng-model="buy_in" style="text-align: center" >
     </form>
