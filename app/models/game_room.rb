@@ -18,11 +18,15 @@ class GameRoom
     self.create(params.merge!(active: false, closed: false))
   end
 
-  def add_player(user)
+  def add_player(user, buyIn)
     check = self.players.active.where(owner: user)
-
+    
+    if buyIn <= 0 
+      raise InvalidBuyInError
+    end
+    
     if check.count == 0
-      player = Player.new_player(user, 5000)
+      player = Player.new_player(user, buyIn)
       self.players << player
       save
       status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has joined"
@@ -145,6 +149,7 @@ class GameRoom
 
   def access_round
     round = self.rounds
+    puts "_------------------------------------ ROUNDS " + round.to_s
     response = {:round => round.without(:communal_cards).first, :cards => round.first.access_cards}
     return response
   end
@@ -163,4 +168,7 @@ end
 
 
 class BuyInExceedsLimitError < StandardError
+end
+
+class InvalidBuyInError < StandardError
 end
