@@ -52,8 +52,8 @@ pokerApp.factory('apiServices', ['$http', '$q', '$rootScope', function($http, $q
 				Create: function(post){
 					return call('gameroom', null, 'create', post);
 				},
-				Join: function(gameId){
-					return call('gameroom', gameId, 'join', true);
+				Join: function(gameId, buy_in){
+					return call('gameroom', gameId, 'join', {"buyIn": buy_in});
 				},
 				Players: function(gameId){
 					return call('gameroom', gameId, 'players');

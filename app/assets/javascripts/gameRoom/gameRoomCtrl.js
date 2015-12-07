@@ -120,7 +120,7 @@ pokerApp.controller('gameRoomCtrl', [
 
 		//--Private Funcs--
 		function joinAndLoad() {
-			apiServices.GameService.Join($stateParams.gameId).success(function (result) {
+			apiServices.GameService.Join($stateParams.gameId, parseInt($state.params.bIn)).success(function (result) {
 				$scope.gameRoom = result;
 
 				apiServices.GameService.Players($stateParams.gameId).success(function (result) {

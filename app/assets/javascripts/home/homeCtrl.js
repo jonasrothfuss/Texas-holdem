@@ -5,13 +5,18 @@ pokerApp.controller('HomeCtrl', [
 	'$rootScope',
 	'$filter',
 	'$uibModal',
+	'$state',
 	'apiServices',
 	'Pusher',
-	function ($scope, $rootScope, $filter, $uibModal, apiServices, Pusher) {
+
+	function ($scope, $rootScope, $filter, $uibModal, $state, apiServices, Pusher) {
 		$scope.rooms = [];
+		$scope.error = "";
+		$scope.room_selected ="";
+		$scope.buy_in = $scope.user.balance / 4;
 
 		loadRooms();
-
+		
 		$scope.open = function (size) {
 			var modalInstance = $uibModal.open({
 				templateUrl: 'modals/CreateGameRoom.html',
@@ -36,6 +41,34 @@ pokerApp.controller('HomeCtrl', [
 				name: gameroom.name,
 				min_bet: gameroom.min_bet
 			});
+		};
+		
+		$scope.openBuyInDialogue = function(user_in, room_id){
+		  $scope.room_selected = room_id
+		  if (user_in){
+		    $scope.joinGameRoom()
+		  }
+		  else {
+		    $("#buy_in_dialogue").fadeIn()
+		  }
+		}
+		
+		$scope.closeBuyInDialogue = function(){
+		  $("#buy_in_dialogue").fadeOut()
+		  $scope.error = ""
+		}
+		
+		$scope.joinGameRoom = function(){
+		  if ($scope.buy_in > 0 && $scope.buy_in <= $scope.user.balance){
+		    $scope.closeBuyInDialogue()
+		    window.location.href = "#/gameroom/"+ $scope.room_selected +"?bIn="+$scope.buy_in;
+		  }
+		  else if ($scope.buy_in > $scope.user.balance) {
+		    $scope.error = "Buy in exceeds account balance!" 
+		  }
+		  else {
+		    $scope.error = "Invalid buy in amount!" 
+		  }
 		};
 
 		//--Pusher Subscriptions--

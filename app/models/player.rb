@@ -15,9 +15,8 @@ class Player
   scope :active, -> { where(active: true) }
 
   def self.new_player (entering_user, buy_in_amount)
-    # unless buyInOk?(entering_user, buy_in_amount)
-    #   raise BuyInExceedsBalanceError, 'buyIn amount exceeds users balance'
-    # else
+    #unless buyInOk?(entering_user, buy_in_amount)
+    #  raise BuyInExceedsBalanceError, 'buyIn amount exceeds users balance'
     # ActionController::Parameters.permit_all_parameters = true
     # params = ActionController::Parameters.new({user: entering_user, buy_in: buy_in_amount, chip_amount: buy_in_amount, game_room: game_room})
     # puts "------------------"
