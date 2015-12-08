@@ -90,18 +90,14 @@
   width: 100px;
 }
 
-.player-icon.current {
-  background-color: gold;
-}
-
 .player-hand {
   position: absolute;
-}
 
-.player-hand .card {
-  height: 90px;
-  margin-left: 2px;
-  margin-right: 2px;
+  .card {
+    height: 90px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
 }
 
 .player-card-2 {

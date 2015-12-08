@@ -19,6 +19,10 @@
  */
 
 /* Bootstrap Overrides */
+html{
+  height: 100%;
+}
+
 body {
   background-color: #232D33;
   background-image: url('bg.png');
@@ -165,7 +169,7 @@ a {
   padding: 1%;
   width: 20%;
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 50%;
   margin: 0 0 0 -10%; 
   cursor: default;
