@@ -84,6 +84,13 @@
 		</div>
 
 		<div class="col-xs-12 col-md-8 tm-20 panel panel-body" id="user-action-row" ng-show="turn">
+			<div class="col-xs-10">
+				<div ya-no-ui-slider="sliderOptions" ya-no-ui-slider-events="eventHandlers" id="slider"></div>
+			</div>
+			<div class="col-xs-2">
+				<input type="text" class="form-control input-lg" id="slider-val"/>
+			</div>
+
 			<div class="col-md-4 col-xs-6" id="checkCallCol">
 				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="checkBtn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>

@@ -7,6 +7,8 @@
 //= require angular-animate
 //= require bootstrap
 //= require angular-bootstrap
-//= require app
+//= require nouislider
+//= require nouislider-angular
 //= require cropit
+//= require app
 //= require_tree .

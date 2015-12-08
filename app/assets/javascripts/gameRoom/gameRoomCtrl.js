@@ -21,6 +21,17 @@ pokerApp.controller('gameRoomCtrl', [
 
 		joinAndLoad();
 
+		$scope.eventHandlers = {
+			update: function(values, handle, unencoded) {
+				$('#slider-val')[0].value = values[0][0];
+				$scope.round.raise_bet = parseInt(values[0][0].replace('$ ', ''));
+			},
+			change: function(values, handle, unencoded) {
+				console.log(values);
+				$('#slider')[0].noUiSlider.set(values[0][0]);
+			}
+		};
+
 		$scope.start = function () {
 			start();
 		};
@@ -175,6 +186,21 @@ pokerApp.controller('gameRoomCtrl', [
 				$scope.allInRaise = ($scope.round.raise_bet >= chips);
 				$scope.allInCall = ($scope.round.call_bet >= chips);
 			}
+
+			$scope.sliderOptions = {
+				start: $scope.round.raise_bet,
+				connect: 'lower',
+				step: $scope.round.big_blind,
+				range: {min: $scope.round.call_bet,	max: chips},
+				format: {
+					to: function ( value ) {
+						return '$ ' + Math.round(value);
+					},
+					from: function ( value ) {
+						return Math.round(value.replace('$ ', ''));
+					}
+				}
+			};
 		}
 
 		function sendTurn(bet) {

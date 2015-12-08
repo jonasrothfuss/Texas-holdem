@@ -26,7 +26,8 @@
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
     "roboto-fontface": "~0.4.3",
-    "cropit": "~0.4.5"
+    "cropit": "~0.4.5",
+    "nouislider-angular": "~2.1.0",
   },
   "resolutions": {
     "angular": "~1.4.7"
