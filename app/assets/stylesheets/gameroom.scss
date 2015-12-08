@@ -3,7 +3,6 @@
 .result-popup {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.7);
-  width: 100%;
   text-align: center;
   color: #fff;
   top: 40%;
@@ -13,6 +12,7 @@
 
 @media (max-width: 767px) {
   .result-popup {
+    position: static;
     top: 0px;
   }
 }

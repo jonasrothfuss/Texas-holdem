@@ -10,12 +10,12 @@
       <div class="col-xs-12" id="table-col">
         
         <div ng-show="gameRoom.players" id="game-container">
-          <div class="result-popup" ng-show="round.result && gameRoom.active">
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2 result-popup" ng-show="round.result && gameRoom.active">
 				    <h1 ng-bind-html="round.result | trusted"></h1>
 				    <p>New Round will begin shortly...</p>
 			    </div>
 			    
-			    <div class="result-popup" ng-hide="gameRoom.players.length >= 2 || gameRoom.active">
+			    <div class="col-xs-12 col-sm-8 col-sm-offset-2 result-popup" ng-hide="gameRoom.players.length >= 2 || gameRoom.active">
 				    <h2>Waiting for players...</h2>
 			    </div>   
 			         
@@ -40,18 +40,8 @@
           -->
           
           <!--TEST COMMUNAL-->
-          <div id="communal-col" class="col-xs-12 text-center">
-            <div id="communal">
-              <img class="poker-card" src="assets/cards/AS.svg">
-              <img class="poker-card" src="assets/cards/AS.svg">
-              <img class="poker-card" src="assets/cards/AS.svg">
-              <img class="poker-card" src="assets/cards/AS.svg">
-              <img class="poker-card" src="assets/cards/AS.svg">
-            </div>
-            <div id="pot-blinds-info" class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4">
-              <div class="pot-blinds-text" id="pot"><span id="pot-text">Pot:</span> $1000</div>
-              <div class="pot-blinds-text" id="blinds"><span id="big-blind">Big Blind:</span> $100 &bull; <span id="small-blind">Small Blind:</span> $50</div>
-            </div>
+          <div id="start-game-col" class="col-xs-12 text-center">
+            <button class="btn btn-success btn-raised btn-lg" id="start-game-btn" ng-click="start()">Start Game</button>
           </div>
           <!--END TEST COMMUNAL-->
 
