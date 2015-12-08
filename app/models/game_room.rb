@@ -164,7 +164,7 @@ class GameRoom
 
   def update_lists
     push = [{gid: self.id.to_s, list: Player.active.where(game_room: self.id).only(:id, :owner)}]
-    Pusher.trigger("gamerooms", 'players', push)
+    Pusher.trigger('gamerooms', 'players', push)
   end
 end
 

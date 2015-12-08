@@ -44,30 +44,31 @@ pokerApp.controller('HomeCtrl', [
 		};
 		
 		$scope.openBuyInDialogue = function(user_in, room_id){
-		  $scope.room_selected = room_id
+		  $scope.room_selected = room_id;
+
 		  if (user_in){
-		    $scope.joinGameRoom()
+		    $scope.joinGameRoom();
 		  }
 		  else {
-		    $("#buy_in_dialogue").fadeIn()
+		    $("#buy_in_dialogue").fadeIn();
 		  }
-		}
+		};
 		
 		$scope.closeBuyInDialogue = function(){
-		  $("#buy_in_dialogue").fadeOut()
-		  $scope.error = ""
-		}
+		  $("#buy_in_dialogue").fadeOut();
+		  $scope.error = "";
+		};
 		
 		$scope.joinGameRoom = function(){
 		  if ($scope.buy_in > 0 && $scope.buy_in <= $scope.user.balance){
-		    $scope.closeBuyInDialogue()
+		    $scope.closeBuyInDialogue();
 		    window.location.href = "#/gameroom/"+ $scope.room_selected +"?bIn="+$scope.buy_in;
 		  }
 		  else if ($scope.buy_in > $scope.user.balance) {
-		    $scope.error = "Buy in exceeds account balance!" 
+		    $scope.error = "Buy in exceeds account balance!";
 		  }
 		  else {
-		    $scope.error = "Invalid buy in amount!" 
+		    $scope.error = "Invalid buy in amount!";
 		  }
 		};
 
