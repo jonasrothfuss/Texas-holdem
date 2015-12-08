@@ -11,6 +11,12 @@
   z-index: 9000;
 }
 
+@media (max-width: 767px) {
+  .result-popup {
+    top: 0px;
+  }
+}
+
 /* BACKGROUND ELEMENTS */
 
 #game-container {
@@ -22,11 +28,24 @@
   top: 45%;
 }
 
+@media (max-width: 767px) {
+  #start-game-col {
+    position: static;
+    top: 0px;
+  }
+}
+
 /* POKER TABLE */
 
 #poker-table {
   width: 100%;
   padding: 150px 25px 75px;
+}
+
+@media (max-width: 767px) {
+  #poker-table {
+    display: none;
+  }
 }
 
 #poker-table-img {
@@ -41,6 +60,13 @@
   top: 40%;
 }
 
+@media (max-width: 767px) {
+  #communal-col {
+    position: static;
+    top: 0px;
+  }
+}
+
 #communal {
   margin-bottom: 5px;
 }
@@ -48,7 +74,7 @@
 /* POT AND BLINDS */
 
 #pot-blinds-info {
-  background-color: #eee;
+  background-color: #fff;
   border-radius: 6px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -62,7 +88,7 @@
   font-size: 24px;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   #pot {
     font-size: 16px;
   }
@@ -97,6 +123,12 @@
   }
 }
 
+@media (max-width: 767px) {
+  .poker-card {
+    width: 70px;
+  }
+}
+
 /* PLAYER INFO */
 
 .player {
@@ -107,6 +139,15 @@
 @media (max-width: 1199px) {
   .player {
     width: 85px;
+  }
+}
+
+@media (max-width: 767px) {
+  .player {
+    position: static;
+    width: 145px;
+    display: inline-block;
+    margin-bottom: 25px;
   }
 }
 
@@ -146,7 +187,7 @@
   font-weight: bold;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   .player-name, .player-cash, .hand-status {
     font-size: 12px;
   }
@@ -156,17 +197,25 @@
   width: 100%;
 }
 
-.player-hand {
+.player-hand, .player-cards {
   position: absolute;
 }
 
+@media (max-width: 767px) {
+  .player-hand {
+    position: static;
+  }
+  
+  .player-cards {
+    position: relative;
+  }
+}
+
 .player-card-1 {
-  position: absolute;
   left: 15px;
 }
 
 .player-card-2 {
-  position: absolute;
   left: 40px;
   top: 18px;
 }
@@ -179,6 +228,17 @@
   .player-card-2 {
     left: 30px;
     top: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  .player-card-1 {
+    left: 15px;
+  }
+
+  .player-card-2 {
+    left: -15px;
+    top: 25px;
   }
 }
 
@@ -204,7 +264,7 @@
   left: -50px;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   #player-2 .player-hand {
     left: -40px;
   }
@@ -221,7 +281,7 @@
   top: 45px;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   #player-3 .player-hand {
     left: -70px;
     top: 40px;
@@ -241,7 +301,7 @@
   top: -90px;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   #player-4 .player-hand {
     left: -40px;
     top: -75px;
@@ -260,7 +320,7 @@
   top: -90px;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   #player-5 .player-hand {
     top: -75px;
   }
@@ -279,7 +339,7 @@
   top: -90px;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   #player-6 .player-hand {
     left: 40px;
     top: -75px;
@@ -297,7 +357,7 @@
   top: 45px;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   #player-7 .player-hand {
     left: 70px;
     top: 40px;
@@ -316,7 +376,7 @@
   left: 50px;
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   #player-8 .player-hand {
     left: 40px;
   }
