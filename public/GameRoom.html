@@ -23,7 +23,6 @@
             <img id="poker-table-img" src="assets/pokertable.png">
           </div>
           
-          <!--
           <div ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-disabled="startDisabled" ng-init="startDisabled=false" id="start-game-col" class="col-xs-12 text-center">
             <button class="btn btn-success btn-raised btn-lg" id="start-game-btn" ng-click="start()">Start Game</button>
           </div>
@@ -37,15 +36,7 @@
               <div class="pot-blinds-text" id="blinds"><span id="big-blind">Big Blind:</span> ${{round.big_blind}} &bull; <span id="small-blind">Small Blind:</span> ${{round.small_blind}}</div>
             </div>
           </div>
-          -->
-          
-          <!--TEST COMMUNAL-->
-          <div id="start-game-col" class="col-xs-12 text-center">
-            <button class="btn btn-success btn-raised btn-lg" id="start-game-btn" ng-click="start()">Start Game</button>
-          </div>
-          <!--END TEST COMMUNAL-->
 
-          <!--
           <div class="player" id="player-{{$index+1}}" ng-repeat="p in gameRoom.players">
             <div class="player-info" ng-class="{'current': p.hand.current}">
               <div class="player-name">{{p.owner.first_name}}</div>
@@ -65,169 +56,6 @@
               <img class="poker-card player-card-{{i+1}}" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
             </div>
           </div>
-          -->
-          
-          <!--TEST PLAYERS-->
-          <div class="player" id="player-1">
-            <div class="player-info current">
-              <div class="player-name">Player</div>
-              <div class="player-cash">($5000)</div>
-              
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              
-              <div class="hand-status">
-                <span>Bet: $50</span>
-              </div>
-            </div>
-            
-            <div class="player-hand">
-              <img class="poker-card player-cards player-card-1" src="assets/cards/AS.svg">
-              <img class="poker-card player-cards player-card-2" src="assets/cards/AH.svg">
-            </div>
-          </div>
-          
-          <div class="player" id="player-2">
-            <div class="player-info">
-              <div class="player-name">Player</div>
-              <div class="player-cash">($5000)</div>
-              
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              
-              <div class="hand-status">
-                <span>Bet: $50</span>
-              </div>
-            </div>
-            
-            <div class="player-hand">
-              <img class="poker-card player-cards player-card-1" src="assets/cards/AS.svg">
-              <img class="poker-card player-cards player-card-2" src="assets/cards/AH.svg">
-            </div>
-          </div>
-          
-          <div class="player" id="player-3">
-            <div class="player-info">
-              <div class="player-name">Player</div>
-              <div class="player-cash">($5000)</div>
-              
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              
-              <div class="hand-status">
-                <span>Bet: $50</span>
-              </div>
-            </div>
-            
-            <div class="player-hand">
-              <img class="poker-card player-cards player-card-1" src="assets/cards/AS.svg">
-              <img class="poker-card player-cards player-card-2" src="assets/cards/AH.svg">
-            </div>
-          </div>
-          
-          <div class="player" id="player-4">
-            <div class="player-info">
-              <div class="player-name">Player</div>
-              <div class="player-cash">($5000)</div>
-              
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              
-              <div class="hand-status">
-                <span>Bet: $50</span>
-              </div>
-            </div>
-            
-            <div class="player-hand">
-              <img class="poker-card player-cards player-card-1" src="assets/cards/AS.svg">
-              <img class="poker-card player-cards player-card-2" src="assets/cards/AH.svg">
-            </div>
-          </div>
-          
-          <div class="player" id="player-5">
-            <div class="player-info">
-              <div class="player-name">Player</div>
-              <div class="player-cash">($5000)</div>
-              
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              
-              <div class="hand-status">
-                <span>Bet: $50</span>
-              </div>
-            </div>
-            
-            <div class="player-hand">
-              <img class="poker-card player-cards player-card-1" src="assets/cards/AS.svg">
-              <img class="poker-card player-cards player-card-2" src="assets/cards/AH.svg">
-            </div>
-          </div>
-          
-          <div class="player" id="player-6">
-            <div class="player-info">
-              <div class="player-name">Player</div>
-              <div class="player-cash">($5000)</div>
-              
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              
-              <div class="hand-status">
-                <span>Bet: $50</span>
-              </div>
-            </div>
-            
-            <div class="player-hand">
-              <img class="poker-card player-cards player-card-1" src="assets/cards/AS.svg">
-              <img class="poker-card player-cards player-card-2" src="assets/cards/AH.svg">
-            </div>
-          </div>
-          
-          <div class="player" id="player-7">
-            <div class="player-info">
-              <div class="player-name">Player</div>
-              <div class="player-cash">($5000)</div>
-              
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              
-              <div class="hand-status">
-                <span>Bet: $50</span>
-              </div>
-            </div>
-            
-            <div class="player-hand">
-              <img class="poker-card player-cards player-card-1" src="assets/cards/AS.svg">
-              <img class="poker-card player-cards player-card-2" src="assets/cards/AH.svg">
-            </div>
-          </div>
-          
-          <div class="player" id="player-8">
-            <div class="player-info">
-              <div class="player-name">Player</div>
-              <div class="player-cash">($5000)</div>
-              
-              <div class="player-img">
-                <img class="img-thumbnail" src="assets/default_user.png">
-              </div>
-              
-              <div class="hand-status">
-                <span>Bet: $50</span>
-              </div>
-            </div>
-            
-            <div class="player-hand">
-              <img class="poker-card player-cards player-card-1" src="assets/cards/AS.svg">
-              <img class="poker-card player-cards player-card-2" src="assets/cards/AH.svg">
-            </div>
-          </div>
-          <!--END TEST PLAYERS-->
         </div>
       </div>
     </div>
