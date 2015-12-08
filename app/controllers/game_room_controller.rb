@@ -20,7 +20,6 @@ class GameRoomController < ApplicationController
   end
 
   def join
-
     gameroom = GameRoom.find(params[:id])
     gameroom.add_player(user,params[:buyIn].to_i)
 

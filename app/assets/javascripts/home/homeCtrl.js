@@ -81,6 +81,10 @@ pokerApp.controller('HomeCtrl', [
 			updatePlayers(players);
 		});
 
+		Pusher.subscribe('gamerooms', 'states', function (newstate) {
+			updateState(newstate);
+		});
+
 		//--Private funcs--
 		function loadRooms() {
 			apiServices.GameService.GetRooms().success(function (data) {
@@ -106,6 +110,14 @@ pokerApp.controller('HomeCtrl', [
 					room[0].user_in = true;
 				}
 			});
+		}
+
+		function updateState(state){
+			var room = $scope.rooms.filter(function (r) {
+				return r._id == state.gid;
+			});
+
+			room[0].active = state.active;
 		}
 
 	}]);

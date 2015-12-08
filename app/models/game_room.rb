@@ -68,6 +68,7 @@ class GameRoom
       new_round
       self.active = true
       save
+      Pusher.trigger('gamerooms', 'states', {gid: self.id.to_s, active: true})
     end
   end
 
@@ -86,6 +87,7 @@ class GameRoom
       self.active = false
       save
       Pusher.trigger("gameroom-#{id}", 'status', false)
+      Pusher.trigger('gamerooms', 'states', {gid: self.id.to_s, active: false})
     end
   end
 
