@@ -6,7 +6,8 @@ pokerApp.controller('gameRoomCtrl', [
 	'$stateParams',
 	'apiServices',
 	'Pusher',
-	function ($scope, $filter, $rootScope, $state, $stateParams, apiServices, Pusher) {
+	'ngAudio',
+	function ($scope, $filter, $rootScope, $state, $stateParams, apiServices, Pusher, ngAudio) {
 
 		$scope.gameRoom = {};
 		$scope.round = {};
@@ -19,6 +20,8 @@ pokerApp.controller('gameRoomCtrl', [
 		$scope.messages = [];
 		$scope.message = '';
 
+		//--Sounds--
+		var messageSound = ngAudio.load("audio/message.mp3");
 		joinAndLoad();
 
 		$scope.eventHandlers = {
@@ -131,6 +134,9 @@ pokerApp.controller('gameRoomCtrl', [
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'chat', function (message) {
 			$scope.messages.push(message);
+			if(message.user._id != $rootScope.user._id){
+				messageSound.play();
+			}
 		});
 
 		//--Private Funcs--
