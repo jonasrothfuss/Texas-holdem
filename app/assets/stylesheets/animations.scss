@@ -115,6 +115,39 @@
   }
 }
 
+.player-icon.current{
+  transition: background-color 0.26s linear 0s;
+  animation: breathing 1.5s linear infinite;
+}
+
+@-webkit-keyframes breathing {
+  0% {
+    background-color: #fff;
+  }
+
+  50% {
+    background-color: gold;
+  }
+
+  100% {
+    background-color: #fff;
+  }
+}
+
+@keyframes breathing {
+  0% {
+    background-color: #fff;
+  }
+
+  50% {
+    background-color: gold;
+  }
+
+  100% {
+    background-color: #fff;
+  }
+}
+
 $spinner-primary: blue;
 $spinner-warning: orange;
 $spinner-danger: red;
