@@ -133,7 +133,7 @@
 			</div>
 			<div class="panel-body">
 				<ul id="feed" class="list-unstyled" scroll-bottom="feed">
-					<li ng-repeat="status in feed track by $index" ng-bind-html="status | trusted">{{status}}</li>
+					<li class="flash-repeat" ng-repeat="status in feed track by $index" ng-bind-html="status | trusted">{{status}}</li>
 				</ul>
 			</div>
 		</div>
@@ -144,7 +144,7 @@
 			</div>
 			<div class="panel-body">
 				<ul id="chat" class="list-unstyled" scroll-bottom="messages">
-					<li ng-repeat="m in messages"><p><strong>{{m.user.first_name}}:</strong>&nbsp; {{m.content}}</p></li>
+					<li class="flash-repeat" ng-repeat="m in messages"><p><strong>{{m.user.first_name}}:</strong>&nbsp; {{m.content}}</p></li>
 				</ul>
 			</div>
 

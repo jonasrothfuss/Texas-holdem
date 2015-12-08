@@ -353,3 +353,26 @@ flipper[horizontal] {
     }
   }
 }
+
+.flash-repeat{
+  padding: 0 4px 0 4px;
+  border-radius: 4px;
+}
+
+.flash-repeat.ng-move,
+.flash-repeat.ng-enter,
+.flash-repeat.ng-leave {
+  background-color: rgba(243, 214, 31, 0.4);
+  transition: all ease-in 2s;
+}
+
+.flash-repeat.ng-leave.ng-leave-active,
+.flash-repeat.ng-move,
+.flash-repeat.ng-enter {
+}
+
+.flash-repeat.ng-leave,
+.flash-repeat.ng-move.ng-move-active,
+.flash-repeat.ng-enter.ng-enter-active {
+  background-color: transparent;
+}
