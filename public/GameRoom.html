@@ -48,7 +48,15 @@
 			<img id="pokertable" src="assets/pokertable.png">
 
 			<div id="communal" ng-show="gameRoom.active">
-				<img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">
+				<flipper flipped="checkCardStatus(round.cards[i].image_path)" ng-repeat="i in [0,1,2,3,4]" horizontal>
+					<front>
+						<img class="card" ng-src="assets/cards/x.svg" />
+					</front>
+					<back>
+						<img class="card" ng-src="{{round.cards[i].image_path}}" />
+					</back>
+				</flipper>
+
 				<h3>Pot: ${{round.pot}}</h3>
 				<p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
 			</div>
@@ -64,7 +72,14 @@
 			<a class="btn btn-warning start" ng-disabled="startDisabled" ng-init="startDisabled=false" ng-show="gameRoom.players.length >= 2 && !gameRoom.active" ng-click="start()">Start Game</a>
 			<div class="player" id="player-{{$index+1}}" ng-repeat="p in gameRoom.players">
 				<div class="player-hand" ng-hide="!gameRoom.active || !p.hand || p.hand.fold">
-					<img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
+					<flipper flipped="checkCardStatus(p.hand.cards[i].image_path)" ng-repeat="i in [0,1]" horizontal>
+						<front>
+							<img class="card player-card-{{i+1}} bm-10" ng-src="assets/cards/x.svg">
+						</front>
+						<back>
+							<img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}">
+						</back>
+					</flipper>
 				</div>
 				<div class="player-icon" ng-class="{'current': p.hand.current}">
 					<div class="player-desc">

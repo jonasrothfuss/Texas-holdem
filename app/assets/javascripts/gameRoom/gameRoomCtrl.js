@@ -59,6 +59,10 @@ pokerApp.controller('gameRoomCtrl', [
 			}
 		};
 
+		$scope.checkCardStatus = function (card) {
+			return (card != null) ? !(card.indexOf("x") > -1) : false;
+		};
+
 		//--Pusher Subscriptions--
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newplayer', function (response) {
 			console.log("newplayer");
@@ -226,7 +230,17 @@ pokerApp.controller('gameRoomCtrl', [
 				});
 
 				if (!$filter('isEmpty')(hand) && $scope.round.player_ids.indexOf(p._id) > -1) {
+					keepCards = (p.hand != null && p.hand.cards != null);
+
+					if (keepCards){
+						c = p.hand.cards;
+					}
+
 					p.hand = hand[0];
+
+					if (keepCards){
+						p.hand.cards = c;
+					}
 				}
 
 				if (p.hand != null && p.hand.current) {

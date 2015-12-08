@@ -288,3 +288,68 @@ $spinner-size: 30px;
     -webkit-filter: sepia() hue-rotate(360deg) contrast(95%);
   }
 }
+
+flipper {
+  float:left;
+  width: 79px;
+  height: 100px;
+  display:block;
+  perspective:1000;
+  margin-bottom: 20px;
+
+  span {
+    color:white;
+  }
+
+  >div.flipper {
+    float:left;
+    width:100%;
+    height:100%;
+    position:relative;
+    transform-style:preserve-3d;
+
+    .front, .back {
+      float:left;
+      display:block;
+      width:100%;
+      height:100%;
+      backface-visibility:hidden;
+      position:absolute;
+      top:0;
+      left:0;
+      transform-style:preserve-3d;
+      transition:transform ease 500ms;
+    }
+
+    .front {
+      z-index:2;
+
+      /* front tile styles go here! */
+    }
+
+    .back {
+
+      /* back tile styles go here! */
+    }
+  }
+}
+
+flipper[horizontal] {
+  .front {
+    transform:rotateY(0deg);
+  }
+
+  .back {
+    transform:rotateY(-180deg);
+  }
+
+  div.flipper.flipped{
+    .front {
+      transform:rotateY(180deg);
+    }
+
+    .back {
+      transform:rotateY(0deg);
+    }
+  }
+}
