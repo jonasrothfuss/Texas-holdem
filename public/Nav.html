@@ -11,11 +11,11 @@
 
 		<div class="collapse navbar-collapse text-center">
 			<ul class="nav navbar-nav navbar-right">
-				<li ng-show="signedIn()"><a href="#/home"><i class="fa fa-home fa-fw"></i>Home</a></li>
-				<li ng-hide="signedIn()"><a href="#/login"><i class="fa fa-sign-in fa-fw"></i>Log In</a></li>
-				<li ng-hide="signedIn()"><a href="#/register"><i class="fa fa-user-plus fa-fw"></i>Register</a></li>
-				<li ng-show="signedIn()" class="dropdown">
-					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false">
+				<li ng-show="user"><a href="#/home"><i class="fa fa-home fa-fw"></i>Home</a></li>
+				<li ng-hide="user"><a href="#/login"><i class="fa fa-sign-in fa-fw"></i>Log In</a></li>
+				<li ng-hide="user"><a href="#/register"><i class="fa fa-user-plus fa-fw"></i>Register</a></li>
+				<li ng-show="user" class="dropdown">
+					<a style="padding-bottom: 17px; padding-top: 18px;" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						<img class="img-thumbnail user_thumb fa-fw" ng-src="{{user.image_url}}"> {{ user.first_name + " " +	user.last_name }} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu text-right">

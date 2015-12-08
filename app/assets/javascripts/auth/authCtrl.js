@@ -17,7 +17,7 @@ pokerApp.controller('AuthCtrl', ['$scope', '$rootScope', '$state', '$timeout', '
 
 	$scope.register = function() {
 		Auth.register($scope.user).then(function(){
-			$state.go('login');
+			$scope.login();
 		}, function(error){
 			$scope.registering = false;
 			$scope.error = error.data.errors;
