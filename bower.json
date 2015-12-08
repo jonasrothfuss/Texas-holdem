@@ -28,6 +28,7 @@
     "roboto-fontface": "~0.4.3",
     "cropit": "~0.4.5",
     "nouislider-angular": "~2.1.0",
+    "angular-audio": "~1.7.1"
   },
   "resolutions": {
     "angular": "~1.4.7"

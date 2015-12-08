@@ -10,5 +10,6 @@
 //= require nouislider
 //= require nouislider-angular
 //= require cropit
+//= require angular-audio
 //= require app
 //= require_tree .
