@@ -8,7 +8,7 @@
 //= require bootstrap
 //= require angular-bootstrap
 //= require nouislider
-//= require nouislider-angular
+//= require nouislider-angular/nouislider.min.js
 //= require cropit
 //= require angular-audio
 //= require app
