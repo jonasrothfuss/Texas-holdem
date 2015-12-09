@@ -246,7 +246,7 @@ class Round
 
   def move_if_inactive(hid, last_updated)
     curr_hand = Hand.find(hid)
-    if curr_hand.updated_at == last_updated
+    if curr_hand.updated_at == last_updated && curr_hand.player.active
       u = {_id: curr_hand.player.owner[:_id].to_s, first_name: curr_hand.player.owner[:first_name] }
       add_turn(u, -1)
     end
