@@ -56,7 +56,7 @@ devise  :database_authenticatable, :registerable, :recoverable,
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
+      user.password = "undefined"
       a = auth.info.name.split
       user.first_name = a[0]
       user.last_name = a[1...a.length].join(" ") if a.length > 1

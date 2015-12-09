@@ -20,7 +20,11 @@ pokerApp.controller('accountCtrl', ['$scope', '$rootScope', '$state', '$http', f
 		$scope.error = {};
 		$scope.success = false;
 		$rootScope.loading = true;
-
+		
+		if ($scope.user.uid != null){
+    	$scope.user.current_password= "undefined"
+		}
+		
 		$http.put('users.json', {user: $scope.user}).then(function(){
 			$rootScope.loading = false;
 			$scope.success = true;
