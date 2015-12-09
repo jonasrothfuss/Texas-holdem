@@ -150,7 +150,7 @@ class GameRoom
     end
 
     if last_small && !sb_assigned
-      p0 = self.playes.active[0]
+      p0 = self.players.active[0]
       p0.small_blind = true
       p0.save
     end
