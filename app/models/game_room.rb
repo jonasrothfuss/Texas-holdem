@@ -51,10 +51,13 @@ class GameRoom
 
   def check_active_round(user)
     round = self.rounds.first
-    check_player = round.players.active.where(owner: user)
 
-    if check_player.count > 0
-      round.remove_player(check_player.first)
+    if round != nil
+      check_player = round.players.active.where(owner: user)
+
+      if check_player.count > 0
+        round.remove_player(check_player.first)
+      end
     end
   end
 
