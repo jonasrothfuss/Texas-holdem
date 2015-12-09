@@ -160,7 +160,6 @@ class GameRoom
 
   def access_round
     round = self.rounds
-    puts "_------------------------------------ ROUNDS " + round.to_s
     response = {:round => round.without(:communal_cards).first, :cards => round.first.access_cards}
     return response
   end

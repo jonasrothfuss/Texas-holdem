@@ -13,7 +13,7 @@ pokerApp
 			}
 		}
 	})
-	.directive("fileread", [function () {
+	.directive("fileread", function () {
 		return {
 			scope: {
 				fileread: "="
@@ -30,7 +30,7 @@ pokerApp
 				});
 			}
 		}
-	}])
+	})
 	.directive("flipper", function() {
 		return {
 			restrict: "E",
