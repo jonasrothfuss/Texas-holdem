@@ -22,6 +22,13 @@ pokerApp.controller('gameRoomCtrl', [
 
 		//--Sounds--
 		var messageSound = ngAudio.load("audio/message.mp3");
+		var newroundSound = ngAudio.load("audio/newround.mp3");
+		var cardSound = ngAudio.load("audio/card.mp3");
+		var checkSound = ngAudio.load("audio/check.mp3");
+		var foldSound = ngAudio.load("audio/fold.mp3");
+		var betSound = ngAudio.load("audio/bet.mp3");
+		var winSound = ngAudio.load("audio/win.mp3");
+
 		joinAndLoad();
 
 		$scope.eventHandlers = {
@@ -98,6 +105,7 @@ pokerApp.controller('gameRoomCtrl', [
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'newround', function (response) {
 			console.log("new round");
 			console.log(response);
+			newroundSound.play();
 			$scope.gameRoom.active = true;
 			$scope.gameRoom.players = response.players;
 			$scope.round = response.newround.round;
@@ -112,6 +120,18 @@ pokerApp.controller('gameRoomCtrl', [
 			renderHands(response.hands, response.players);
 			setBets();
 			$scope.feed.push(response.status);
+
+			switch(response.sound){
+				case 0:
+					foldSound.play();
+					break;
+				case 1:
+					checkSound.play();
+					break;
+				case 2:
+					betSound.play();
+					break;
+			}
 		});
 
 		Pusher.subscribe('gameroom-' + $stateParams.gameId, 'stage', function (response) {
@@ -129,6 +149,22 @@ pokerApp.controller('gameRoomCtrl', [
 			if ($scope.round.stage == 5 || response.finished){
 				$scope.round.result = response.status;
 				$scope.turn = false;
+
+				var i = response.winners.map(function (w) {
+					return w.owner._id;
+				}).indexOf($rootScope.user._id);
+
+				if(i > -1){
+					winSound.play();
+				}
+			}else{
+				if($scope.round.stage == 2){
+					cardSound.loop = 2;
+					cardSound.play();
+				}else{
+					cardSound.loop = 0;
+					cardSound.play();
+				}
 			}
 		});
 
@@ -190,7 +226,6 @@ pokerApp.controller('gameRoomCtrl', [
 			player = $scope.gameRoom.players.filter(function (p) {
 				return p.owner._id == $rootScope.user._id;
 			});
-
 
 			if(!$filter('isEmpty')(player[0].hand)){
 				chips = player[0].chips + player[0].hand.bet;

@@ -151,14 +151,17 @@ class Round
 
       if bet == -1
         @turn_status << "folded"
+        @turn_sound = 0
         fold(hand)
       else
         hand.place_bet(bet)
 
         if bet == 0
           @turn_status << "checked"
+          @turn_sound = 1
         else
           @turn_status << "bet <b>$#{bet}</b>"
+          @turn_sound = 2
         end
 
         hand.action_count += 1
@@ -232,7 +235,7 @@ class Round
   def push_turn
     hands = self.hands.without(:round, :gamecards)
     players = self.players
-    push = {hands: hands, players: players, status: @turn_status}
+    push = {hands: hands, players: players, status: @turn_status, sound: @turn_sound}
     Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', push)
 
     hand = self.hands.where(current: true).first
@@ -313,7 +316,8 @@ class Round
         players: players,
         stage: self.stage,
         status: @stage_status,
-        finished: finished
+        finished: finished,
+        winners: @best_players
     }
 
     Pusher.trigger("gameroom-#{self.game_room.id}", 'stage', push)
@@ -342,7 +346,7 @@ class Round
   end
 
   def resolve_winner
-    best_players = []
+    @best_players = []
     best_hands = []
     best_hands << find_best_hand(self.hands.where(:fold.ne => true).first)
     @stage_status = String.new
@@ -351,29 +355,29 @@ class Round
       player_hand = find_best_hand(h)
       if player_hand == best_hands[0]
         best_hands << player_hand
-        best_players << h.player
+        @best_players << h.player
       elsif player_hand > best_hands[0]
         best_hands = []
         best_hands << player_hand
-        best_players = Array(h.player)
+        @best_players = Array(h.player)
       end
     end
 
-    if best_players.count > 1
-      (0...best_players.count).each do |i|
-        @stage_status << "#{best_players[i].owner[:first_name]} - #{best_hands[i].to_user_s}, "
+    if @best_players.count > 1
+      (0...@best_players.count).each do |i|
+        @stage_status << "#{@best_players[i].owner[:first_name]} - #{best_hands[i].to_user_s}, "
       end
       @stage_status << "split the pot of <b>$#{self.pot}</b>"
     else
-      @stage_status << "#{best_players[0].owner[:first_name]} won <b>$#{self.pot}</b> with <b>#{best_hands[0].to_user_s}</b>"
+      @stage_status << "#{@best_players[0].owner[:first_name]} won <b>$#{self.pot}</b> with <b>#{best_hands[0].to_user_s}</b>"
     end
 
     self.hands.each do |h|
-      h.current = (best_players.include? h.player) ? true : false
+      h.current = (@best_players.include? h.player) ? true : false
       h.save
     end
 
-    allocate_winnings(best_players)
+    allocate_winnings(@best_players)
   end
 
   def find_best_hand(hand)
