@@ -417,10 +417,7 @@ class Round
         p.save
       end
 
-      Thread.new do
-        sleep(5)
-        GameRoom.find(self.game_room).new_round
-      end
+      GameRoom.find(self.game_room).delay(run_at: 5.seconds.from_now).new_round
     elsif p_hand.current
       move
       p_hand.save

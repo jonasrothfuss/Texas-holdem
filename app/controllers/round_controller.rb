@@ -13,10 +13,7 @@ class RoundController < ApplicationController
     respond_with round.add_turn(user, params[:bet]), :location => ''
 
     if !round.active
-      Thread.new do
-        sleep(5)
-        GameRoom.find(round.game_room).new_round
-      end
+      GameRoom.find(round.game_room).delay(run_at: 5.seconds.from_now).new_round
     end
   end
 

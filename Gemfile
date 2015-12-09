@@ -56,3 +56,5 @@ gem 'valid_email'
 gem 'ruby-poker'
 
 gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
+
+gem 'delayed_job_mongoid'
