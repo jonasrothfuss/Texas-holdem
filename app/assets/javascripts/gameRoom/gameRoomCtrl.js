@@ -154,6 +154,8 @@ pokerApp.controller('gameRoomCtrl', [
 						$scope.round.cards = result.cards;
 
 						getHands();
+					}).error(function (error){
+						$rootScope.error = false;
 					});
 				}
 			});
