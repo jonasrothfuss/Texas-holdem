@@ -235,13 +235,16 @@ class Round
     push = {hands: hands, players: players, status: @turn_status}
     Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', push)
 
-    hand = hands.where(current: true).first
-    delay(run_at: 15.seconds.from_now).move_if_inactive(hand)
+    hand = self.hands.where(current: true).first
+    if hand != nil
+      delay(run_at: 15.seconds.from_now).move_if_inactive(hand.id, hand.updated_at)
+    end
   end
 
-  def move_if_inactive(hand)
-    if hand.current
-      u = {_id: hand.player.owner[:_id].to_s, first_name: hand.player.owner[:first_name] }
+  def move_if_inactive(hid, last_updated)
+    curr_hand = Hand.find(hid)
+    if curr_hand.updated_at == last_updated
+      u = {_id: curr_hand.player.owner[:_id].to_s, first_name: curr_hand.player.owner[:first_name] }
       add_turn(u, -1)
     end
   end
