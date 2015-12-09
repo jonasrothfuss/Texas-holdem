@@ -78,6 +78,16 @@ pokerApp.controller('HomeCtrl', [
 			$scope.rooms.push(gameroom);
 		});
 
+		Pusher.subscribe('gamerooms', 'closed', function (gid) {
+			var i = $scope.rooms.map(function (r) {
+				return r._id;
+			}).indexOf(gid);
+
+			if(i > -1){
+				$scope.rooms.splice(i, 1);
+			}
+		});
+
 		Pusher.subscribe('gamerooms', 'players', function (players) {
 			updatePlayers(players);
 		});

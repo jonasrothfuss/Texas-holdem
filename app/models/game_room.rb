@@ -46,7 +46,12 @@ class GameRoom
     status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has left"
     push = {player: player, status: status}
     Pusher.trigger("gameroom-#{id}", 'playerleft', push)
-    update_lists
+
+    if self.players.active.count > 0
+      update_lists
+    else
+      close
+    end
   end
 
   def check_active_round(user)
@@ -62,8 +67,9 @@ class GameRoom
   end
 
   def close
-    self.active = false
+    self.closed = true
     save
+    Pusher.trigger('gamerooms', 'closed', self.id.to_s)
   end
 
   def start
