@@ -189,9 +189,10 @@ pokerApp.controller('gameRoomCtrl', [
 				return p.owner._id == $rootScope.user._id;
 			});
 
-			chips = player[0].chips + player[0].hand.bet;
 
 			if(!$filter('isEmpty')(player[0].hand)){
+				chips = player[0].chips + player[0].hand.bet;
+
 				$scope.betMatches = (player[0].hand.bet == $scope.round.call_bet);
 				$scope.allInRaise = ($scope.round.raise_bet >= chips);
 				$scope.allInCall = ($scope.round.call_bet >= chips);
