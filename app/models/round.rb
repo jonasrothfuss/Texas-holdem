@@ -234,6 +234,16 @@ class Round
     players = self.players
     push = {hands: hands, players: players, status: @turn_status}
     Pusher.trigger("gameroom-#{self.game_room.id}", 'turn', push)
+
+    hand = hands.where(current: true).first
+    delay(run_at: 15.seconds.from_now).move_if_inactive(hand)
+  end
+
+  def move_if_inactive(hand)
+    if hand.current
+      u = {_id: hand.player.owner[:_id].to_s, first_name: hand.player.owner[:first_name] }
+      add_turn(u, -1)
+    end
   end
 
   def stage_finished?
@@ -304,6 +314,10 @@ class Round
     }
 
     Pusher.trigger("gameroom-#{self.game_room.id}", 'stage', push)
+
+    if !self.active
+      self.game_room.delay(run_at: 5.seconds.from_now).new_round
+    end
   end
 
   def create_status(cards)
@@ -416,8 +430,6 @@ class Round
         p.small_blind = false
         p.save
       end
-
-      GameRoom.find(self.game_room).delay(run_at: 5.seconds.from_now).new_round
     elsif p_hand.current
       move
       p_hand.save

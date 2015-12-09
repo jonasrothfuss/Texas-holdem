@@ -11,10 +11,6 @@ class RoundController < ApplicationController
   def turn
     round = Round.find(params[:id])
     respond_with round.add_turn(user, params[:bet]), :location => ''
-
-    if !round.active
-      GameRoom.find(round.game_room).delay(run_at: 5.seconds.from_now).new_round
-    end
   end
 
   private
