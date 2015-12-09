@@ -41,7 +41,7 @@ class GameRoom
   def remove_player(user)
     check_active_round(user) if self.active
 
-    player = Player.where(game_room: id, owner: user).first
+    player = Player.active.where(game_room: id, owner: user).first
     player.leave
     status = "<b>#{user[:first_name]} #{user[:last_name]}</b> has left"
     push = {player: player, status: status}
@@ -142,7 +142,7 @@ class GameRoom
 
     if last_small && !sb_assigned
       p0 = self.playes.active[0]
-      p0.small_bling = true
+      p0.small_blind = true
       p0.save
     end
 
