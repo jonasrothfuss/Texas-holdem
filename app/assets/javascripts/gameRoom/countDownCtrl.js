@@ -6,6 +6,7 @@ pokerApp.controller('countDownController', ['$scope', function ($scope) {
 	increment = 100/1500;
 
 	$scope.start = function (){
+		$scope.dynamic = 100;
 		if($scope.dynamic <= 0) clearInterval(interval);
 		interval = setInterval(function(){ updateBar() }, frequency);
 	};
