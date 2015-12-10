@@ -121,14 +121,14 @@
 			</div>
 
 			<div class="col-md-4 col-xs-6" id="checkCallCol">
-				<button class="col-xs-12 btn btn-success btn-raised" ng-hide="allInCall" id="checkBtn" ng-click="bet(round.call_bet)" type="button">
+				<button class="col-xs-12 btn btn-success btn-raised fade" ng-hide="allInCall || sliderOptions.start > round.call_bet" id="checkBtn" ng-click="bet(round.call_bet)" type="button">
 					<span ng-show="betMatches">Check</span>
 					<span ng-hide="betMatches">Call - ${{round.call_bet}}</span>
 				</button>
 			</div>
 
 			<div class="col-md-4 col-xs-6" id="raiseCol">
-				<button class="col-xs-12 btn btn-danger btn-raised" id="raiseBtn" ng-click="bet(round.raise_bet)" type="button">
+				<button class="col-xs-12 btn btn-danger btn-raised fade" ng-show="round.raise_bet > round.call_bet" id="raiseBtn" ng-click="bet(round.raise_bet)" type="button">
 					<span ng-show="allInRaise">All In</span>
 					<span ng-hide="allInRaise">Raise - ${{round.raise_bet}}</span>
 				</button>

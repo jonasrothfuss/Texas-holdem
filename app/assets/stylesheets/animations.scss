@@ -61,7 +61,8 @@
   opacity: 1;
 }
 .fade.ng-enter,
-.fade.ng-leave {
+.fade.ng-leave,
+.fade.ng-hide-remove{
   -webkit-transition: all 0.5s;
   -moz-animation: all 0.5s;
   transition: all 0.5s;
@@ -76,6 +77,9 @@
   opacity: 1;
 }
 .fade.ng-leave-active {
+  opacity: 0;
+}
+.fade.ng-hide{
   opacity: 0;
 }
 

@@ -235,7 +235,7 @@ pokerApp.controller('gameRoomCtrl', [
 			}
 
 			$scope.sliderOptions = {
-				start: $scope.round.raise_bet,
+				start: $scope.round.call_bet,
 				connect: 'lower',
 				step: $scope.round.big_blind,
 				range: {min: $scope.round.call_bet,	max: chips},
