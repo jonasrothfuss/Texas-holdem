@@ -95,7 +95,7 @@
 						</back>
 					</flipper>
 				</div>
-				<div class="player-icon" ng-class="{'current': p.hand.current}">
+				<div class="player-icon" ng-class="{'current': p.hand.current && !round.result}" tooltip-placement="top" uib-tooltip="{{p.owner.first_name + ' ' + p.owner.last_name}}">
 					<div class="player-desc">
 						<span>{{p.owner.first_name}} (${{p.chips}})</span>
 					</div>
