@@ -3,7 +3,7 @@
   color: #fff;
 
   .card{
-    height: 80px;
+    height: 70px;
     margin-left: 3px;
     margin-right: 3px;
   }
@@ -24,6 +24,10 @@
   .player-hand{
     position: relative;
 
+    .card{
+      height: 70px;
+    }
+
     .player-card-2{
       left: 0;
       top: 0;
@@ -34,5 +38,18 @@
 @media (max-width: 968px){
   #user-action-row{
     position: static;
+  }
+
+  .card{
+    height: 70px;
+  }
+
+  flipper{
+    width: 55px;
+    height: 75px;
+  }
+
+  .player-hand flipper {
+    width: 55px;
   }
 }

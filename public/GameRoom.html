@@ -17,7 +17,14 @@
 			</div>
 
 			<div id="communal-mobile" ng-show="gameRoom.active">
-				<img class="card" ng-src="{{round.cards[i].image_path}}" ng-repeat="i in [0,1,2,3,4]">
+				<flipper flipped="checkCardStatus(round.cards[i].image_path)" ng-repeat="i in [0,1,2,3,4]" horizontal>
+					<front>
+						<img class="card" ng-src="assets/cards/x.svg" />
+					</front>
+					<back>
+						<img class="card" ng-src="{{round.cards[i].image_path}}" />
+					</back>
+				</flipper>
 				<h3>Pot: ${{round.pot}}</h3>
 				<p>Big Blind: ${{round.big_blind}} / Small Blind: ${{round.small_blind}}</p>
 			</div>
@@ -38,7 +45,14 @@
 				</div>
 				<div class="col-xs-6">
 					<div class="player-hand tm-20" ng-hide="!p.hand || p.hand.fold">
-						<img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}" ng-repeat="i in [0,1]">
+						<flipper flipped="checkCardStatus(p.hand.cards[i].image_path)" ng-repeat="i in [0,1]" horizontal>
+							<front>
+								<img class="card player-card-{{i+1}} bm-10" ng-src="assets/cards/x.svg">
+							</front>
+							<back>
+								<img class="card player-card-{{i+1}} bm-10" ng-src="{{p.hand.cards[i].image_path}}">
+							</back>
+						</flipper>
 					</div>
 				</div>
 			</div>
