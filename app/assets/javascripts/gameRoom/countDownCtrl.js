@@ -1,4 +1,4 @@
-pokerApp.controller('countDownController', function ($scope) {
+pokerApp.controller('countDownController', ['$scope', function ($scope) {
 	$scope.dynamic = 100;
 	$scope.type = 'warning';
 
@@ -15,4 +15,4 @@ pokerApp.controller('countDownController', function ($scope) {
 
 		$scope.dynamic = value;
 	}
-});
+}]);
