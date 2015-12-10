@@ -33,11 +33,10 @@ pokerApp.controller('gameRoomCtrl', [
 
 		$scope.eventHandlers = {
 			update: function(values, handle, unencoded) {
-				$('#slider-val')[0].value = values[0][0];
+				$('#slider-val').text(values[0][0]);
 				$scope.round.raise_bet = parseInt(values[0][0].replace('$ ', ''));
 			},
 			change: function(values, handle, unencoded) {
-				console.log(values);
 				$('#slider')[0].noUiSlider.set(values[0][0]);
 			}
 		};
