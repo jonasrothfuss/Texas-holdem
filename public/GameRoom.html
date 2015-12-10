@@ -104,10 +104,8 @@
 						<span>Bet: ${{p.hand.bet}}</span>
 					</div>
 				</div>
-				<div class="spinner" ng-if="p.hand.current">
-					<div class="spinner-inner"></div>
-					<div class="spinner-mask"></div>
-					<div class="spinner-mask-two"></div>
+				<div ng-controller="countDownController">
+					<uib-progressbar class="countdown-bar progress-striped active" value="dynamic" type="{{type}}" ng-if="p.hand.current && !round.result" ng-init="start()"></uib-progressbar>
 				</div>
 			</div>
 		</div>
